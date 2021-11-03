@@ -1,0 +1,212 @@
+body {
+  background-color: #29545c;
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
+}
+
+nav {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  padding-left: 40px;
+  min-height: 10vh;
+  background: #ff8d73;
+  box-shadow: 0px 2px 4px 0 rgba(0, 0, 0, 0.2);
+  margin-bottom: 30px;
+  width: 100%;
+}
+
+h3 {
+  color: whitesmoke;
+}
+
+.nav-links {
+  width: 40%;
+  display: flex;
+  justify-content: flex-end;
+  margin-left: auto;
+  padding-right: 40px;
+  align-items: center;
+  list-style: none;
+}
+
+li {
+  margin-left: 30px;
+}
+
+.nav-style {
+  color: whitesmoke;
+  text-decoration: none;
+}
+
+.glass {
+  background: whitesmoke;
+  background: linear-gradient(
+    to right bottom,
+    rgba(245, 245, 245, 0.7),
+    rgba(245, 245, 245, 0.3)
+  );
+  backdrop-filter: blur(3rem);
+}
+
+.post {
+  width: 90%;
+  margin-top: 15px;
+  margin-bottom: 15px;
+  border-radius: 8px;
+}
+
+.post-header {
+  padding: 10px 0px 10px 0px;
+}
+
+.post-content {
+  margin: 25px 10px 25px 15px;
+}
+
+.post-counts {
+  margin-left: 5px;
+  margin-right: 8px;
+}
+
+.icon-div {
+  padding: 10px 12px 10px 12px;
+}
+
+.post-icons {
+  padding: 0px;
+}
+
+.favorite,
+.comment,
+.edit,
+.delete {
+  margin-right: 8px;
+}
+
+.post-icons:hover {
+  cursor: pointer;
+}
+
+.favorite:hover {
+  color: red;
+  background-color: lightgray;
+  border-radius: 15px;
+}
+
+.comment:hover {
+  color: #3250a8;
+  background-color: lightgray;
+  border-radius: 15px;
+}
+
+.edit:hover {
+  color: #3250a8;
+  background-color: lightgray;
+  border-radius: 15px;
+}
+
+.delete:hover {
+  color: crimson;
+  background-color: lightgray;
+  border-radius: 15px;
+}
+
+/*sidebar styling*/
+.sidebar {
+  width: 90%;
+  padding: 20px 20px;
+  margin: 15px auto 0 auto;
+  border-radius: 8px;
+}
+
+.sidebar > h3 {
+  color: #29545c;
+}
+
+.right {
+  padding-top: 30px;
+}
+
+.link {
+  display: flex;
+  align-items: cover;
+  cursor: pointer;
+  border-radius: 30px;
+  padding: 5px;
+  margin-top: 10px;
+}
+.link:hover {
+  background-color: lightgray;
+  color: coral;
+  transition: color 100ms ease-out;
+}
+.link > h2 {
+  font-weight: 700;
+  font-size: 20px;
+  margin-right: 20px;
+}
+
+.link-icon {
+  margin-right: 20px;
+}
+
+#post-btn {
+  width: 100%;
+  height: 50px;
+  background-color: coral;
+  border-radius: 20px;
+  color: whitesmoke;
+
+  font-size: 20px;
+}
+
+#post-btn:hover {
+  background-color: #29545c;
+  color: coral;
+  cursor: pointer;
+}
+
+.form-element {
+  margin: 15px 0px 10px 0px;
+}
+
+label {
+  color: whitesmoke;
+}
+
+input {
+  width: 100%;
+  height: 40px;
+  border: 1px solid black;
+  border-radius: 8px;
+}
+
+.add-form {
+  width: 90%;
+  margin-top: 15px;
+  margin-bottom: 15px;
+  border-radius: 8px;
+  padding: 8px;
+}
+
+textarea {
+  resize: none;
+  padding: 10px;
+  width: 90%;
+  border: 1px solid black;
+  border-radius: 8px;
+}
+
+button {
+  margin-right: 5px;
+}

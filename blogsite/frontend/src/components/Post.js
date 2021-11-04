@@ -20,7 +20,7 @@ const Post = ({post, likePost}) => {
           <Avatar style={{marginLeft: "auto", marginRight: "auto"}}>id{post.poster}</Avatar>
         </div>
         <div className="col">
-          username <br/>
+          {post.poster} <br/>
           {post.timestamp}
         </div>
       </div>

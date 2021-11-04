@@ -48,9 +48,11 @@ INSTALLED_APPS = [
     'allauth.account',
     'allauth.socialaccount',
     'api.apps.ApiConfig',
+    'corsheaders',
 ]
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -161,3 +163,8 @@ JWT_AUTH_REFRESH_COOKIE = 'blogsite-refresh-token'
 # settings needed for all_auth to work since it will send an email to all new account creators
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 SITE_ID = 1
+
+
+CORS_ORIGIN_WHITELIST = [
+    'http://localhost:3000'
+]

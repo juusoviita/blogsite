@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Posts from './Posts'
 import AddForm from './AddForm'
 import SidebarLeft from './SidebarLeft'
@@ -7,95 +7,19 @@ import SidebarRight from './SidebarRight'
 const Home = () => {
 
   const [showAddPost, setShowAddPost] = useState(false)
-  const [posts, setPosts] = useState(
-    [
-      {
-        id: 1,
-        poster: 2,
-        content: "This is the first post ever!",
-        timestamp: "2021-10-21",
-        last_update: null,
-        replies_to: null,
-        replies: [
-          {
-            id: 3,
-            poster: 1,
-            content: "This is the first reply to a post!",
-            timestamp: "2021-10-23",
-            last_update: null,
-            replies_to: 1,
-            replies: [],
-            likes: [
-              {
-                id: 2,
-                liker: 1,
-                post: 3,
-              }
-            ],
-          },
-        ],
-        likes: [
-          {
-            id: 1,
-            liker: 3,
-            post: 1,
-          }
-        ]
-      },
-      {
-        id: 2,
-        poster: 3,
-        content: "Was I the first? Probably not...",
-        timestamp: "2021-10-22",
-        last_update: null,
-        replies_to: null,
-        replies: [],
-        likes: [],
-      },
-      {
-        id: 3,
-        poster: 1,
-        content: "This is the first reply to a post!",
-        timestamp: "2021-10-23",
-        last_update: null,
-        replies_to: 1,
-        replies: [],
-        likes: [
-          {
-            id: 2,
-            liker: 1,
-            post: 3,
-          }
-        ],
-      },
-      {
-        id: 4,
-        poster: 1,
-        content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-        timestamp: "2021-10-29",
-        last_update: null,
-        replies_to: null,
-        replies: [],
-        likes: [],
-      },
-      {
-        id: 5,
-        poster: 3,
-        content: "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?",
-        timestamp: "2021-10-23",
-        last_update: null,
-        replies_to: [],
-        replies: [],
-        likes: [
-          {
-            id: 3,
-            liker: 3,
-            post: 5,
-          }
-        ],
-      },
-    ]
-  )
+  const [posts, setPosts] = useState([])
+
+
+  // Fetch all posts  http://127.0.0.1:8000/
+    
+  useEffect(() => {
+    const fetchPosts = async () => {
+      const res = await fetch('http://127.0.0.1:8000/api/post-list/')
+      const data = await res.json()
+      setPosts(data)
+    }
+    fetchPosts()
+  }, [])
 
   // Add a new post or edit an existing one (coming later)
   const addPost = (post) => {

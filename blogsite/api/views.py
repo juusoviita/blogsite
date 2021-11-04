@@ -41,7 +41,7 @@ def apiOverview(request):
 
 # lists all the posts
 @api_view(['GET'])
-@permission_classes([IsAuthenticated])
+# @permission_classes([IsAuthenticated])
 def postList(request):
     posts = Post.objects.all().order_by('-timestamp')
     serializer = PostSerializer(posts, many=True)
@@ -50,7 +50,7 @@ def postList(request):
 
 # get details of a specific post
 @api_view(['GET'])
-@permission_classes([IsAuthenticated])
+# @permission_classes([IsAuthenticated])
 def postDetail(request, pk):
     post = Post.objects.get(pk=pk)
     serializer = PostSerializer(post, many=False)
@@ -59,7 +59,7 @@ def postDetail(request, pk):
 
 # post, well, a post
 @api_view(['POST'])
-@permission_classes([IsAuthenticated])
+# @permission_classes([IsAuthenticated])
 def createPost(request):
     serializer = PostSerializer(data=request.data)
 
@@ -71,7 +71,7 @@ def createPost(request):
 
 # edit an existing post
 @api_view(['POST'])
-@permission_classes([IsAuthenticated])
+# @permission_classes([IsAuthenticated])
 def updatePost(request, pk):
     post = Post.objects.get(pk=pk)
     request.data['last_updated'] = datetime.now()

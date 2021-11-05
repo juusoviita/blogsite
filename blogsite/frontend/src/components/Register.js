@@ -7,10 +7,10 @@ const Register = () => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [confirmation, setConfirmation] = useState('')
+  const [errors, setErrors] = useState([])
 
   
   const RegisterUser = async () => {
-    console.log('Registering for BlogSite...')
 
     const url = 'http://127.0.0.1:8000/api/dj-rest-auth/registration/'
 
@@ -28,12 +28,39 @@ const Register = () => {
     })
 
     // how to handle errors and display error info?
-
     const data = await res.json()
-    console.log(data)
-    
+    if (res.status === 201) {
+      console.log('User created!')
+      console.log(data)
+      setErrors([])
+    } else {
+      const errorMsg = []
+      if (data.hasOwnProperty('non_field_errors')) {
+        errorMsg.push(data.non_field_errors[0]) 
+      }
+      if (data.hasOwnProperty('username')) {
+        errorMsg.push(data.username[0])
+      }
+      
+      if (data.hasOwnProperty('email')) {
+        errorMsg.push('Email field may not be blank')
+      }
+      
+      setErrors(...errorMsg)
+      
+      /* Create an Alerts components and render it there
+      if (errors.length != 0) {
+        const alerts = errors.map((error) => {
+          <div className="alert alert-danger alert-dismissible fade show" role="alert">
+            {error}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          </div>
+        })
+      }
+      */
+    }
     // data to be added to global state to show that user is logged in
-    
+    // setErrors([])
     setUsername('')
     setEmail('')
     setPassword('')

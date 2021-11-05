@@ -156,7 +156,7 @@ REST_FRAMEWORK = {
 }
 
 REST_USE_JWT = True
-JWT_AUTH_COOKIE = 'blogiste-auth-key'
+JWT_AUTH_COOKIE = 'blogsite-auth-key'
 JWT_AUTH_REFRESH_COOKIE = 'blogsite-refresh-token'
 
 

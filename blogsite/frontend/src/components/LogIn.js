@@ -22,6 +22,7 @@ const LogIn = () => {
           <Button text="Log In" onClick={LoggingIn} />
         </div>
       </form>
+      <p>Don't have an account yet? Register here.</p>
     </div>
   )
 }

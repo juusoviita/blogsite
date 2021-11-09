@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import Button from './Button'
+import { Link } from 'react-router-dom'
 
 const Register = () => {
 
@@ -11,9 +12,10 @@ const Register = () => {
 
   
   const RegisterUser = async () => {
-
+    
+    setErrors([])
     const url = 'http://127.0.0.1:8000/api/dj-rest-auth/registration/'
-
+    
     const res = await fetch(url, {
       method: 'POST',
       headers: {
@@ -31,45 +33,38 @@ const Register = () => {
     const data = await res.json()
     if (res.status === 201) {
       console.log('User created!')
-      console.log(data)
       setErrors([])
     } else {
-      const errorMsg = []
       if (data.hasOwnProperty('non_field_errors')) {
-        errorMsg.push(data.non_field_errors[0]) 
+        setErrors({'id': '1', 'msg': data.non_field_errors[0]}) 
       }
       if (data.hasOwnProperty('username')) {
-        errorMsg.push(data.username[0])
+        setErrors({'id': '2', 'msg': data.username[0]})
       }
-      
       if (data.hasOwnProperty('email')) {
-        errorMsg.push('Email field may not be blank')
-      }
-      
-      setErrors(...errorMsg)
-      
-      /* Create an Alerts components and render it there
-      if (errors.length != 0) {
-        const alerts = errors.map((error) => {
-          <div className="alert alert-danger alert-dismissible fade show" role="alert">
-            {error}
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-          </div>
-        })
-      }
-      */
+        setErrors({'id': '3', 'msg': 'Email address field cannot be empty'})
+      }   
     }
     // data to be added to global state to show that user is logged in
-    // setErrors([])
     setUsername('')
     setEmail('')
     setPassword('')
     setConfirmation('')
   }
 
+  const clearErrors = () => {
+    setErrors('')
+  }
+
   return (
     <div className="sidebar">
-      <h3>Register for BlogSite</h3>
+      <h3 style={{color: 'whitesmoke'}}>Register for BlogSite</h3>
+      { errors.length !== 0 && 
+        <div className="alert alert-danger alert-dismissible fade show" role="alert">
+          <p>{errors.msg}</p>
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close" onClick={clearErrors}></button>
+        </div>
+      }
       <form>
         <div className="form-element">
           <label for="username">Username:</label><br/>
@@ -91,7 +86,7 @@ const Register = () => {
           <Button text="Register" onClick={RegisterUser} />
         </div>
       </form>
-      <p>Already registered? Login here.</p>
+      <p style={{color: 'whitesmoke'}}>Already registered? <Link to="/login">Login here.</Link></p>
     </div>
   )
 }

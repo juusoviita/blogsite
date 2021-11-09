@@ -3,20 +3,35 @@ import Posts from './Posts'
 import AddForm from './AddForm'
 import SidebarLeft from './SidebarLeft'
 import SidebarRight from './SidebarRight'
+import { useSelector, useDispatch } from 'react-redux'
+import { bindActionCreators } from 'redux'
+import { actionCreators } from '../state/index'
 
 const Home = () => {
 
   const [showAddPost, setShowAddPost] = useState(false)
   const [posts, setPosts] = useState([])
+  const auth = useSelector((state) => state.auth)
+  const dispatch = useDispatch()
 
+  const { loginUser, logoutUser } = bindActionCreators(actionCreators, dispatch)
 
-  // Fetch all posts  http://127.0.0.1:8000/
-    
+  // Fetch all posts
   useEffect(() => {
     const fetchPosts = async () => {
-      const res = await fetch('http://127.0.0.1:8000/api/post-list/')
+      const res = await fetch('http://127.0.0.1:8000/api/post-list/', {
+        method: 'GET',
+        headers: {
+          'Content-type': 'application/json',
+          'Authorization': 'Bearer ' + auth.access_token,
+        }
+      })
       const data = await res.json()
-      setPosts(data)
+      if(res.status === 200) {
+        setPosts(data)
+      } else {
+        logoutUser(auth)
+      }
     }
     fetchPosts()
   }, [])
@@ -69,18 +84,23 @@ const Home = () => {
 
   return (
     <div className="container-fluid">
-      <div className="row">
-          <div className="col-md-3">
-            <SidebarLeft onAdd={showAddForm} showAdd={showAddPost} />
-          </div>
-          <div className="col-md-6">
-            { showAddPost && <AddForm onAdd={addPost} showAdd={showAddForm} /> }
-            <Posts posts={posts} likePost={likePost} />
-          </div>
-          <div className="col-md-3">
-            <SidebarRight />
-          </div>
-      </div>
+      { auth.isAuthenticated ?
+      <>
+       <div className="row">
+           <div className="col-md-3">
+             <SidebarLeft onAdd={showAddForm} showAdd={showAddPost} />
+           </div>
+           <div className="col-md-6">
+             { showAddPost && <AddForm onAdd={addPost} showAdd={showAddForm} /> }
+             <Posts posts={posts} likePost={likePost} deletePost={deletePost} />
+           </div>
+           <div className="col-md-3">
+             <SidebarRight />
+           </div>
+       </div>
+      </> : 
+      <p>You have not been authenticated!</p>
+      }
     </div>
   );
 }

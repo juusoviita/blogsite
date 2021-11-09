@@ -47,6 +47,11 @@ li {
   text-decoration: none;
 }
 
+.nav-style:hover {
+  cursor: pointer;
+  color: #29545c;
+}
+
 .glass {
   background: whitesmoke;
   background: linear-gradient(

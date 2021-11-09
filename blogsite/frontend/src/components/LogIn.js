@@ -1,6 +1,10 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
+import Home from './Home'
 import Button from './Button'
+import { useSelector, useDispatch } from "react-redux"
+import { bindActionCreators } from 'redux'
+import { actionCreators } from '../state/index'
 
 const LogIn = () => {
 
@@ -8,8 +12,13 @@ const LogIn = () => {
   const [password, setPassword] = useState('')
   const [errors, setErrors] = useState([])
 
+  const auth = useSelector((state) => state.auth)
+  const dispatch = useDispatch()
+
+  const { loginUser, logoutUser } = bindActionCreators(actionCreators, dispatch)
+
   const LoggingIn = async () => {
-    console.log('Logging in...')
+    
     const url = 'http://127.0.0.1:8000/api/dj-rest-auth/login/'
 
     const res = await fetch(url, {
@@ -25,8 +34,10 @@ const LogIn = () => {
 
     const data = await res.json()
     if (res.status === 200) {
-      console.log(data)
+      loginUser(data)
       setErrors('')
+      setUsername('')
+      setPassword('')
     } else {
       setErrors({'id': '1', 'msg': data.non_field_errors[0]})
     }

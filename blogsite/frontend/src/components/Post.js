@@ -7,10 +7,14 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import Avatar from '@mui/material/Avatar';
 import { Divider } from '@mui/material';
 
-const Post = ({post, likePost}) => {
+const Post = ({post, likePost, deletePost }) => {
   
-  const onClick = (id) => {
+  const postLike = (id) => {
     likePost(id)
+  }
+
+  const postDelete = (id) => {
+    deletePost(id)
   }
   
   return (
@@ -33,8 +37,8 @@ const Post = ({post, likePost}) => {
       <Divider />
       <div className="row icon-div">
         <div className="col-2">
-          <FavoriteIcon className='post-icons favorite' onClick={() => onClick(post.id)} />
-          <FavoriteBorderIcon className='post-icons favorite' onClick={() => onClick(post.id)} />
+          <FavoriteIcon className='post-icons favorite' onClick={() => postLike(post.id)} />
+          <FavoriteBorderIcon className='post-icons favorite' onClick={() => postLike(post.id)} />
           {post.likes.length}
         </div>
         <div className="col-2">
@@ -43,7 +47,7 @@ const Post = ({post, likePost}) => {
         </div>
         <div className="col" style={{textAlign: "right"}}>
           <EditIcon className='post-icons edit' />
-          <DeleteIcon className='post-icons delete' />
+          <DeleteIcon className='post-icons delete' onClick={() => postDelete(post.id)} />
         </div>
       </div>
     </div>

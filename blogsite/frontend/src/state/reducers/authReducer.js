@@ -1,6 +1,6 @@
 const initialState = {
-  access_token: '',
-  refresh_token: '',
+  access_token: localStorage.getItem('access_token'),
+  refresh_token: localStorage.getItem('refresh_token'),
   isAuthenticated: false,
   isLoading: false,
   user: null
@@ -14,17 +14,17 @@ const reducer = (state = initialState, action) => {
       state.isAuthenticated = true
       state.isLoading = false
       state.user = action.payload.user
-      return {...state}
+      return state
     case "logout":
       state = initialState
-      return {...state}
+      return state
     case "update-tokens":
       state.access_token = action.payload.access
       state.refresh_token = action.payload.refresh
     case "update-loading":
       state.isLoading = action.payload.loading
     default:
-      return {...state}
+      return state
     }
 }
 

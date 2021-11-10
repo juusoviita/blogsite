@@ -23,7 +23,8 @@ const Home = () => {
         method: 'GET',
         headers: {
           'Content-type': 'application/json',
-          'Authorization': 'Bearer ' + auth.access_token
+          'Authorization': 'Bearer ' + localStorage.getItem('access_token') 
+          //auth.access_token
         }
       })
       const data = await res.json()
@@ -71,7 +72,9 @@ const Home = () => {
   }
 
   // Edit Post
-
+  const editPost = (id) => {
+    console.log(`Probably need to add ability to edit before posting them post ${id}`)
+  }
 
   // Show or Hide addPost form
   const showAddForm = () => {
@@ -92,7 +95,7 @@ const Home = () => {
            </div>
            <div className="col-md-6">
              { showAddPost && <AddForm onAdd={addPost} showAdd={showAddForm} /> }
-             <Posts posts={posts} likePost={likePost} deletePost={deletePost} />
+             <Posts posts={posts} likePost={likePost} deletePost={deletePost} editPost={editPost} />
            </div>
            <div className="col-md-3">
              <SidebarRight />

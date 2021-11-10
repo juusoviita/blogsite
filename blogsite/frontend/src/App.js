@@ -43,7 +43,7 @@ function App() {
     }
   }
 
-  // Run updateToken every 2 seconds
+  // Run updateToken every 4 minutes
   useEffect(() => {
 
     if(auth.isLoading) {

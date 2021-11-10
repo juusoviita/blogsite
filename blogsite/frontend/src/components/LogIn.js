@@ -1,6 +1,5 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
-import Home from './Home'
 import Button from './Button'
 import { useSelector, useDispatch } from "react-redux"
 import { bindActionCreators } from 'redux'
@@ -33,6 +32,10 @@ const LogIn = () => {
     })
 
     const data = await res.json()
+    // add access and refresh tokens to browser's local storage
+    localStorage.setItem('access_token', data.access_token)
+    localStorage.setItem('refresh_token', data.refresh_token)
+
     if (res.status === 200) {
       loginUser(data)
       setErrors('')

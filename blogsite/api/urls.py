@@ -1,5 +1,6 @@
 from django.urls import path
 from . import views
+from django.urls.conf import include
 
 urlpatterns = [
     path('', views.apiOverview, name='api-overview'),
@@ -19,4 +20,7 @@ urlpatterns = [
     path('user-detail/<str:pk>', views.userDetail, name='user-detail'),
     path('delete-user/<str:pk>', views.deleteUser, name='delete-user'),
     path('update-user/<str:pk>', views.updateUser, name='update-user'),
+    path('dj-rest-auth/', include('dj_rest_auth.urls')),
+    path('dj-rest-auth/registration/',
+         include('dj_rest_auth.registration.urls')),
 ]

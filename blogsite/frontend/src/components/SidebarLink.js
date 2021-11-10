@@ -1,6 +1,6 @@
 import Avatar from '@mui/material/Avatar';
 
-function SidebarLink({ Icon, text }) {
+function SidebarLink({ Icon, text, onClick }) {
   return(
     <div className="link">
         { (text === "Following" || text === "Liked Posts" || text === "Log Out" || text === "Settings") 

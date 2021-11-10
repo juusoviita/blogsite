@@ -10,39 +10,20 @@ function Nav() {
 
   const { loginUser, logoutUser } = bindActionCreators(actionCreators, dispatch)
 
-  const LoggingOut = async () => {
-    const url = 'http://127.0.0.1:8000/api/dj-rest-auth/logout/'
-  
-    const res = await fetch(url, {
-      method: 'POST',
-      headers: {
-        'Content-type': 'application/json'
-      },
-      body:JSON.stringify({
-        access_token: auth.access_token,
-        refresh_token: auth.refresh_token,
-        isAuthenticated: auth.isAuthenticated,
-        isLoading: auth.isLoading,
-        user: auth.user,
-      })
-    })
-
-    const data = await res.json()
-    logoutUser(data)
-
+  const LoggingOut = () => {
+    // logging out done by just removing user's tokens from local storage and user from state
+    localStorage.removeItem('access_token')
+    localStorage.removeItem('refresh_token')
+    logoutUser()
   }
     
 
   return (
     <nav className="navbar">
       <div className="container">
-        <Link to="/" className="nav-style">
-          <p>Logo</p>
-        </Link>
         <Link to="/" className="nav-style" style={{marginLeft: 40}}>
           <h3>BlogSite</h3>
         </Link>
-
         <ul className="nav-links">
           { auth.isAuthenticated ? 
             <>

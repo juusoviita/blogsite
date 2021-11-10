@@ -15,3 +15,21 @@ export const logoutUser = (user) => {
     })
   }
 }
+
+export const updateTokens = (tokens) => {
+  return (dispatch) => {
+    dispatch({
+      type: 'update-tokens',
+      payload: tokens
+    })
+  }
+}
+
+export const updateLoading = (loading) => {
+  return (dispatch) => {
+    dispatch({
+      type: 'update-loading',
+      payload: loading
+    })
+  }
+}

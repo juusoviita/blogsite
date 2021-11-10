@@ -18,7 +18,11 @@ const reducer = (state = initialState, action) => {
     case "logout":
       state = initialState
       return {...state}
-      
+    case "update-tokens":
+      state.access_token = action.payload.access
+      state.refresh_token = action.payload.refresh
+    case "update-loading":
+      state.isLoading = action.payload.loading
     default:
       return {...state}
     }

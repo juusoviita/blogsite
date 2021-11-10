@@ -14,8 +14,8 @@ const Home = () => {
   const auth = useSelector((state) => state.auth)
   const dispatch = useDispatch()
 
-  const { loginUser, logoutUser } = bindActionCreators(actionCreators, dispatch)
-
+  const { loginUser, logoutUser, updateTokens } = bindActionCreators(actionCreators, dispatch)
+  
   // Fetch all posts
   useEffect(() => {
     const fetchPosts = async () => {
@@ -23,7 +23,7 @@ const Home = () => {
         method: 'GET',
         headers: {
           'Content-type': 'application/json',
-          'Authorization': 'Bearer ' + auth.access_token,
+          'Authorization': 'Bearer ' + auth.access_token
         }
       })
       const data = await res.json()

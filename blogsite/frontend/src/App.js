@@ -35,32 +35,29 @@ function App() {
       localStorage.setItem('access_token', data.access)
       localStorage.setItem('refresh_token', data.refresh)
     } else {
-      logoutUser(auth)
-    }
-
-    if(auth.isLoading) {
-      updateLoading(false)
+      logoutUser()
+      localStorage.clear()
     }
   }
 
-  // Run updateToken every 4 minutes
+  // Run updateToken every 4 minutes, if user is authenticated
   useEffect(() => {
-
-    if(auth.isLoading) {
-      updateToken()
-    }
-
-    const fourMinutes = 4 * 60 * 1000
-    let interval = setInterval(() => {
-      if(auth.refresh_token) {
-        updateToken()
-      }
-    }, fourMinutes)
+    if(localStorage.getItem('isAuthenticated', true)) {
+      const fourMinutes = 5000
+      let interval = setInterval(() => {
+        if(auth.refresh_token) {
+          updateToken()
+        }
+      }, fourMinutes)
     return () => clearInterval(interval)
-  }, [auth.refresh_token, updateToken])
+    } else {
+      logoutUser()
+      localStorage.clear()
+    }
+  }, [auth.refresh_token, updateToken, logoutUser])
 
   return (
-      <Router>
+    <Router>
       <div className="container-fluid">
         { auth.isLoading ?
         null :

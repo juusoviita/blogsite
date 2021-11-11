@@ -7,11 +7,10 @@ export const loginUser = (user) => {
   }
 }
 
-export const logoutUser = (user) => {
+export const logoutUser = () => {
   return (dispatch) => {
     dispatch({
       type: "logout",
-      payload: user
     })
   }
 }

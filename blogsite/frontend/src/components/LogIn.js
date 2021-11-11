@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, Redirect } from 'react-router-dom'
 import Button from './Button'
 import { useSelector, useDispatch } from "react-redux"
 import { bindActionCreators } from 'redux'
@@ -32,9 +32,13 @@ const LogIn = () => {
     })
 
     const data = await res.json()
+    console.log(data)
     // add access and refresh tokens to browser's local storage
     localStorage.setItem('access_token', data.access_token)
     localStorage.setItem('refresh_token', data.refresh_token)
+    localStorage.setItem('isAuthenticated', true)
+    localStorage.setItem('isLoading', false)
+    localStorage.setItem('user', data.user)
 
     if (res.status === 200) {
       loginUser(data)

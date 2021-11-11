@@ -11,6 +11,7 @@ const Home = () => {
 
   const [showAddPost, setShowAddPost] = useState(false)
   const [posts, setPosts] = useState([])
+  
   const auth = useSelector((state) => state.auth)
   const dispatch = useDispatch()
 
@@ -18,23 +19,26 @@ const Home = () => {
   
   // Fetch all posts
   useEffect(() => {
-    const fetchPosts = async () => {
-      const res = await fetch('http://127.0.0.1:8000/api/post-list/', {
-        method: 'GET',
-        headers: {
-          'Content-type': 'application/json',
-          'Authorization': 'Bearer ' + localStorage.getItem('access_token') 
-          //auth.access_token
+    if (localStorage.getItem('isAuthenticated', true)) {
+      const fetchPosts = async () => {
+        const res = await fetch('http://127.0.0.1:8000/api/post-list/', {
+          method: 'GET',
+          headers: {
+            'Content-type': 'application/json',
+            'Authorization': 'Bearer ' + localStorage.getItem('access_token') 
+            //auth.access_token
+          }
+        })
+        const data = await res.json()
+        if(res.status === 200) {
+          setPosts(data)
+        } else {
+          logoutUser()
+          localStorage.clear()
         }
-      })
-      const data = await res.json()
-      if(res.status === 200) {
-        setPosts(data)
-      } else {
-        logoutUser(auth)
       }
+      fetchPosts()
     }
-    fetchPosts()
   }, [])
 
   // Add a new post or edit an existing one (coming later)

@@ -8,16 +8,14 @@ function Nav() {
   const auth = useSelector((state) => state.auth)
   const dispatch = useDispatch()
 
-  const { loginUser, logoutUser } = bindActionCreators(actionCreators, dispatch)
+  const { loginUser, logoutUser, updateTokens, updateLoading } = bindActionCreators(actionCreators, dispatch)
 
   const LoggingOut = () => {
     // logging out done by just removing user's tokens from local storage and user from state
-    localStorage.removeItem('access_token')
-    localStorage.removeItem('refresh_token')
+    localStorage.clear()
     logoutUser()
   }
-    
-
+  
   return (
     <nav className="navbar">
       <div className="container">

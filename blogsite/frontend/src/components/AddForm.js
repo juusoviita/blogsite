@@ -22,7 +22,7 @@ const AddForm = ({ onAdd, showAdd }) => {
   return (
     <div className="add-form glass">
       <form>
-        <h3>Post:</h3>
+        <h3>New Post:</h3>
         <div className="form-element">
           <textarea id="content" placeholder="Post here" value={content} onChange={(e) => setContent(e.target.value)}></textarea>
         </div>

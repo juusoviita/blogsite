@@ -25,8 +25,7 @@ const Home = () => {
           method: 'GET',
           headers: {
             'Content-type': 'application/json',
-            'Authorization': 'Bearer ' + localStorage.getItem('access_token') 
-            //auth.access_token
+            'Authorization': 'Bearer ' + localStorage.getItem('access_token')
           }
         })
         const data = await res.json()
@@ -34,7 +33,6 @@ const Home = () => {
           setPosts(data)
         } else {
           logoutUser()
-          localStorage.clear()
         }
       }
       fetchPosts()
@@ -48,10 +46,11 @@ const Home = () => {
     const date = new Date()
     const timestamp = `${date.getDate()}-${date.getMonth() +1}-${date.getFullYear()}`
 
-    
+    const poster = auth.user.pk
+
     const newPost = {
       id: id,
-      poster: Math.floor(Math.random() * 10),
+      poster: poster,
       content: post.content,
       timestamp: timestamp,
       last_update: null,
@@ -60,7 +59,7 @@ const Home = () => {
       likes: [],
     }
 
-    setPosts([...posts, newPost])
+    setPosts([newPost, ...posts])
     setShowAddPost(false)
   }
 
@@ -80,6 +79,12 @@ const Home = () => {
     console.log(`Probably need to add ability to edit before posting them post ${id}`)
   }
 
+  // Write a reply to a post
+  const replyPost = (id) => {
+    console.log(`Probably need to add ability to reply before posting any replies to post ${id}`)
+  }
+
+
   // Show or Hide addPost form
   const showAddForm = () => {
     if (showAddPost === true) {
@@ -91,7 +96,7 @@ const Home = () => {
 
   return (
     <div className="container-fluid">
-      { auth.isAuthenticated ?
+      { localStorage.getItem('isAuthenticated') ?
       <>
        <div className="row">
            <div className="col-md-3">
@@ -99,7 +104,7 @@ const Home = () => {
            </div>
            <div className="col-md-6">
              { showAddPost && <AddForm onAdd={addPost} showAdd={showAddForm} /> }
-             <Posts posts={posts} likePost={likePost} deletePost={deletePost} editPost={editPost} />
+             <Posts posts={posts} likePost={likePost} deletePost={deletePost} editPost={editPost} replyPost={replyPost} />
            </div>
            <div className="col-md-3">
              <SidebarRight />

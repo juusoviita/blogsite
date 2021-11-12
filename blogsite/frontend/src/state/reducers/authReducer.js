@@ -18,6 +18,7 @@ const reducer = (state = initialState, action) => {
         user: action.payload.user
       }
     case "logout":
+      localStorage.clear()
       state = initialState
       return state
     case "update-tokens":

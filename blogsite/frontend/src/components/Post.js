@@ -7,7 +7,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import Avatar from '@mui/material/Avatar';
 import { Divider } from '@mui/material';
 
-const Post = ({post, likePost, deletePost, editPost }) => {
+const Post = ({post, likePost, deletePost, editPost, replyPost }) => {
   
   return (
     <div key={post.id} className='post glass'>
@@ -34,7 +34,7 @@ const Post = ({post, likePost, deletePost, editPost }) => {
           {post.likes.length}
         </div>
         <div className="col-2">
-          <ChatBubbleOutlineIcon className='post-icons comment' />
+          <ChatBubbleOutlineIcon className='post-icons comment' onClick={() => replyPost(post.id)} />
           {post.replies.length}
         </div>
         <div className="col" style={{textAlign: "right"}}>

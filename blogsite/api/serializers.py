@@ -36,8 +36,10 @@ class LikeSerializer(serializers.ModelSerializer):
 class PostSerializer(serializers.ModelSerializer):
 
     likes = LikeSerializer(many=True, read_only=True)
+    profile = ProfileSerializer(many=False, read_only=True)
+    user = UserSerializer(many=False, read_only=True)
 
     class Meta:
         model = Post
         fields = ['id', 'poster', 'content', 'timestamp',
-                  'last_updated', 'replies_to', 'replies', 'likes']
+                  'last_updated', 'replies_to', 'replies', 'likes', 'user', 'profile']

@@ -64,8 +64,9 @@ const Home = () => {
   }
 
   // Like Post
-  const likePost = (id) => {
+  const likePost = (id, user_liked) => {
     console.log(`Liked Post id${id}`)
+    console.log(`User has liked this post already: ${user_liked}`)
   }
 
 

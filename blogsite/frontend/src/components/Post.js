@@ -6,9 +6,40 @@ import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import Avatar from '@mui/material/Avatar';
 import { Divider } from '@mui/material';
+import { useSelector, useDispatch } from 'react-redux'
+import { bindActionCreators } from 'redux'
+import { actionCreators } from '../state/index'
 
 const Post = ({post, likePost, deletePost, editPost, replyPost }) => {
   
+  const auth = useSelector((state) => state.auth)
+  const dispatch = useDispatch()
+
+  const { loginUser, logoutUser, updateTokens } = bindActionCreators(actionCreators, dispatch)
+
+  // check whether the logged in user has liked this post
+  let user_liked = false
+
+  for (let i = 0; i < post.likes.length; i++) {
+    if (post.likes[i].liker === auth.user.pk) {
+      user_liked = true
+      break
+    }
+  }
+
+  const tstamp = new Date(post.timestamp)
+  
+  let minutes = ''
+  if (tstamp.getMinutes() < 10) {
+    minutes = `0${tstamp.getMinutes()}`
+  } else {
+    minutes = tstamp.getMinutes()
+  }
+
+  console.log(post)
+
+  const timestamp = `at ${tstamp.getHours()}:${minutes}, on ${tstamp.getDate()}/${tstamp.getMonth()}/${tstamp.getFullYear()}`
+
   return (
     <div key={post.id} className='post glass'>
       <div className="row post-header">
@@ -17,7 +48,7 @@ const Post = ({post, likePost, deletePost, editPost, replyPost }) => {
         </div>
         <div className="col">
           {post.poster} <br/>
-          {post.timestamp}
+          {timestamp}
         </div>
       </div>
       <Divider />
@@ -29,18 +60,22 @@ const Post = ({post, likePost, deletePost, editPost, replyPost }) => {
       <Divider />
       <div className="row icon-div">
         <div className="col-2">
-          <FavoriteIcon className='post-icons favorite' onClick={() => likePost(post.id)} />
-          <FavoriteBorderIcon className='post-icons favorite' onClick={() => likePost(post.id)} />
+          { user_liked ?
+          <FavoriteIcon className='post-icons favorite' onClick={() => likePost(post.id, user_liked)} />  :
+          <FavoriteBorderIcon className='post-icons favorite' onClick={() => likePost(post.id, user_liked)} />
+          }
           {post.likes.length}
         </div>
         <div className="col-2">
           <ChatBubbleOutlineIcon className='post-icons comment' onClick={() => replyPost(post.id)} />
           {post.replies.length}
         </div>
-        <div className="col" style={{textAlign: "right"}}>
-          <EditIcon className='post-icons edit' onClick={() => editPost(post.id)} />
-          <DeleteIcon className='post-icons delete' onClick={() => deletePost(post.id)} />
-        </div>
+        { auth.user.pk === post.poster &&
+          <div className="col" style={{textAlign: "right"}}>
+            <EditIcon className='post-icons edit' onClick={() => editPost(post.id)} />
+            <DeleteIcon className='post-icons delete' onClick={() => deletePost(post.id)} />
+          </div>
+        }
       </div>
     </div>
   )

@@ -16,8 +16,6 @@ const SidebarLeft = ({ onAdd, showAdd }) => {
 
   const LoggingOut = () => {
     // logging out done by just removing user's tokens from local storage and user from state
-    localStorage.removeItem('access_token')
-    localStorage.removeItem('refresh_token')
     logoutUser()
   }
 

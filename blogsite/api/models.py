@@ -26,7 +26,7 @@ class Profile(models.Model):
 
 class Post(models.Model):
     poster = models.ForeignKey(
-        'auth.User', on_delete=models.CASCADE)
+        'auth.User', on_delete=models.CASCADE, related_name='posts')
     content = models.TextField(blank=False, editable=True)
     timestamp = models.DateTimeField(auto_now_add=True)
     last_updated = models.DateTimeField(blank=True, null=True, editable=True)

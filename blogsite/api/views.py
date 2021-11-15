@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 
 from rest_framework import status
 from rest_framework import response
+from rest_framework import serializers
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
@@ -54,6 +55,7 @@ def postList(request):
 def postDetail(request, pk):
     post = Post.objects.get(pk=pk)
     serializer = PostSerializer(post, many=False)
+    print(serializer)
     return Response(serializer.data)
 
 
@@ -65,6 +67,9 @@ def createPost(request):
 
     if serializer.is_valid():
         serializer.save()
+        print('Post saved!')
+    else:
+        print(serializer.errors)
 
     return Response(serializer.data)
 

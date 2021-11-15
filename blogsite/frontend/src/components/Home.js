@@ -40,28 +40,40 @@ const Home = () => {
   }, [])
 
   // Add a new post or edit an existing one (coming later)
-  const addPost = (post) => {
+  const addPost = async (post) => {
     
-    const id = Math.floor(Math.random() * 1000) + 1
-    const date = new Date()
-    const timestamp = `${date.getDate()}-${date.getMonth() +1}-${date.getFullYear()}`
-
+    console.log(auth.user)
     const poster = auth.user.pk
 
     const newPost = {
-      id: id,
+      id: '',
       poster: poster,
       content: post.content,
-      timestamp: timestamp,
-      last_update: null,
-      replies_to: [],
+      timestamp: '',
+      last_updated: '',
+      replies_to: '',
       replies: [],
-      likes: [],
+      likes: []
     }
 
-    setPosts([newPost, ...posts])
-    setShowAddPost(false)
+    const url = 'http://127.0.0.1:8000/api/create-post/'
+    const res = await fetch(url, {
+      method: 'POST',
+      headers: {
+        'Content-type': 'application/json',
+        'Authorization': 'Bearer ' + localStorage.getItem('access_token')
+      },
+      body:JSON.stringify(newPost) 
+    })
+    const data = await res.json()
+    console.log(data)
+    if(res.status === 200) {
+      setPosts(data, ...posts)
+    } else {
+      logoutUser()
+    }
   }
+
 
   // Like Post
   const likePost = (id, user_liked) => {

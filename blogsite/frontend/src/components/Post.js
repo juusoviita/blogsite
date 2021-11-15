@@ -27,6 +27,8 @@ const Post = ({post, likePost, deletePost, editPost, replyPost }) => {
     }
   }
 
+  console.log(post)
+
   const tstamp = new Date(post.timestamp)
   
   let minutes = ''
@@ -36,18 +38,16 @@ const Post = ({post, likePost, deletePost, editPost, replyPost }) => {
     minutes = tstamp.getMinutes()
   }
 
-  console.log(post)
-
   const timestamp = `at ${tstamp.getHours()}:${minutes}, on ${tstamp.getDate()}/${tstamp.getMonth()}/${tstamp.getFullYear()}`
 
   return (
     <div key={post.id} className='post glass'>
       <div className="row post-header">
         <div className="col-2" style={{paddingTop: "5px"}}>
-          <Avatar style={{marginLeft: "auto", marginRight: "auto"}}>id{post.poster}</Avatar>
+          <Avatar src={post.poster.profile.image} style={{marginLeft: "auto", marginRight: "auto"}} alt={post.poster.username} />
         </div>
         <div className="col">
-          {post.poster} <br/>
+          {post.poster.username} <br/>
           {timestamp}
         </div>
       </div>

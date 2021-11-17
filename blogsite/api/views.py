@@ -12,7 +12,7 @@ from rest_framework.serializers import Serializer
 from datetime import date, datetime
 
 from .models import Profile, Post, Like, Follow
-from .serializers import UserSerializer, PostSerializer, LikeSerializer, FollowSerializer
+from .serializers import UserSerializer, PostSerializer, PostGetSerializer, LikeSerializer, FollowSerializer
 
 
 # overview of all the API urls, remember to update!
@@ -45,7 +45,7 @@ def apiOverview(request):
 @permission_classes([IsAuthenticated])
 def postList(request):
     posts = Post.objects.all().order_by('-timestamp')
-    serializer = PostSerializer(posts, many=True)
+    serializer = PostGetSerializer(posts, many=True)
     return Response(serializer.data)
 
 
@@ -54,7 +54,7 @@ def postList(request):
 @permission_classes([IsAuthenticated])
 def postDetail(request, pk):
     post = Post.objects.get(pk=pk)
-    serializer = PostSerializer(post, many=False)
+    serializer = PostGetSerializer(post, many=False)
     print(serializer)
     return Response(serializer.data)
 

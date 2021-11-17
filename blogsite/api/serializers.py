@@ -36,9 +36,33 @@ class LikeSerializer(serializers.ModelSerializer):
 class PostSerializer(serializers.ModelSerializer):
 
     likes = LikeSerializer(many=True, read_only=True)
-    poster = UserSerializer(many=False, read_only=False)
+    poster = serializers.PrimaryKeyRelatedField(
+        queryset=User.objects.all(), required=True, allow_null=False)
 
     class Meta:
         model = Post
         fields = ['id', 'poster', 'content', 'timestamp',
                   'last_updated', 'replies_to', 'replies', 'likes']
+
+
+class PostGetSerializer(serializers.ModelSerializer):
+
+    likes = LikeSerializer(many=True, read_only=True)
+    poster = UserSerializer(many=False, read_only=True)
+
+    class Meta:
+        model = Post
+        fields = ['id', 'poster', 'content', 'timestamp',
+                  'last_updated', 'replies_to', 'replies', 'likes']
+
+
+'''
+{
+    "poster": 3,
+    "content": "This is an APIView post",
+    "last_updated": null,
+    "replies_to": null,
+    "replies": [],
+    "likes": []
+}
+'''

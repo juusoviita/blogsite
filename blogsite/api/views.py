@@ -67,7 +67,10 @@ def createPost(request):
 
     if serializer.is_valid():
         serializer.save()
-        print('Post saved!')
+        # if everything is ok, get the new post through the GET serialzer and create a richer response
+        post_id = serializer.data['id']
+        new_post = Post.objects.get(pk=post_id)
+        serializer = PostGetSerializer(new_post, many=False)
     else:
         print(serializer.errors)
 
@@ -75,8 +78,8 @@ def createPost(request):
 
 
 # edit an existing post
-@api_view(['POST'])
-@permission_classes([IsAuthenticated])
+@ api_view(['POST'])
+@ permission_classes([IsAuthenticated])
 def updatePost(request, pk):
     post = Post.objects.get(pk=pk)
     request.data['last_updated'] = datetime.now()
@@ -94,8 +97,8 @@ def updatePost(request, pk):
 
 
 # delete post if poster or superuser
-@api_view(['DELETE'])
-@permission_classes([IsAuthenticated])
+@ api_view(['DELETE'])
+@ permission_classes([IsAuthenticated])
 def deletePost(request, pk):
     post = Post.objects.get(pk=pk)
 
@@ -108,8 +111,8 @@ def deletePost(request, pk):
 
 
 # get specific user's posts
-@api_view(['GET'])
-@permission_classes([IsAuthenticated])
+@ api_view(['GET'])
+@ permission_classes([IsAuthenticated])
 def userPosts(request, poster_id):
     posts = Post.objects.filter(poster=poster_id).order_by('-timestamp')
     serializer = PostSerializer(posts, many=True)
@@ -118,8 +121,8 @@ def userPosts(request, poster_id):
 
 
 # get all the posts the user likes
-@api_view(['GET'])
-@permission_classes([IsAuthenticated])
+@ api_view(['GET'])
+@ permission_classes([IsAuthenticated])
 def likedPosts(request):
     liked_posts = Like.objects.filter(
         liker=request.user).values_list('post', flat=True)
@@ -131,8 +134,8 @@ def likedPosts(request):
 
 
 # get posts from users the request maker follows
-@api_view(['GET'])
-@permission_classes([IsAuthenticated])
+@ api_view(['GET'])
+@ permission_classes([IsAuthenticated])
 def followedPosts(request):
     followed_users = Follow.objects.filter(
         follower=request.user).values_list('followed', flat=True)
@@ -144,8 +147,8 @@ def followedPosts(request):
 
 
 # lists all the users
-@api_view(['GET'])
-@permission_classes([IsAuthenticated])
+@ api_view(['GET'])
+@ permission_classes([IsAuthenticated])
 def userList(request, format=None):
     users = User.objects.all()
     serializer = UserSerializer(users, many=True)
@@ -153,8 +156,8 @@ def userList(request, format=None):
 
 
 # get individual user's details
-@api_view(['GET'])
-@permission_classes([IsAuthenticated])
+@ api_view(['GET'])
+@ permission_classes([IsAuthenticated])
 def userDetail(request, pk):
     user = User.objects.get(pk=pk)
     serializer = UserSerializer(user, many=False)
@@ -162,8 +165,8 @@ def userDetail(request, pk):
 
 
 # delete own profile, or any profile if superuser
-@api_view(['DELETE'])
-@permission_classes([IsAuthenticated])
+@ api_view(['DELETE'])
+@ permission_classes([IsAuthenticated])
 def deleteUser(request, pk):
     user = User.objects.get(pk=pk)
 
@@ -176,8 +179,8 @@ def deleteUser(request, pk):
 
 
 # update own profile via post
-@api_view(['POST'])
-@permission_classes([IsAuthenticated])
+@ api_view(['POST'])
+@ permission_classes([IsAuthenticated])
 def updateUser(request, pk):
     user = User.objects.get(pk=pk)
     serializer = UserSerializer(instance=user, data=request.data)
@@ -190,8 +193,8 @@ def updateUser(request, pk):
 
 
 # like individual post
-@api_view(['POST'])
-@permission_classes([IsAuthenticated])
+@ api_view(['POST'])
+@ permission_classes([IsAuthenticated])
 def likePost(request):
     serializer = LikeSerializer(data=request.data)
 
@@ -202,8 +205,8 @@ def likePost(request):
 
 
 # unlike individual post
-@api_view(['DELETE'])
-@permission_classes([IsAuthenticated])
+@ api_view(['DELETE'])
+@ permission_classes([IsAuthenticated])
 def unlikePost(request, pk):
     like = Like.objects.get(pk=pk)
     like.delete()
@@ -212,8 +215,8 @@ def unlikePost(request, pk):
 
 
 # follow individual user
-@api_view(['POST'])
-@permission_classes([IsAuthenticated])
+@ api_view(['POST'])
+@ permission_classes([IsAuthenticated])
 def followUser(request):
     serializer = FollowSerializer(data=request.data)
 
@@ -224,8 +227,8 @@ def followUser(request):
 
 
 # unfollow individual user
-@api_view(['DELETE'])
-@permission_classes([IsAuthenticated])
+@ api_view(['DELETE'])
+@ permission_classes([IsAuthenticated])
 def unfollowUser(request, pk):
     follow = Follow.objects.get(pk=pk)
     follow.delete()

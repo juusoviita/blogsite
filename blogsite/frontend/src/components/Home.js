@@ -41,17 +41,14 @@ const Home = () => {
 
   // Add a new post or edit an existing one (coming later)
   const addPost = async (post) => {
-    
-    console.log(auth.user)
+    setShowAddPost(false)
     const poster = auth.user.pk
 
     const newPost = {
-      id: '',
       poster: poster,
       content: post.content,
-      timestamp: '',
-      last_updated: '',
-      replies_to: '',
+      last_updated: null,
+      replies_to: null,
       replies: [],
       likes: []
     }
@@ -65,8 +62,10 @@ const Home = () => {
       },
       body:JSON.stringify(newPost) 
     })
+
     const data = await res.json()
     console.log(data)
+    console.log(typeof data)
     if(res.status === 200) {
       setPosts(data, ...posts)
     } else {

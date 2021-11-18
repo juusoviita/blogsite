@@ -19,11 +19,12 @@ const Post = ({post, likePost, deletePost, editPost, replyPost }) => {
 
   // check whether the logged in user has liked this post
   let user_liked = false
-
-  for (let i = 0; i < post.likes.length; i++) {
-    if (post.likes[i].liker === auth.user.pk) {
-      user_liked = true
-      break
+  if (post.likes.length > 0) {
+    for (let i = 0; i < post.likes.length; i++) {
+      if (post.likes[i].liker === auth.user.pk) {
+        user_liked = true
+        break
+      }
     }
   }
 

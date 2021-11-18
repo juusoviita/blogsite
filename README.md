@@ -1,6 +1,7 @@
 # blogsite
 
 A microblogging site (Twitter clone) done using Django Rest Framework and React – including Material-UI.
+Will probably be deployed to Heroku, when done.
 
 Demo user account:
 

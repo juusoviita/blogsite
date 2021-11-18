@@ -42,7 +42,7 @@ const Post = ({post, likePost, deletePost, editPost, replyPost }) => {
   const timestamp = `at ${tstamp.getHours()}:${minutes}, on ${tstamp.getDate()}/${tstamp.getMonth()}/${tstamp.getFullYear()}`
 
   return (
-    <div key={post.id} className='post glass'>
+    <div className='post glass'>
       <div className="row post-header">
         <div className="col-2" style={{paddingTop: "5px"}}>
           <Avatar src={post.poster.profile.image} style={{marginLeft: "auto", marginRight: "auto"}} alt={post.poster.username} />

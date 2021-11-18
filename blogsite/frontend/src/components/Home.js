@@ -67,7 +67,7 @@ const Home = () => {
     console.log(data)
     console.log(typeof data)
     if(res.status === 200) {
-      setPosts(data, ...posts)
+      setPosts(data, [...posts])
     } else {
       logoutUser()
     }

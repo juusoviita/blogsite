@@ -28,8 +28,6 @@ const Post = ({post, likePost, deletePost, editPost, replyPost }) => {
     }
   }
 
-  console.log(post)
-
   const tstamp = new Date(post.timestamp)
   
   let minutes = ''
@@ -71,7 +69,7 @@ const Post = ({post, likePost, deletePost, editPost, replyPost }) => {
           <ChatBubbleOutlineIcon className='post-icons comment' onClick={() => replyPost(post.id)} />
           {post.replies.length}
         </div>
-        { auth.user.pk === post.poster &&
+        { auth.user.pk === post.poster.id &&
           <div className="col" style={{textAlign: "right"}}>
             <EditIcon className='post-icons edit' onClick={() => editPost(post.id)} />
             <DeleteIcon className='post-icons delete' onClick={() => deletePost(post.id)} />

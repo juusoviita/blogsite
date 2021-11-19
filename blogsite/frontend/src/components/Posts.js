@@ -2,8 +2,6 @@ import Post from './Post'
 
 const Posts = ({ posts, likePost, deletePost, editPost, replyPost }) => {
 
-    console.log(typeof(posts))
-
     return (
       <>
         {posts.map((post) => (

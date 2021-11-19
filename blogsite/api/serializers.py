@@ -54,15 +54,3 @@ class PostGetSerializer(serializers.ModelSerializer):
         model = Post
         fields = ['id', 'poster', 'content', 'timestamp',
                   'last_updated', 'replies_to', 'replies', 'likes']
-
-
-'''
-{
-    "poster": 3,
-    "content": "This is an APIView post",
-    "last_updated": null,
-    "replies_to": null,
-    "replies": [],
-    "likes": []
-}
-'''

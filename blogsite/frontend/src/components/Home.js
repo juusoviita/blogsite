@@ -83,7 +83,17 @@ const Home = () => {
 
   // Delete Post
   const deletePost = (id) => {
-    console.log(`Deleted Post id ${id}`)
+    
+    const url = `http://localhost:8000/api/delete-post/${id}`
+
+    fetch(url, {
+      method: 'DELETE',
+      headers:{
+        'Content-type':'application/json',
+        'Authorization': 'Bearer ' + localStorage.getItem('access_token')
+      },
+    })
+    setPosts(posts.filter((post) => post.id !== id))
   }
 
   // Edit Post

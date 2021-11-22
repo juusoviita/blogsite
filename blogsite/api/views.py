@@ -54,8 +54,7 @@ def postList(request):
 @permission_classes([IsAuthenticated])
 def postDetail(request, pk):
     post = Post.objects.get(pk=pk)
-    serializer = PostGetSerializer(post, many=False)
-    print(serializer)
+    serializer = PostSerializer(post, many=False)
     return Response(serializer.data)
 
 

@@ -30,6 +30,20 @@ const Home = () => {
         })
         const data = await res.json()
         if(res.status === 200) {
+
+          // check whether the logged in user has liked the post or not
+          data.forEach(post => {
+            post.user_liked = false
+            post.likes_count = post.likes.length
+            if (post.likes.length > 0) {
+              for (let i = 0; i < post.likes.length; i++) {
+                if (post.likes[i].liker === auth.user.pk) {
+                  post.user_liked = true
+                  break
+                }
+              }
+            }
+          })
           setPosts(data)
         } else {
           logoutUser()
@@ -38,6 +52,24 @@ const Home = () => {
       fetchPosts()
     }
   }, [])
+
+
+  // fetch individual post
+  const fetchPost = async (id) => {
+    var url = `http://localhost:8000/api/post-detail/${id}`
+    const res = await fetch(url, {
+      method: 'GET',
+      headers: {
+        'Content-type':'application/json',
+        'Authorization': 'Bearer ' + localStorage.getItem('access_token')
+      }
+    })
+    const data = await res.json()
+    data.likes_count = data.likes.length
+    
+    return data 
+  }
+
 
   // Add a new post or edit an existing one (coming later)
   const addPost = async (post) => {
@@ -101,11 +133,12 @@ const Home = () => {
       },
       body:JSON.stringify(likePost)
     })
-
+    
     const data = await res.json()
-    console.log(data)
-    user_liked = !user_liked
-    console.log(user_liked)
+    const postLiked = await fetchPost(data.post)
+
+    setPosts(posts.map((post) => post.id === id ? {...post, user_liked: !user_liked, likes_count: postLiked.likes_count} : post))
+  
   }
 
 

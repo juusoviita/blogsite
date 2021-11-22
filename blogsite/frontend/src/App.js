@@ -19,7 +19,6 @@ function App() {
 
   // Update user's access token
   const updateToken = async () => {
-    console.log('Tokens updating')
     let res = await fetch('http://127.0.0.1:8000/api/dj-rest-auth/token/refresh/', {
       method: 'POST',
       headers: {
@@ -35,6 +34,7 @@ function App() {
       localStorage.setItem('access_token', data.access)
       localStorage.setItem('refresh_token', data.refresh)
     } else {
+      console.log('Failed to update tokens')
       logoutUser()
     }
   }

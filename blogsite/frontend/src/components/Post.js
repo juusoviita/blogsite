@@ -17,17 +17,7 @@ const Post = ({post, likePost, deletePost, editPost, replyPost }) => {
 
   const { loginUser, logoutUser, updateTokens } = bindActionCreators(actionCreators, dispatch)
 
-  // check whether the logged in user has liked this post
-  let user_liked = false
-  if (post.likes.length > 0) {
-    for (let i = 0; i < post.likes.length; i++) {
-      if (post.likes[i].liker === auth.user.pk) {
-        user_liked = true
-        break
-      }
-    }
-  }
-
+  // format the timestamp for the post
   const tstamp = new Date(post.timestamp)
   
   let minutes = ''
@@ -59,11 +49,11 @@ const Post = ({post, likePost, deletePost, editPost, replyPost }) => {
       <Divider />
       <div className="row icon-div">
         <div className="col-2">
-          { user_liked ?
-          <FavoriteIcon className='post-icons favorite' onClick={() => likePost(post.id, user_liked)} />  :
-          <FavoriteBorderIcon className='post-icons favorite' onClick={() => likePost(post.id, user_liked)} />
+          { post.user_liked ?
+          <FavoriteIcon className='post-icons favorite' onClick={() => likePost(post.id, post.user_liked)} />  :
+          <FavoriteBorderIcon className='post-icons favorite' onClick={() => likePost(post.id, post.user_liked)} />
           }
-          {post.likes.length}
+          {post.likes_count}
         </div>
         <div className="col-2">
           <ChatBubbleOutlineIcon className='post-icons comment' onClick={() => replyPost(post.id)} />

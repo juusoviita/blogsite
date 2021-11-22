@@ -30,7 +30,7 @@ def apiOverview(request):
         'Update an existing post': '/update-post/<str:pk>',
         'Delete a post': '/delete-post/<str:pk>',
         'Like a post': '/like-post/',
-        'Unlike a post': '/unlike-post/<str:pk>',
+        'Unlike a post': '/unlike-post/',
         'Follow a user': '/follow-user/',
         'Unfollow a user': '/unfollow-user/<str:pk>',
         'Update an existing user': '/update-user/<str:pk>',
@@ -207,8 +207,9 @@ def likePost(request):
 # unlike individual post
 @ api_view(['DELETE'])
 @ permission_classes([IsAuthenticated])
-def unlikePost(request, pk):
-    like = Like.objects.get(pk=pk)
+def unlikePost(request):
+    post = request.data['post']
+    like = Like.objects.get(liker=request.user, post=post)
     like.delete()
 
     return Response('Post successfully unliked!')

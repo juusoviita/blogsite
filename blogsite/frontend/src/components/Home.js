@@ -74,10 +74,38 @@ const Home = () => {
   }
 
 
-  // Like Post
-  const likePost = (id, user_liked) => {
-    console.log(`Liked Post id${id}`)
-    console.log(`User has liked this post already: ${user_liked}`)
+  // Like/Unlike Post depending on which one has been done before by the user 
+  const likePost = async (id, user_liked) => {
+
+    const liker = auth.user.pk
+    
+    const likePost = {
+      liker: liker, 
+      post: id
+    }
+   
+    // if user hasn't already liked the post, like it
+    if (user_liked) {
+      var url = `http://localhost:8000/api/unlike-post/`
+      var method = 'DELETE'
+    } else {
+      var url = `http://localhost:8000/api/like-post/`
+      var method = 'POST'
+    }
+    
+    const res = await fetch(url, {
+      method: method,
+      headers: {
+        'Content-type':'application/json',
+        'Authorization': 'Bearer ' + localStorage.getItem('access_token')
+      },
+      body:JSON.stringify(likePost)
+    })
+
+    const data = await res.json()
+    console.log(data)
+    user_liked = !user_liked
+    console.log(user_liked)
   }
 
 

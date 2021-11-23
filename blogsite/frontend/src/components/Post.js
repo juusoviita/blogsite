@@ -10,8 +10,10 @@ import { useSelector, useDispatch } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { actionCreators } from '../state/index'
 
-const Post = ({post, likePost, deletePost, editPost, replyPost }) => {
+const Post = ({post, likePost, deletePost, editPost, replyPost, replyShow }) => {
   
+  console.log(post)
+
   const auth = useSelector((state) => state.auth)
   const dispatch = useDispatch()
 
@@ -56,7 +58,7 @@ const Post = ({post, likePost, deletePost, editPost, replyPost }) => {
           {post.likes_count}
         </div>
         <div className="col-2">
-          <ChatBubbleOutlineIcon className='post-icons comment' onClick={() => replyPost(post.id)} />
+          <ChatBubbleOutlineIcon className='post-icons comment' onClick={() => replyPost(post.id, replyShow)} />
           {post.replies.length}
         </div>
         { auth.user.pk === post.poster.id &&

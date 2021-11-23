@@ -170,7 +170,7 @@ const Home = () => {
 
   // Show or Hide addPost form
   const showAddForm = () => {
-    if (showAddPost === true) {
+    if (showAddPost) {
       setShowAddPost(false)
     } else {
       setShowAddPost(true)

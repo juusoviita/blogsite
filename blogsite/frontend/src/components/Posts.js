@@ -1,12 +1,14 @@
 import Post from './Post'
 
-const Posts = ({ posts, likePost, deletePost, editPost, replyPost }) => {
+const Posts = ({ posts, likePost, deletePost, editPost, replyPost, replyShow }) => {
 
     return (
       <>
         {posts.map((post) => (
           <div>
-            <Post key={post.id} post={post} likePost={likePost} deletePost={deletePost} editPost={editPost} replyPost={replyPost} />
+            { post.replies_to === null &&
+              <Post key={post.id} post={post} likePost={likePost} deletePost={deletePost} editPost={editPost} replyPost={replyPost} replyShow={replyShow} />
+            }
           </div>
         ))}
       </>

@@ -208,7 +208,11 @@ def likePost(request):
 @ permission_classes([IsAuthenticated])
 def unlikePost(request):
     post = request.data['post']
-    like = Like.objects.get(liker=request.user, post=post)
+    liker = request.data['liker']
+    print(post)
+    print(liker)
+    like = Like.objects.get(liker=liker, post=post)
+    print(like)
     like.delete()
 
     return Response('Post successfully unliked!')

@@ -1,4 +1,5 @@
 // import { FavoriteIcon, FavoriteBorderIcon, ChatBubbleOutlineIcon, EditIcon, DeleteIcon  } from '@mui/icons-material';
+import { useState } from 'react'
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import ChatBubbleOutlineIcon from '@mui/icons-material/ChatBubbleOutline';
@@ -9,10 +10,14 @@ import { Divider } from '@mui/material';
 import { useSelector, useDispatch } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { actionCreators } from '../state/index'
+import ReplyForm from './ReplyForm';
 
-const Post = ({post, likePost, deletePost, editPost, replyPost, replyShow }) => {
+const Post = ({post, likePost, deletePost, editPost }) => {
   
-  console.log(post)
+  // to handle the opening and closing of the Reply modal
+  const [openReply, setOpenReply] = useState(false)
+  const handleOpen = () => setOpenReply(true)
+  const handleClose = () => setOpenReply(false)
 
   const auth = useSelector((state) => state.auth)
   const dispatch = useDispatch()
@@ -33,6 +38,7 @@ const Post = ({post, likePost, deletePost, editPost, replyPost, replyShow }) => 
 
   return (
     <div className='post glass'>
+      { openReply && <ReplyForm post_id={post.id} username={post.poster.username} avatar={post.poster.profile.image} timestamp={timestamp} post_content={post.content} handleClose={handleClose} openReply={openReply} />}
       <div className="row post-header">
         <div className="col-2" style={{paddingTop: "5px"}}>
           <Avatar src={post.poster.profile.image} style={{marginLeft: "auto", marginRight: "auto"}} alt={post.poster.username} />
@@ -58,7 +64,7 @@ const Post = ({post, likePost, deletePost, editPost, replyPost, replyShow }) => 
           {post.likes_count}
         </div>
         <div className="col-2">
-          <ChatBubbleOutlineIcon className='post-icons comment' onClick={() => replyPost(post.id, replyShow)} />
+          <ChatBubbleOutlineIcon className='post-icons comment' onClick={handleOpen} />
           {post.replies.length}
         </div>
         { auth.user.pk === post.poster.id &&

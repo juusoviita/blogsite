@@ -53,7 +53,6 @@ const Home = () => {
     }
   }, [])
 
-
   // fetch individual post
   const fetchPost = async (id) => {
     var url = `http://localhost:8000/api/post-detail/${id}`
@@ -69,7 +68,6 @@ const Home = () => {
     
     return data 
   }
-
 
   // Add a new post or edit an existing one (coming later)
   const addPost = async (post) => {
@@ -105,7 +103,6 @@ const Home = () => {
     }
   }
 
-
   // Like/Unlike Post depending on which one has been done before by the user 
   const likePost = async (id, user_liked) => {
 
@@ -133,14 +130,12 @@ const Home = () => {
       },
       body:JSON.stringify(likePost)
     })
-    
-    const data = await res.json()
-    const postLiked = await fetchPost(data.post)
+
+    const postLiked = await fetchPost(id)
 
     setPosts(posts.map((post) => post.id === id ? {...post, user_liked: !user_liked, likes_count: postLiked.likes_count} : post))
   
   }
-
 
   // Delete Post
   const deletePost = (id) => {
@@ -166,7 +161,6 @@ const Home = () => {
   const replyPost = (id) => {
     console.log(`Probably need to add ability to reply before posting any replies to post ${id}`)
   }
-
 
   // Show or Hide addPost form
   const showAddForm = () => {

@@ -221,8 +221,17 @@ const Home = () => {
              <SidebarRight />
            </div>
        </div>
-      </> : 
-      <p>You have not been authenticated!</p>
+      </> :
+      <> 
+        <div className="row">
+          <div className="col-md-6">
+              <img src="https://unsplash.com/photos/4YApsoSaNKA/640x512" alt="People in a cafe" width="640" height="512" />
+          </div>
+          <div className="col-md-6">
+            <h2>Zero insurrections caused as of today.</h2>
+          </div>
+        </div>
+      </>
       }
     </div>
   );

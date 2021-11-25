@@ -35,6 +35,7 @@ const Home = () => {
           data.forEach(post => {
             post.user_liked = false
             post.likes_count = post.likes.length
+            post.replies_count = post.replies.length
             if (post.likes.length > 0) {
               for (let i = 0; i < post.likes.length; i++) {
                 if (post.likes[i].liker === auth.user.pk) {
@@ -65,6 +66,7 @@ const Home = () => {
     })
     const data = await res.json()
     data.likes_count = data.likes.length
+    data.replies_count = data.replies.length
     
     return data 
   }
@@ -94,8 +96,7 @@ const Home = () => {
     })
 
     const data = await res.json()
-    console.log(data)
-    console.log(typeof data)
+
     if(res.status === 200) {
       setPosts([data, ...posts])
     } else {
@@ -137,6 +138,43 @@ const Home = () => {
   
   }
 
+
+  // post a reply to a post
+  const replyPost = async (reply, post_id) => {
+    
+    const poster = auth.user.pk
+    
+    console.log(reply)
+
+    const newReply = {
+      poster: poster,
+      content: reply.reply,
+      last_updated: null,
+      replies_to: reply.post_id,
+      replies: [],
+      likes: []
+    }
+
+    const url = 'http://127.0.0.1:8000/api/create-post/'
+    const res = await fetch(url, {
+      method: 'POST',
+      headers: {
+        'Content-type': 'application/json',
+        'Authorization': 'Bearer ' + localStorage.getItem('access_token')
+      },
+      body:JSON.stringify(newReply) 
+    })
+
+    const postReplied = await fetchPost(reply.post_id)
+
+    if(res.status === 200) {
+      setPosts(posts.map((post) => post.id === reply.post_id ? {...post, replies_count: postReplied.replies_count} : post))
+    } else {
+      logoutUser()
+    }
+  }
+
+
   // Delete Post
   const deletePost = (id) => {
     
@@ -157,10 +195,6 @@ const Home = () => {
     console.log(`Probably need to add ability to edit before posting them post ${id}`)
   }
 
-  // Write a reply to a post
-  const replyPost = (id) => {
-    console.log(`Probably need to add ability to reply before posting any replies to post ${id}`)
-  }
 
   // Show or Hide addPost form
   const showAddForm = () => {

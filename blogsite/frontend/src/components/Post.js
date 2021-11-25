@@ -12,7 +12,7 @@ import { bindActionCreators } from 'redux'
 import { actionCreators } from '../state/index'
 import ReplyForm from './ReplyForm';
 
-const Post = ({post, likePost, deletePost, editPost }) => {
+const Post = ({post, likePost, deletePost, editPost, replyPost }) => {
   
   // to handle the opening and closing of the Reply modal
   const [openReply, setOpenReply] = useState(false)
@@ -38,7 +38,7 @@ const Post = ({post, likePost, deletePost, editPost }) => {
 
   return (
     <div className='post glass'>
-      { openReply && <ReplyForm post_id={post.id} username={post.poster.username} avatar={post.poster.profile.image} timestamp={timestamp} post_content={post.content} handleClose={handleClose} openReply={openReply} />}
+      { openReply && <ReplyForm post_id={post.id} username={post.poster.username} avatar={post.poster.profile.image} timestamp={timestamp} post_content={post.content} handleClose={handleClose} openReply={openReply} replyPost={replyPost}  />}
       <div className="row post-header">
         <div className="col-2" style={{paddingTop: "5px"}}>
           <Avatar src={post.poster.profile.image} style={{marginLeft: "auto", marginRight: "auto"}} alt={post.poster.username} />
@@ -65,7 +65,7 @@ const Post = ({post, likePost, deletePost, editPost }) => {
         </div>
         <div className="col-2">
           <ChatBubbleOutlineIcon className='post-icons comment' onClick={handleOpen} />
-          {post.replies.length}
+          {post.replies_count}
         </div>
         { auth.user.pk === post.poster.id &&
           <div className="col" style={{textAlign: "right"}}>

@@ -9,9 +9,9 @@ import { useSelector, useDispatch } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { actionCreators } from '../state/index'
 
-const ReplyForm = ({ post_id, username, avatar, timestamp, post_content, handleClose, openReply }) => {
+const ReplyForm = ({ post_id, username, avatar, timestamp, post_content, handleClose, openReply, replyPost }) => {
 
-  const [content, setContent] = useState('')
+  const [reply, setReply] = useState('')
 
   const auth = useSelector((state) => state.auth)
   const dispatch = useDispatch()
@@ -24,69 +24,30 @@ const ReplyForm = ({ post_id, username, avatar, timestamp, post_content, handleC
     top: '50%',
     left: '50%',
     transform: 'translate(-50%, -50%)',
-    width: 600,
-    bgcolor: 'background.paper',
-    border: '2px solid #000',
+    width: 800,
     boxShadow: 24,
     p: 4,
   };
-  
-  console.log(post_id)
 
   // Add a reply to a post
-  const addPost = async (reply, post_id) => {
+  const onClick = (e) => {
 
-    const poster = auth.user.pk
+    e.preventDefault()
 
-    console.log(poster)
-    console.log(reply)
-    console.log(post_id)
-
-    /*
-    {
-      "poster": 7,
-      "content": "APIView practice post",
-      "last_updated": null,
-      "replies_to": 37,
-      "replies": [],
-      "likes": []
-    }
-    */
-
-    const newPost = {
-      poster: poster,
-      content: reply,
-      last_updated: null,
-      replies_to: post_id,
-      replies: [],
-      likes: []
+    if (!reply) {
+      alert('Please add text to your reply!')
+      return
     }
 
-    const url = 'http://127.0.0.1:8000/api/create-post/'
-    const res = await fetch(url, {
-      method: 'POST',
-      headers: {
-        'Content-type': 'application/json',
-        'Authorization': 'Bearer ' + localStorage.getItem('access_token')
-      },
-      body:JSON.stringify(newPost) 
-    })
-
-    const data = await res.json()
-    console.log(data)
-    console.log(typeof data)
-    if(res.status !== 200) {
-      logoutUser()
-    }
+    replyPost({ reply, post_id })
     handleClose()
+    setReply('')
   }
-  
-  // fetch all the previous replies to this post as well?
 
   return (
     <div>
       <Modal open={openReply} onClose={handleClose}>
-        <Box sx={style}>
+        <Box sx={style} className='post glass'>
           <div className="row post-header">
           <div className="col-2" style={{paddingTop: "5px"}}>
             <Avatar src={avatar} style={{marginLeft: "auto", marginRight: "auto"}} alt={username} />
@@ -106,10 +67,10 @@ const ReplyForm = ({ post_id, username, avatar, timestamp, post_content, handleC
           <div className="row">
           <form>
             <div className="form-element">
-              <textarea id="content" placeholder="Reply here" value={content} onChange={(e) => setContent(e.target.value)}></textarea>
+              <textarea id="content" placeholder="Reply here" value={reply} onChange={(e) => setReply(e.target.value)}></textarea>
             </div>
             <div className="form-element">
-              <Button text="Reply" onClick={() => addPost(content, post_id)} />
+              <Button text="Reply" onClick={onClick} />
             </div>
           </form>
           </div>

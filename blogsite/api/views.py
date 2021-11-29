@@ -125,7 +125,6 @@ def userPosts(request, poster_id):
 def likedPosts(request):
     liked_posts = Like.objects.filter(
         liker=request.user).values_list('post', flat=True)
-    print(liked_posts)
     posts = Post.objects.filter(id__in=liked_posts).order_by('-timestamp')
     serializer = PostSerializer(posts, many=True)
 
@@ -209,10 +208,7 @@ def likePost(request):
 def unlikePost(request):
     post = request.data['post']
     liker = request.data['liker']
-    print(post)
-    print(liker)
     like = Like.objects.get(liker=liker, post=post)
-    print(like)
     like.delete()
 
     return Response('Post successfully unliked!')

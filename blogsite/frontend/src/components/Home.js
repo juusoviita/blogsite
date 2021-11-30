@@ -3,6 +3,7 @@ import Posts from './Posts'
 import AddForm from './AddForm'
 import SidebarLeft from './SidebarLeft'
 import SidebarRight from './SidebarRight'
+import pic from './images/coffeeshop.jpg'
 import { useSelector, useDispatch } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { actionCreators } from '../state/index'
@@ -11,6 +12,7 @@ const Home = () => {
 
   const [showAddPost, setShowAddPost] = useState(false)
   const [posts, setPosts] = useState([])
+  const [currentDate, setCurrentDate] = useState()
   
   const auth = useSelector((state) => state.auth)
   const dispatch = useDispatch()
@@ -51,6 +53,17 @@ const Home = () => {
         }
       }
       fetchPosts()
+    } else {
+      
+      const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+
+      const date = new Date()
+      let day = date.getDate()
+      let month = months[date.getMonth()]
+      let year = date.getFullYear()
+
+      setCurrentDate(`${day} ${month} ${year}`)
+
     }
   }, [])
 
@@ -225,10 +238,11 @@ const Home = () => {
       <> 
         <div className="row">
           <div className="col-md-6">
-              <img src="https://unsplash.com/photos/4YApsoSaNKA/640x512" alt="People in a cafe" width="640" height="512" />
+              <img src={pic} alt="People in a cafe" className="cover-pic" />
           </div>
-          <div className="col-md-6">
-            <h2>Zero insurrections caused as of today.</h2>
+          <div className="col-md-6 landing-text">
+            <h2>Zero insurrections caused as of</h2>
+            <h2>{currentDate}.</h2>
           </div>
         </div>
       </>

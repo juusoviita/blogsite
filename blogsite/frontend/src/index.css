@@ -53,6 +53,17 @@ li {
   color: #29545c;
 }
 
+.landing-text {
+  padding: 300px;
+  text-align: center;
+}
+
+.cover-pic {
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+}
+
 .glass {
   background: whitesmoke;
   background: linear-gradient(

@@ -81,6 +81,11 @@ li {
   border-radius: 8px;
 }
 
+.post:hover {
+  cursor: pointer;
+  background-color: whitesmoke;
+}
+
 .post-header {
   padding: 10px 0px 10px 0px;
 }

@@ -18,6 +18,11 @@ const Post = ({post, likePost, deletePost, editPost, replyPost }) => {
   const [openReply, setOpenReply] = useState(false)
   const handleOpen = () => setOpenReply(true)
   const handleClose = () => setOpenReply(false)
+  // to handle the opening and closing of the PostDetail component
+  const [openDetail, setOpenDetail] = useState(false)
+  const handleOpenDetail = () => setOpenDetail(true)
+  const handleCloseDetail = () => setOpenDetail(false)
+
 
   const auth = useSelector((state) => state.auth)
   const dispatch = useDispatch()
@@ -37,7 +42,10 @@ const Post = ({post, likePost, deletePost, editPost, replyPost }) => {
   const timestamp = `at ${tstamp.getHours()}:${minutes}, on ${tstamp.getDate()}/${tstamp.getMonth()}/${tstamp.getFullYear()}`
 
   return (
-    <div className='post glass'>
+    <>
+    {
+      !openDetail ?
+      <div className='post glass' onClick={handleOpenDetail}>
       { openReply && <ReplyForm post_id={post.id} username={post.poster.username} avatar={post.poster.profile.image} timestamp={timestamp} post_content={post.content} handleClose={handleClose} openReply={openReply} replyPost={replyPost}  />}
       <div className="row post-header">
         <div className="col-2" style={{paddingTop: "5px"}}>
@@ -75,6 +83,10 @@ const Post = ({post, likePost, deletePost, editPost, replyPost }) => {
         }
       </div>
     </div>
+    :
+    <div>This will render out the individual post {post.id} detail page</div>
+    }
+    </>
   )
 }
 

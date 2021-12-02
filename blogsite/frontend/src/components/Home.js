@@ -118,7 +118,9 @@ const Home = () => {
   }
 
   // Like/Unlike Post depending on which one has been done before by the user 
-  const likePost = async (id, user_liked) => {
+  const likePost = async (id, user_liked, event) => {
+
+    event.stopImmediatePropagation()
 
     const liker = auth.user.pk
     
@@ -148,13 +150,15 @@ const Home = () => {
     const postLiked = await fetchPost(id)
 
     setPosts(posts.map((post) => post.id === id ? {...post, user_liked: !user_liked, likes_count: postLiked.likes_count} : post))
-  
+
   }
 
 
   // post a reply to a post
-  const replyPost = async (reply, post_id) => {
+  const replyPost = async (reply, post_id, event) => {
     
+    event.stopPropagation()
+
     const poster = auth.user.pk
     
     console.log(reply)
@@ -189,8 +193,10 @@ const Home = () => {
 
 
   // Delete Post
-  const deletePost = (id) => {
+  const deletePost = (id, event) => {
     
+    event.stopPropagation()
+
     const url = `http://localhost:8000/api/delete-post/${id}`
 
     fetch(url, {
@@ -204,7 +210,8 @@ const Home = () => {
   }
 
   // Edit Post
-  const editPost = (id) => {
+  const editPost = (id, event) => {
+    event.stopPropagation()
     console.log(`Probably need to add ability to edit before posting them post ${id}`)
   }
 

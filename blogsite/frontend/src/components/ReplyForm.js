@@ -29,6 +29,12 @@ const ReplyForm = ({ post_id, username, avatar, timestamp, post_content, handleC
     p: 4,
   };
 
+  // Set reply while block event bubbling
+  const typeReply = (e) => {
+    e.stopPropagation()
+    setReply(e.target.value)
+  }
+
   // Add a reply to a post
   const onClick = (e) => {
 
@@ -67,7 +73,7 @@ const ReplyForm = ({ post_id, username, avatar, timestamp, post_content, handleC
           <div className="row">
           <form>
             <div className="form-element">
-              <textarea id="content" placeholder="Reply here" value={reply} onChange={(e) => setReply(e.target.value)}></textarea>
+              <textarea id="content" placeholder="Reply here" value={reply} onChange={(e) => typeReply(e)}></textarea>
             </div>
             <div className="form-element">
               <Button text="Reply" onClick={onClick} />

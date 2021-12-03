@@ -16,8 +16,14 @@ const Post = ({post, likePost, deletePost, editPost, replyPost, handleOpenDetail
   
   // to handle the opening and closing of the Reply modal
   const [openReply, setOpenReply] = useState(false)
-  const handleOpen = () => setOpenReply(true)
-  const handleClose = () => setOpenReply(false)
+  const handleOpen = (e) => {
+    e.stopPropagation()
+    setOpenReply(true)
+  } 
+  const handleClose = (e) => {
+    e.stopPropagation()
+    setOpenReply(false)
+  }
 
   const auth = useSelector((state) => state.auth)
   const dispatch = useDispatch()
@@ -58,8 +64,8 @@ const Post = ({post, likePost, deletePost, editPost, replyPost, handleOpenDetail
       <div className="row icon-div">
         <div className="col-2">
           { post.user_liked ?
-          <FavoriteIcon className='post-icons favorite' onClick={() => likePost(post.id, post.user_liked)} />  :
-          <FavoriteBorderIcon className='post-icons favorite' onClick={() => likePost(post.id, post.user_liked)} />
+          <FavoriteIcon className='post-icons favorite' onClick={(e) => likePost(post.id, post.user_liked, e)} />  :
+          <FavoriteBorderIcon className='post-icons favorite' onClick={(e) => likePost(post.id, post.user_liked, e)} />
           }
           {post.likes_count}
         </div>
@@ -69,8 +75,8 @@ const Post = ({post, likePost, deletePost, editPost, replyPost, handleOpenDetail
         </div>
         { auth.user.pk === post.poster.id &&
           <div className="col" style={{textAlign: "right"}}>
-            <EditIcon className='post-icons edit' onClick={() => editPost(post.id)} />
-            <DeleteIcon className='post-icons delete' onClick={() => deletePost(post.id)} />
+            <EditIcon className='post-icons edit' onClick={(e) => editPost(post.id, e)} />
+            <DeleteIcon className='post-icons delete' onClick={(e) => deletePost(post.id, e)} />
           </div>
         }
       </div>

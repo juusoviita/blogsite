@@ -39,6 +39,7 @@ const ReplyForm = ({ post_id, username, avatar, timestamp, post_content, handleC
   const onClick = (e) => {
 
     e.preventDefault()
+    e.stopPropagation()
 
     if (!reply) {
       alert('Please add text to your reply!')
@@ -46,13 +47,13 @@ const ReplyForm = ({ post_id, username, avatar, timestamp, post_content, handleC
     }
 
     replyPost({ reply, post_id })
-    handleClose()
+    handleClose(e)
     setReply('')
   }
 
   return (
     <div>
-      <Modal open={openReply} onClose={handleClose}>
+      <Modal open={openReply} onClose={(e) => handleClose(e)}>
         <Box sx={style} className='post glass'>
           <div className="row post-header">
           <div className="col-2" style={{paddingTop: "5px"}}>
@@ -73,7 +74,7 @@ const ReplyForm = ({ post_id, username, avatar, timestamp, post_content, handleC
           <div className="row">
           <form>
             <div className="form-element">
-              <textarea id="content" placeholder="Reply here" value={reply} onChange={(e) => typeReply(e)}></textarea>
+              <textarea id="content" placeholder="Type your reply here" value={reply} onChange={(e) => typeReply(e)} onClick={(e) => e.stopPropagation()}></textarea>
             </div>
             <div className="form-element">
               <Button text="Reply" onClick={onClick} />

@@ -63,7 +63,6 @@ const Home = () => {
       let year = date.getFullYear()
 
       setCurrentDate(`${day} ${month} ${year}`)
-
     }
   }, [])
 
@@ -154,9 +153,7 @@ const Home = () => {
 
 
   // post a reply to a post
-  const replyPost = async (reply, post_id, e) => {
-    
-    e.stopPropagation()
+  const replyPost = async (reply) => {
 
     const poster = auth.user.pk
     

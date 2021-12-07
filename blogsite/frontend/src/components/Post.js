@@ -12,7 +12,7 @@ import { bindActionCreators } from 'redux'
 import { actionCreators } from '../state/index'
 import ReplyForm from './ReplyForm';
 
-const Post = ({post, likePost, deletePost, editPost, replyPost, handleOpenDetail }) => {
+const Post = ({post, likePost, deletePost, editPost, replyPost, postDetail }) => {
   
   // to handle the opening and closing of the Reply modal
   const [openReply, setOpenReply] = useState(false)
@@ -43,7 +43,7 @@ const Post = ({post, likePost, deletePost, editPost, replyPost, handleOpenDetail
   const timestamp = `at ${tstamp.getHours()}:${minutes}, on ${tstamp.getDate()}/${tstamp.getMonth()}/${tstamp.getFullYear()}`
 
   return (
-      <div className='post glass' onClick={handleOpenDetail}>
+      <div className='post glass' onClick={() => postDetail(post.id)}>
       { openReply && <ReplyForm post_id={post.id} username={post.poster.username} avatar={post.poster.profile.image} timestamp={timestamp} post_content={post.content} handleClose={handleClose} openReply={openReply} replyPost={replyPost}  />}
       <div className="row post-header">
         <div className="col-2" style={{paddingTop: "5px"}}>

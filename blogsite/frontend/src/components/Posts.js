@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { actionCreators } from '../state/index'
 import Post from './Post'
+import PostPage from './PostPage'
 
 const Posts = ({ posts, likePost, deletePost, editPost, replyPost }) => {
   
@@ -26,7 +27,7 @@ const Posts = ({ posts, likePost, deletePost, editPost, replyPost }) => {
   return (
     <>
       { openDetail ?
-        <div onClick={handleCloseDetail}>This is the individual post view for post {openPost}</div>
+        <PostPage closePage={handleCloseDetail} openPost={openPost} />
         :
         posts.map((post) => (
           <div>

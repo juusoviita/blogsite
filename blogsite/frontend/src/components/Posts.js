@@ -27,7 +27,7 @@ const Posts = ({ posts, likePost, deletePost, editPost, replyPost }) => {
   return (
     <>
       { openDetail ?
-        <PostPage closePage={handleCloseDetail} openPost={openPost} />
+        <PostPage closePage={handleCloseDetail} openPost={openPost} likePost={likePost} deletePost={deletePost} editPost={editPost} replyPost={replyPost} postDetail={postDetail} />
         :
         posts.map((post) => (
           <div>

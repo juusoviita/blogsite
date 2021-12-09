@@ -231,3 +231,12 @@ textarea {
 button {
   margin-right: 5px;
 }
+
+.arrow-back {
+  color: whitesmoke;
+}
+
+.arrow-back:hover {
+  cursor: pointer;
+  color: coral;
+}

@@ -42,7 +42,7 @@ const Post = ({post, likePost, deletePost, editPost, replyPost, postDetail }) =>
 
   const timestamp = `at ${tstamp.getHours()}:${minutes}, on ${tstamp.getDate()}/${tstamp.getMonth()}/${tstamp.getFullYear()}`
 
-  return (
+    return (
       <div className='post glass' onClick={() => postDetail(post.id)}>
       { openReply && <ReplyForm post_id={post.id} username={post.poster.username} avatar={post.poster.profile.image} timestamp={timestamp} post_content={post.content} handleClose={handleClose} openReply={openReply} replyPost={replyPost}  />}
       <div className="row post-header">

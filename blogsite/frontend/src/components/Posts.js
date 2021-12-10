@@ -19,10 +19,37 @@ const Posts = ({ posts, likePost, deletePost, editPost, replyPost }) => {
   const { loginUser, logoutUser, updateTokens } = bindActionCreators(actionCreators, dispatch)
 
   const postDetail = async (post_id) => {
-    setOpenPost(post_id)
-    handleOpenDetail()
+    
+    var url = `http://localhost:8000/api/post-detail/${post_id}`
+    const fetchPost = async () => {
+      const res = await fetch(url, {
+        method: 'GET',
+        headers: {
+          'Content-type':'application/json',
+          'Authorization': 'Bearer ' + localStorage.getItem('access_token')
+        }
+      })
+      const data = await res.json()
+      
+      if (res.status === 200) {
+        data.likes_count = data.likes.length
+        data.replies_count = data.replies.length
+        data.user_liked = false
+        if (data.likes.length > 0) {
+          for (let i = 0; i < data.likes.length; i++) {
+            if (data.likes[i].liker === auth.user.pk) {
+              data.user_liked = true
+              break
+            }
+          }
+        }
+        setOpenPost(data)
+        // setOpenPost(post_id)
+      }
     }
-
+    await fetchPost()
+    handleOpenDetail()
+  }
 
   return (
     <>

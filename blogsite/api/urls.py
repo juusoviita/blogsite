@@ -6,6 +6,7 @@ urlpatterns = [
     path('', views.apiOverview, name='api-overview'),
     path('post-list/', views.postList, name='post-list'),
     path('post-detail/<str:pk>', views.postDetail, name='post-detail'),
+    path('get-replies/<str:pk>', views.getReplies, name='get-replies'),
     path('user-posts/<str:poster_id>', views.userPosts, name='user-posts'),
     path('followed-posts/', views.followedPosts, name='followed-posts'),
     path('liked-posts/', views.likedPosts, name='liked-posts'),

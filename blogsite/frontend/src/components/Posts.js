@@ -10,6 +10,7 @@ const Posts = ({ posts, likePost, deletePost, editPost, replyPost }) => {
   // to handle the opening and closing of the PostDetail component
   const [openDetail, setOpenDetail] = useState(false)
   const [openPost, setOpenPost] = useState()
+  const [replies, setReplies] = useState([])
   const handleOpenDetail = () => setOpenDetail(true)
   const handleCloseDetail = () => setOpenDetail(false)
 
@@ -48,13 +49,45 @@ const Posts = ({ posts, likePost, deletePost, editPost, replyPost }) => {
       }
     }
     await fetchPost()
+
+    
+    const fetchReplies = async () => {
+      const response = await fetch(`http://127.0.0.1:8000/api/get-replies/${post_id}`, {
+        method: 'GET',
+        headers: {
+          'Content-type': 'application/json',
+          'Authorization': 'Bearer ' + localStorage.getItem('access_token')
+        }
+      })
+      const repl = await response.json()
+      if(response.status === 200) {
+
+        // check whether the logged in user has liked the post or not
+        repl.forEach(post => {
+          post.user_liked = false
+          post.likes_count = post.likes.length
+          post.replies_count = post.replies.length
+          if (post.likes.length > 0) {
+            for (let i = 0; i < post.likes.length; i++) {
+              if (post.likes[i].liker === auth.user.pk) {
+                post.user_liked = true
+                break
+              }
+            }
+          }
+        })
+        setReplies(repl)
+      }
+    }
+    await fetchReplies()
+    
     handleOpenDetail()
   }
 
   return (
     <>
       { openDetail ?
-        <PostPage closePage={handleCloseDetail} openPost={openPost} likePost={likePost} deletePost={deletePost} editPost={editPost} replyPost={replyPost} postDetail={postDetail} />
+        <PostPage closePage={handleCloseDetail} openPost={openPost} likePost={likePost} deletePost={deletePost} editPost={editPost} replyPost={replyPost} postDetail={postDetail} replies={replies} />
         :
         posts.map((post) => (
           <div>

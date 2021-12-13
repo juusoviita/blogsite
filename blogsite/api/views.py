@@ -21,6 +21,7 @@ def apiOverview(request):
     api_urls = {
         'All posts': '/post-list/',
         'Individual post': '/post-detail/<str:pk>',
+        'Get responses to a post': '/get-responses/<str:pk>',
         'All users': '/user-list/',
         'Individual user': '/user-detail/<str:pk>',
         'User\'s posts': '/user-posts/<str:poster_id>',
@@ -58,7 +59,17 @@ def postDetail(request, pk):
     return Response(serializer.data)
 
 
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def getReplies(request, pk):
+    replies = Post.objects.filter(replies_to=pk).order_by('-timestamp')
+    serializer = PostGetSerializer(replies, many=True)
+    print(serializer.data)
+    return Response(serializer.data)
+
 # post, well, a post
+
+
 @api_view(['POST'])
 @permission_classes([IsAuthenticated])
 def createPost(request):

@@ -40,10 +40,10 @@ const Post = ({post, likePost, deletePost, editPost, replyPost, postDetail }) =>
     minutes = tstamp.getMinutes()
   }
 
-  const timestamp = `at ${tstamp.getHours()}:${minutes}, on ${tstamp.getDate()}/${tstamp.getMonth()}/${tstamp.getFullYear()}`
+  const timestamp = `at ${tstamp.getHours()}:${minutes}, on ${tstamp.getDate()}/${tstamp.getMonth() + 1}/${tstamp.getFullYear()}`
 
     return (
-      <div className='post glass' onClick={() => postDetail(post.id)}>
+      <div key={post.id} className='post glass' onClick={() => postDetail(post.id)}>
       { openReply && <ReplyForm post_id={post.id} username={post.poster.username} avatar={post.poster.profile.image} timestamp={timestamp} post_content={post.content} handleClose={handleClose} openReply={openReply} replyPost={replyPost}  />}
       <div className="row post-header">
         <div className="col-2" style={{paddingTop: "5px"}}>

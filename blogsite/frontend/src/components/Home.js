@@ -156,8 +156,6 @@ const Home = () => {
   const replyPost = async (reply) => {
 
     const poster = auth.user.pk
-    
-    console.log(reply)
 
     const newReply = {
       poster: poster,

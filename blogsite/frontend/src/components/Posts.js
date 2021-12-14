@@ -80,14 +80,14 @@ const Posts = ({ posts, likePost, deletePost, editPost, replyPost }) => {
       }
     }
     await fetchReplies()
-    
+
     handleOpenDetail()
   }
 
   return (
     <>
       { openDetail ?
-        <PostPage closePage={handleCloseDetail} openPost={openPost} likePost={likePost} deletePost={deletePost} editPost={editPost} replyPost={replyPost} postDetail={postDetail} replies={replies} />
+        <PostPage closePage={handleCloseDetail} openPost={openPost} likePost={likePost} deletePost={deletePost} editPost={editPost} replyPost={replyPost} postDetail={postDetail} replies={replies} setReplies={setReplies} />
         :
         posts.map((post) => (
           <div>

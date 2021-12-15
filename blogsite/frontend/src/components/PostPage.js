@@ -9,8 +9,10 @@ import { Divider } from '@mui/material';
 
 const PostPage = ({ closePage, openPost, likePost, deletePost, editPost, replyPost, postDetail, replies }) => {
 
-  const [reply, setReply] = useState('')
+  const [post, setPost] = useState([])
   const [pageReplies, setPageReplies] = useState([])
+  const [reply, setReply] = useState('')
+  
 
   const auth = useSelector((state) => state.auth)
   const dispatch = useDispatch()
@@ -18,6 +20,12 @@ const PostPage = ({ closePage, openPost, likePost, deletePost, editPost, replyPo
   const { loginUser, logoutUser, updateTokens } = bindActionCreators(actionCreators, dispatch)
 
   const post_id = openPost.id
+
+  useEffect(() => {
+    console.log(`Opening the individual page for post ${openPost.id}`)
+    setPost(openPost)
+    setPageReplies(replies)
+  }, [])
 
   const onClick = () => {
     closePage()
@@ -31,7 +39,7 @@ const PostPage = ({ closePage, openPost, likePost, deletePost, editPost, replyPo
   }
 
   // Add a reply to a post
-  const onButtonClick = (e) => {
+  const onButtonClick = async (e) => {
 
     e.preventDefault()
     e.stopPropagation()
@@ -41,8 +49,22 @@ const PostPage = ({ closePage, openPost, likePost, deletePost, editPost, replyPo
       return
     }
 
-    replyPost({ reply, post_id })
+    const postReply = await replyPost({ reply, post_id })
+    postReply.likes_count = postReply.likes.length
+        postReply.replies_count = postReply.replies.length
+        postReply.user_liked = false
+        if (postReply.likes.length > 0) {
+          for (let i = 0; i < postReply.likes.length; i++) {
+            if (postReply.likes[i].liker === auth.user.pk) {
+              postReply.user_liked = true
+              break
+            }
+          }
+        }
+
     setReply('')
+    console.log(postReply)
+    setPageReplies([postReply, ...replies])
   }
 
 
@@ -63,8 +85,8 @@ const PostPage = ({ closePage, openPost, likePost, deletePost, editPost, replyPo
       </div>
       <Divider />
       <div></div>
-      { replies.length > 0 &&
-        replies.map((reply) => (
+      { pageReplies.length > 0 &&
+        pageReplies.map((reply) => (
           <div>
               <Post key={reply.id} post={reply} likePost={likePost} deletePost={deletePost} editPost={editPost} replyPost={replyPost} postDetail={postDetail} />
           </div>

@@ -20,7 +20,7 @@ const Posts = ({ posts, likePost, deletePost, editPost, replyPost }) => {
   const { loginUser, logoutUser, updateTokens } = bindActionCreators(actionCreators, dispatch)
 
   const postDetail = async (post_id) => {
-    
+
     var url = `http://localhost:8000/api/post-detail/${post_id}`
     const fetchPost = async () => {
       const res = await fetch(url, {
@@ -45,7 +45,6 @@ const Posts = ({ posts, likePost, deletePost, editPost, replyPost }) => {
           }
         }
         setOpenPost(data)
-        // setOpenPost(post_id)
       }
     }
     await fetchPost()

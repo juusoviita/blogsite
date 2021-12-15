@@ -176,10 +176,13 @@ const Home = () => {
       body:JSON.stringify(newReply) 
     })
 
+    const data = await res.json()
+
     const postReplied = await fetchPost(reply.post_id)
 
     if(res.status === 200) {
       setPosts(posts.map((post) => post.id === reply.post_id ? {...post, replies_count: postReplied.replies_count} : post))
+      return data
     } else {
       logoutUser()
     }

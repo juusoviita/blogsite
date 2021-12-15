@@ -7,7 +7,7 @@ import { actionCreators } from '../state/index'
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { Divider } from '@mui/material';
 
-const PostPage = ({ closePage, openPost, likePost, deletePost, editPost, replyPost, postDetail, replies, setReplies }) => {
+const PostPage = ({ closePage, openPost, likePost, deletePost, editPost, replyPost, postDetail, replies }) => {
 
   const [reply, setReply] = useState('')
   const [pageReplies, setPageReplies] = useState([])

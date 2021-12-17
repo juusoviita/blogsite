@@ -147,8 +147,12 @@ const Home = () => {
 
     const postLiked = await fetchPost(id)
 
-    setPosts(posts.map((post) => post.id === id ? {...post, user_liked: !user_liked, likes_count: postLiked.likes_count} : post))
-
+    console.log(postLiked)
+    if (postLiked.replies_to === null) {
+      setPosts(posts.map((post) => post.id === id ? {...post, user_liked: !user_liked, likes_count: postLiked.likes_count} : post))
+    } else {
+      return postLiked 
+    }
   }
 
 

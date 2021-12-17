@@ -7,27 +7,26 @@ import { actionCreators } from '../state/index'
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { Divider } from '@mui/material';
 
-const PostPage = ({ closePage, openPost, likePost, deletePost, editPost, replyPost, postDetail, replies }) => {
+const PostPage = ({ closePage, openPost, likePost, deletePost, editPost, replyPost, postDetail }) => {
 
   const [post, setPost] = useState([])
-  const [pageReplies, setPageReplies] = useState([])
   const [reply, setReply] = useState('')
   
-
   const auth = useSelector((state) => state.auth)
+  const replies = useSelector((state) => state.replies)
   const dispatch = useDispatch()
 
-  const { loginUser, logoutUser, updateTokens } = bindActionCreators(actionCreators, dispatch)
+  const { addAllReplies, postNewReply, clearAllReplies } = bindActionCreators(actionCreators, dispatch)
 
   const post_id = openPost.id
 
   useEffect(() => {
     console.log(`Opening the individual page for post ${openPost.id}`)
     setPost(openPost)
-    setPageReplies(replies)
   }, [])
 
   const onClick = () => {
+    clearAllReplies()
     closePage()
   }
 
@@ -63,8 +62,8 @@ const PostPage = ({ closePage, openPost, likePost, deletePost, editPost, replyPo
         }
 
     setReply('')
-    console.log(postReply)
-    setPageReplies([postReply, ...replies])
+    postNewReply(postReply)
+    console.log(replies)
   }
 
 
@@ -85,8 +84,8 @@ const PostPage = ({ closePage, openPost, likePost, deletePost, editPost, replyPo
       </div>
       <Divider />
       <div></div>
-      { pageReplies.length > 0 &&
-        pageReplies.map((reply) => (
+      { replies.length > 0 &&
+        replies.map((reply) => (
           <div>
               <Post key={reply.id} post={reply} likePost={likePost} deletePost={deletePost} editPost={editPost} replyPost={replyPost} postDetail={postDetail} />
           </div>

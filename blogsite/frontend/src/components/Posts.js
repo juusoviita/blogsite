@@ -10,14 +10,15 @@ const Posts = ({ posts, likePost, deletePost, editPost, replyPost }) => {
   // to handle the opening and closing of the PostDetail component
   const [openDetail, setOpenDetail] = useState(false)
   const [openPost, setOpenPost] = useState()
-  const [replies, setReplies] = useState([])
+  
   const handleOpenDetail = () => setOpenDetail(true)
   const handleCloseDetail = () => setOpenDetail(false)
 
   const auth = useSelector((state) => state.auth)
+  const replies = useSelector((state) => state.replies)
   const dispatch = useDispatch()
 
-  const { loginUser, logoutUser, updateTokens } = bindActionCreators(actionCreators, dispatch)
+  const { addAllReplies } = bindActionCreators(actionCreators, dispatch)
 
   const postDetail = async (post_id) => {
 
@@ -75,7 +76,7 @@ const Posts = ({ posts, likePost, deletePost, editPost, replyPost }) => {
             }
           }
         })
-        setReplies(repl)
+        addAllReplies(repl)
       }
     }
     await fetchReplies()
@@ -86,7 +87,7 @@ const Posts = ({ posts, likePost, deletePost, editPost, replyPost }) => {
   return (
     <>
       { openDetail ?
-        <PostPage closePage={handleCloseDetail} openPost={openPost} likePost={likePost} deletePost={deletePost} editPost={editPost} replyPost={replyPost} postDetail={postDetail} replies={replies} />
+        <PostPage closePage={handleCloseDetail} openPost={openPost} likePost={likePost} deletePost={deletePost} editPost={editPost} replyPost={replyPost} postDetail={postDetail} />
         :
         posts.map((post) => (
           <div>

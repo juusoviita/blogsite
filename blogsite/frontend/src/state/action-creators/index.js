@@ -1,3 +1,4 @@
+// auth-related actionCreators
 export const loginUser = (user) => {
   return (dispatch) => {
     dispatch({
@@ -29,6 +30,34 @@ export const updateLoading = (loading) => {
     dispatch({
       type: 'update-loading',
       payload: loading
+    })
+  }
+}
+
+
+// replies-related actionCreators
+export const addAllReplies = (replies) => {
+  return (dispatch) => {
+    dispatch({
+      type: 'add-all-replies',
+      payload: replies
+    })
+  }
+}
+
+export const postNewReply = (reply) => {
+  return (dispatch) => {
+    dispatch({
+      type: 'post-new-reply',
+      payload: reply
+    })
+  }
+}
+
+export const clearAllReplies = () => {
+  return (dispatch) => {
+    dispatch({
+      type: 'clear-replies'
     })
   }
 }

@@ -32,7 +32,7 @@ const LogIn = () => {
     })
 
     const data = await res.json()
-    console.log(data)
+    
     // add access and refresh tokens to browser's local storage
     localStorage.setItem('access_token', data.access_token)
     localStorage.setItem('refresh_token', data.refresh_token)

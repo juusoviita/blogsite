@@ -15,7 +15,7 @@ function App() {
   const auth = useSelector((state) => state.auth)
   const dispatch = useDispatch()
 
-  const { loginUser, logoutUser, updateTokens, updateLoading } = bindActionCreators(actionCreators, dispatch)
+  const { logoutUser, updateTokens } = bindActionCreators(actionCreators, dispatch)
 
   // Update user's access token
   const updateToken = async () => {

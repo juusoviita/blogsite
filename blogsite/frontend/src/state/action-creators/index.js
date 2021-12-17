@@ -45,6 +45,14 @@ export const addAllReplies = (replies) => {
   }
 }
 
+export const clearAllReplies = () => {
+  return (dispatch) => {
+    dispatch({
+      type: 'clear-replies'
+    })
+  }
+}
+
 export const postNewReply = (reply) => {
   return (dispatch) => {
     dispatch({
@@ -54,10 +62,20 @@ export const postNewReply = (reply) => {
   }
 }
 
-export const clearAllReplies = () => {
+export const deleteReply = (reply) => {
   return (dispatch) => {
     dispatch({
-      type: 'clear-replies'
+      type: 'delete-reply',
+      payload: reply
+    })
+  }
+}
+
+export const likeReply = (reply) => {
+  return (dispatch) => {
+    dispatch({
+      type: 'like-reply',
+      payload: reply
     })
   }
 }

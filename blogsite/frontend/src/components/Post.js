@@ -16,7 +16,7 @@ const Post = ({post, likePost, deletePost, editPost, replyPost, postDetail }) =>
   
   // to handle the opening and closing of the Reply modal
   const [openReply, setOpenReply] = useState(false)
-  const [postComp, setPostComp] = useState()
+  
   const handleOpen = (e) => {
     e.stopPropagation()
     setOpenReply(true)
@@ -27,19 +27,19 @@ const Post = ({post, likePost, deletePost, editPost, replyPost, postDetail }) =>
   }
 
   const auth = useSelector((state) => state.auth)
+  const replies = useSelector((state) => state.replies)
   const dispatch = useDispatch()
 
-  const { loginUser, logoutUser, updateTokens } = bindActionCreators(actionCreators, dispatch)
+  const { likeReply } = bindActionCreators(actionCreators, dispatch)
 
   // allow for liking both on the all posts and replies levels
   const onLike = async (post, e) => {
     if (post.replies_to === null) {
-      console.log('liking post!')
       likePost(post.id, post.user_liked, e)
     } else {
+      console.log('liking a reply!')
       const postLiked = await likePost(post.id, post.user_liked, e)
-      console.log(postLiked)
-      
+      likeReply(postLiked)
     }
 
   }

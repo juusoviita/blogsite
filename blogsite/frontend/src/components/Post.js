@@ -17,6 +17,7 @@ const Post = ({post, likePost, deletePost, editPost, replyPost, postDetail }) =>
   // to handle the opening and closing of the Reply modal
   const [openReply, setOpenReply] = useState(false)
   
+  
   const handleOpen = (e) => {
     e.stopPropagation()
     setOpenReply(true)
@@ -32,6 +33,14 @@ const Post = ({post, likePost, deletePost, editPost, replyPost, postDetail }) =>
 
   const { likeReply } = bindActionCreators(actionCreators, dispatch)
 
+  let isPost = true
+
+  if (replies) {
+    console.log('replies exist')
+  } else {
+    console.log('they dont!')
+  }
+
   // allow for liking both on the all posts and replies levels
   const onLike = async (post, e) => {
     if (post.replies_to === null) {
@@ -41,7 +50,6 @@ const Post = ({post, likePost, deletePost, editPost, replyPost, postDetail }) =>
       const postLiked = await likePost(post.id, post.user_liked, e)
       likeReply(postLiked)
     }
-
   }
 
   // format the timestamp for the post
@@ -85,7 +93,7 @@ const Post = ({post, likePost, deletePost, editPost, replyPost, postDetail }) =>
         </div>
         <div className="col-2">
           <ChatBubbleOutlineIcon className='post-icons comment' onClick={handleOpen} />
-          {post.replies_count}
+          { post.replies_count }
         </div>
         { auth.user.pk === post.poster.id &&
           <div className="col" style={{textAlign: "right"}}>

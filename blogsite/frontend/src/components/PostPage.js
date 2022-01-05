@@ -63,14 +63,13 @@ const PostPage = ({ closePage, openPost, likePost, deletePost, editPost, replyPo
 
     setReply('')
     postNewReply(postReply)
-    console.log(replies)
   }
 
 
   return (
     <>
       <ArrowBackIcon onClick={onClick} className="arrow-back" />
-      <Post key={openPost.id} post={openPost} likePost={likePost} deletePost={deletePost} editPost={editPost} replyPost={replyPost} postDetail={postDetail} />
+      <Post key={openPost.id} post={openPost} likePost={likePost} deletePost={deletePost} editPost={editPost} replyPost={replyPost} postDetail={postDetail} repliesCount={replies.length} />
       <Divider />
       <div className="add-form glass">
         <form>

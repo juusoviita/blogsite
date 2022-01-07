@@ -64,12 +64,10 @@ def postDetail(request, pk):
 def getReplies(request, pk):
     replies = Post.objects.filter(replies_to=pk).order_by('-timestamp')
     serializer = PostGetSerializer(replies, many=True)
-    print(serializer.data)
     return Response(serializer.data)
 
+
 # post, well, a post
-
-
 @api_view(['POST'])
 @permission_classes([IsAuthenticated])
 def createPost(request):

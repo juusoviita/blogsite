@@ -33,8 +33,6 @@ const Post = ({post, likePost, deletePost, editPost, replyPost, postDetail }) =>
 
   const { likeReply } = bindActionCreators(actionCreators, dispatch)
 
-  let isPost = true
-
   if (replies) {
     console.log('replies exist')
   } else {

@@ -210,6 +210,7 @@ const Home = () => {
     setPosts(posts.filter((post) => post.id !== id))
   }
 
+  
   // Edit Post
   const editPost = (id, e) => {
     e.stopPropagation()

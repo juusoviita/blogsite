@@ -15,10 +15,13 @@ const Home = () => {
   const [currentDate, setCurrentDate] = useState()
   
   const auth = useSelector((state) => state.auth)
+  const replies = useSelector((state) => state.replies)
+  const onpage = useSelector((state) => state.onpage)
+  const indpost = useSelector((state) => state.indpost)
   const dispatch = useDispatch()
 
-  const { loginUser, logoutUser, updateTokens } = bindActionCreators(actionCreators, dispatch)
-  
+  const { loginUser, logoutUser, updateTokens, onPostPage } = bindActionCreators(actionCreators, dispatch)
+
   // Fetch all posts
   useEffect(() => {
     if (localStorage.getItem('isAuthenticated', true)) {
@@ -53,6 +56,7 @@ const Home = () => {
         }
       }
       fetchPosts()
+      onPostPage(false)
     } else {
       
       const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
@@ -147,8 +151,10 @@ const Home = () => {
 
     const postLiked = await fetchPost(id)
 
-    if (postLiked.replies_to === null) {
+    if (postLiked.replies_to === null && onpage === false) {
       setPosts(posts.map((post) => post.id === id ? {...post, user_liked: !user_liked, likes_count: postLiked.likes_count} : post))
+    } else if (postLiked.replies_to === null && onpage === true) {
+
     } else {
       postLiked.user_liked = !user_liked
       return postLiked 

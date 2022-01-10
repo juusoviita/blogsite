@@ -1,4 +1,4 @@
-const replyReducer = (state = [], action) => {
+const replyReducer = (state = null, action) => {
   switch (action.type) {
     case "add-all-replies":
       state = action.payload

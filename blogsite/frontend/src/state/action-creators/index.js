@@ -34,6 +34,43 @@ export const updateLoading = (loading) => {
   }
 }
 
+// on individual post page or not
+export const onPostPage = (data) => {
+  return (dispatch) => {
+    dispatch({
+      type: 'on-page',
+      payload: data
+    })
+  }
+}
+
+// post on individual page
+export const addPost = (post) => {
+  return (dispatch) => {
+    dispatch({
+      type: 'add-post',
+      payload: post
+    })
+  }
+}
+
+export const clearPost = () => {
+  return (dispatch) => {
+    dispatch({
+      type: 'clear-post',
+    })
+  }
+}
+
+export const editPost = (edit) => {
+  return (dispatch) => {
+    dispatch({
+      type: 'edit-post',
+      payload: edit
+    })
+  }
+}
+
 
 // replies-related actionCreators
 export const addAllReplies = (replies) => {

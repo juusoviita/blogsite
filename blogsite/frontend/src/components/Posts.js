@@ -8,17 +8,17 @@ import PostPage from './PostPage'
 const Posts = ({ posts, likePost, deletePost, editPost, replyPost }) => {
   
   // to handle the opening and closing of the PostDetail component
-  const [openDetail, setOpenDetail] = useState(false)
   const [openPost, setOpenPost] = useState()
   
-  const handleOpenDetail = () => setOpenDetail(true)
-  const handleCloseDetail = () => setOpenDetail(false)
+  const handleOpenDetail = () => onPostPage(true)
+  const handleCloseDetail = () => onPostPage(false)
 
   const auth = useSelector((state) => state.auth)
   const replies = useSelector((state) => state.replies)
+  const onpage = useSelector((state) => state.onpage)
   const dispatch = useDispatch()
 
-  const { addAllReplies } = bindActionCreators(actionCreators, dispatch)
+  const { addAllReplies, onPostPage } = bindActionCreators(actionCreators, dispatch)
 
   const postDetail = async (post_id) => {
 
@@ -60,6 +60,7 @@ const Posts = ({ posts, likePost, deletePost, editPost, replyPost }) => {
         }
       })
       const repl = await response.json()
+      
       if(response.status === 200) {
 
         // check whether the logged in user has liked the post or not
@@ -86,7 +87,7 @@ const Posts = ({ posts, likePost, deletePost, editPost, replyPost }) => {
 
   return (
     <>
-      { openDetail ?
+      { onpage ?
         <PostPage closePage={handleCloseDetail} openPost={openPost} likePost={likePost} deletePost={deletePost} editPost={editPost} replyPost={replyPost} postDetail={postDetail} />
         :
         posts.map((post) => (

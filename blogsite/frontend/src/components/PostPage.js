@@ -13,20 +13,24 @@ const PostPage = ({ closePage, openPost, likePost, deletePost, editPost, replyPo
   const [reply, setReply] = useState('')
   
   const auth = useSelector((state) => state.auth)
+  const onpage = useSelector((state) => state.onpage)
   const replies = useSelector((state) => state.replies)
+
   const dispatch = useDispatch()
 
-  const { addAllReplies, postNewReply, clearAllReplies } = bindActionCreators(actionCreators, dispatch)
+  const { addAllReplies, postNewReply, clearAllReplies, onPostPage } = bindActionCreators(actionCreators, dispatch)
 
   const post_id = openPost.id
 
   useEffect(() => {
     console.log(`Opening the individual page for post ${openPost.id}`)
+    onPostPage(true)
     setPost(openPost)
   }, [])
 
   const onClick = () => {
     clearAllReplies()
+    onPostPage(false)
     closePage()
   }
 

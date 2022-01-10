@@ -33,18 +33,11 @@ const Post = ({post, likePost, deletePost, editPost, replyPost, postDetail }) =>
 
   const { likeReply } = bindActionCreators(actionCreators, dispatch)
 
-  if (replies) {
-    console.log('replies exist')
-  } else {
-    console.log('they dont!')
-  }
-
   // allow for liking both on the all posts and replies levels
   const onLike = async (post, e) => {
     if (post.replies_to === null) {
       likePost(post.id, post.user_liked, e)
     } else {
-      console.log('liking a reply!')
       const postLiked = await likePost(post.id, post.user_liked, e)
       likeReply(postLiked)
     }

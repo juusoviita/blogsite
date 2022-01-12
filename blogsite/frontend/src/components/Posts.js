@@ -1,4 +1,4 @@
-import { useState } from 'react'
+// import { useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { actionCreators } from '../state/index'
@@ -7,18 +7,16 @@ import PostPage from './PostPage'
 
 const Posts = ({ posts, likePost, deletePost, editPost, replyPost }) => {
   
-  // to handle the opening and closing of the PostDetail component
-  const [openPost, setOpenPost] = useState()
-  
   const handleOpenDetail = () => onPostPage(true)
   const handleCloseDetail = () => onPostPage(false)
 
   const auth = useSelector((state) => state.auth)
   const replies = useSelector((state) => state.replies)
   const onpage = useSelector((state) => state.onpage)
+  const indpost = useSelector((state) => state.indpost)
   const dispatch = useDispatch()
 
-  const { addAllReplies, onPostPage } = bindActionCreators(actionCreators, dispatch)
+  const { addAllReplies, onPostPage, addPost } = bindActionCreators(actionCreators, dispatch)
 
   const postDetail = async (post_id) => {
 
@@ -45,7 +43,7 @@ const Posts = ({ posts, likePost, deletePost, editPost, replyPost }) => {
             }
           }
         }
-        setOpenPost(data)
+        addPost(data)
       }
     }
     await fetchPost()
@@ -88,7 +86,7 @@ const Posts = ({ posts, likePost, deletePost, editPost, replyPost }) => {
   return (
     <>
       { onpage ?
-        <PostPage closePage={handleCloseDetail} openPost={openPost} likePost={likePost} deletePost={deletePost} editPost={editPost} replyPost={replyPost} postDetail={postDetail} />
+        <PostPage closePage={handleCloseDetail} likePost={likePost} deletePost={deletePost} editPost={editPost} replyPost={replyPost} postDetail={postDetail} />
         :
         posts.map((post) => (
           <div>

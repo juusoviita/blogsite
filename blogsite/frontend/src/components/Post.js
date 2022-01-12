@@ -14,9 +14,15 @@ import ReplyForm from './ReplyForm';
 
 const Post = ({post, likePost, deletePost, editPost, replyPost, postDetail }) => {
   
+  const onpage = useSelector((state) => state.onpage)
+  const indpost = useSelector((state) => state.indpost)
+  
   // to handle the opening and closing of the Reply modal
   const [openReply, setOpenReply] = useState(false)
   
+  if (onpage) {
+    let post = indpost
+  }
   
   const handleOpen = (e) => {
     e.stopPropagation()

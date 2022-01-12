@@ -7,29 +7,28 @@ import { actionCreators } from '../state/index'
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { Divider } from '@mui/material';
 
-const PostPage = ({ closePage, openPost, likePost, deletePost, editPost, replyPost, postDetail }) => {
+const PostPage = ({ closePage, likePost, deletePost, editPost, replyPost, postDetail }) => {
 
-  const [post, setPost] = useState([])
   const [reply, setReply] = useState('')
   
   const auth = useSelector((state) => state.auth)
   const onpage = useSelector((state) => state.onpage)
+  const indpost = useSelector((state) => state.indpost)
   const replies = useSelector((state) => state.replies)
 
   const dispatch = useDispatch()
 
-  const { addAllReplies, postNewReply, clearAllReplies, onPostPage } = bindActionCreators(actionCreators, dispatch)
-
-  const post_id = openPost.id
+  const { addAllReplies, postNewReply, clearAllReplies, onPostPage, addPost, clearPost } = bindActionCreators(actionCreators, dispatch)
+  
+  const post_id = indpost.id
 
   useEffect(() => {
-    console.log(`Opening the individual page for post ${openPost.id}`)
     onPostPage(true)
-    setPost(openPost)
   }, [])
 
   const onClick = () => {
     clearAllReplies()
+    clearPost()
     onPostPage(false)
     closePage()
   }
@@ -73,7 +72,7 @@ const PostPage = ({ closePage, openPost, likePost, deletePost, editPost, replyPo
   return (
     <>
       <ArrowBackIcon onClick={onClick} className="arrow-back" />
-      <Post key={openPost.id} post={openPost} likePost={likePost} deletePost={deletePost} editPost={editPost} replyPost={replyPost} postDetail={postDetail} repliesCount={replies.length} />
+      <Post key={indpost.id} likePost={likePost} deletePost={deletePost} editPost={editPost} replyPost={replyPost} postDetail={postDetail} repliesCount={replies.length} />
       <Divider />
       <div className="add-form glass">
         <form>

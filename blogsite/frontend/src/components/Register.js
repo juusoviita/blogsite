@@ -68,19 +68,19 @@ const Register = () => {
       <form>
         <div className="form-element">
           <label for="username">Username:</label><br/>
-          <input type="text" id="username" name="username" value={username} autoComplete="off" onChange={(e) => setUsername(e.target.value)} />
+          <input className="login" type="text" id="username" name="username" value={username} autoComplete="off" onChange={(e) => setUsername(e.target.value)} />
         </div>
         <div className="form-element">
           <label for="email">Email:</label><br/>
-          <input type="email" id="email" name="email" value={email} autoComplete="off" onChange={(e) => setEmail(e.target.value)} />
+          <input className="login" type="email" id="email" name="email" value={email} autoComplete="off" onChange={(e) => setEmail(e.target.value)} />
         </div>
         <div className="form-element">
           <label for="password">Password:</label><br/>
-          <input type="password" id="password" name="password" value={password} autoComplete="off" onChange={(e) => setPassword(e.target.value)} />
+          <input className="login" type="password" id="password" name="password" value={password} autoComplete="off" onChange={(e) => setPassword(e.target.value)} />
         </div>
         <div className="form-element">
           <label for="confirmation">Password again:</label><br/>
-          <input type="password" id="confirmation" name="confirmation" value={confirmation} autoComplete="off" onChange={(e) => setConfirmation(e.target.value)} />
+          <input className="login" type="password" id="confirmation" name="confirmation" value={confirmation} autoComplete="off" onChange={(e) => setConfirmation(e.target.value)} />
         </div>
         <div className="form-element">
           <Button text="Register" onClick={RegisterUser} />

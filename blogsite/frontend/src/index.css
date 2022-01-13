@@ -201,6 +201,10 @@ li {
   margin: 15px 0px 10px 0px;
 }
 
+.login {
+  padding-left: 10px;
+}
+
 label {
   color: whitesmoke;
 }

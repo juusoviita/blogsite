@@ -1,5 +1,5 @@
 // import { FavoriteIcon, FavoriteBorderIcon, ChatBubbleOutlineIcon, EditIcon, DeleteIcon  } from '@mui/icons-material';
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import ChatBubbleOutlineIcon from '@mui/icons-material/ChatBubbleOutline';
@@ -16,13 +16,14 @@ const Post = ({post, likePost, deletePost, editPost, replyPost, postDetail }) =>
   
   const onpage = useSelector((state) => state.onpage)
   const indpost = useSelector((state) => state.indpost)
+  const auth = useSelector((state) => state.auth)
+  const replies = useSelector((state) => state.replies)
+  const dispatch = useDispatch()
+
+  const { likeReply, addPost } = bindActionCreators(actionCreators, dispatch)
   
   // to handle the opening and closing of the Reply modal
   const [openReply, setOpenReply] = useState(false)
-  
-  if (onpage) {
-    let post = indpost
-  }
   
   const handleOpen = (e) => {
     e.stopPropagation()
@@ -32,12 +33,6 @@ const Post = ({post, likePost, deletePost, editPost, replyPost, postDetail }) =>
     e.stopPropagation()
     setOpenReply(false)
   }
-
-  const auth = useSelector((state) => state.auth)
-  const replies = useSelector((state) => state.replies)
-  const dispatch = useDispatch()
-
-  const { likeReply } = bindActionCreators(actionCreators, dispatch)
 
   // allow for liking both on the all posts and replies levels
   const onLike = async (post, e) => {

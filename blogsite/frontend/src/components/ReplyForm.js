@@ -14,9 +14,12 @@ const ReplyForm = ({ post_id, username, avatar, timestamp, post_content, handleC
   const [reply, setReply] = useState('')
 
   const auth = useSelector((state) => state.auth)
+  const replies = useSelector((state) => state.replies)
+  const onpage = useSelector((state) => state.onpage)
+  const indpost = useSelector((state) => state.indpost)
   const dispatch = useDispatch()
 
-  const { loginUser, logoutUser, updateTokens } = bindActionCreators(actionCreators, dispatch)
+  const { loginUser, logoutUser, updateTokens, postNewReply } = bindActionCreators(actionCreators, dispatch)
 
   // style variable
   const style = {
@@ -36,7 +39,7 @@ const ReplyForm = ({ post_id, username, avatar, timestamp, post_content, handleC
   }
 
   // Add a reply to a post
-  const onClick = (e) => {
+  const onClick = async (e) => {
 
     e.preventDefault()
     e.stopPropagation()
@@ -46,7 +49,14 @@ const ReplyForm = ({ post_id, username, avatar, timestamp, post_content, handleC
       return
     }
 
-    replyPost({ reply, post_id })
+    if (onpage === true && indpost.id === post_id) {
+      const replyToState = await replyPost({ reply, post_id })
+      replyToState.likes_count = replyToState.likes.length
+      replyToState.replies_count = replyToState.replies.length
+      postNewReply(replyToState)
+    } else {
+      replyPost({ reply, post_id })
+    }
     handleClose(e)
     setReply('')
   }

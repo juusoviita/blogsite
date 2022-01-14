@@ -99,10 +99,19 @@ export const postNewReply = (reply) => {
   }
 }
 
-export const deleteReply = (reply) => {
+export const deleteReply = (reply_id) => {
   return (dispatch) => {
     dispatch({
       type: 'delete-reply',
+      payload: reply_id
+    })
+  }
+}
+
+export const commentReply = (reply) => {
+  return (dispatch) => {
+    dispatch({
+      type: 'comment-reply',
       payload: reply
     })
   }

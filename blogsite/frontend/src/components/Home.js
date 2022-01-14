@@ -20,7 +20,7 @@ const Home = () => {
   const indpost = useSelector((state) => state.indpost)
   const dispatch = useDispatch()
 
-  const { loginUser, logoutUser, updateTokens, onPostPage, editIndPost, likeReply } = bindActionCreators(actionCreators, dispatch)
+  const { loginUser, logoutUser, updateTokens, clearPost, onPostPage, editIndPost, likeReply, commentReply, deleteReply } = bindActionCreators(actionCreators, dispatch)
 
   // Fetch all posts
   useEffect(() => {
@@ -151,9 +151,13 @@ const Home = () => {
     const postLiked = await fetchPost(id)
     postLiked.user_liked = !user_liked
 
-    if (onpage === false) {
+    // if post is included in the posts state, update the post
+    if (postLiked.replies_to === null) {
       setPosts(posts.map((post) => post.id === id ? {...post, user_liked: postLiked.user_liked, likes_count: postLiked.likes_count} : post))
-    } else if (onpage === true && indpost.id === postLiked.id) {
+    }
+
+    // if post in individual post page, update accordingly
+    if (onpage === true && indpost.id === postLiked.id) {
       editIndPost(postLiked)
     } else if (onpage === true && indpost.id !== postLiked.id) {
       likeReply(postLiked)
@@ -194,6 +198,12 @@ const Home = () => {
 
     if(res.status === 200) {
       setPosts(posts.map((post) => post.id === reply.post_id ? {...post, replies_count: postReplied.replies_count} : post))
+
+      if (onpage === true && indpost.id === postReplied.id) {
+        editIndPost(postReplied)
+      } else if (onpage === true && indpost.id !== postReplied.id) {
+        commentReply(postReplied)
+      }
       return data
     } else {
       logoutUser()
@@ -202,7 +212,7 @@ const Home = () => {
 
 
   // Delete Post
-  const deletePost = (id, e) => {
+  const deletePost = async (id, e) => {
     
     e.stopPropagation()
 
@@ -215,7 +225,19 @@ const Home = () => {
         'Authorization': 'Bearer ' + localStorage.getItem('access_token')
       },
     })
-    setPosts(posts.filter((post) => post.id !== id))
+
+    if (!onpage) {
+      setPosts(posts.filter((post) => post.id !== id))
+    } else if (onpage && id === indpost.id) {
+      onPostPage(false)
+      clearPost()
+      setPosts(posts.filter((post) => post.id !== id))
+    } else if (onpage && id !== indpost.id) {
+      deleteReply(id)
+      const postToState = await fetchPost(indpost.id)
+      editIndPost(postToState)
+      setPosts(posts.map((post) => post.id === postToState.id ? {...post, replies_count: postToState.replies_count} : post))
+    }
   }
 
   

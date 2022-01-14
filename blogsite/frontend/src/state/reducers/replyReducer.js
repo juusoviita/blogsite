@@ -10,11 +10,14 @@ const replyReducer = (state = null, action) => {
       const newState = [action.payload, ...state]
       return newState
     case "delete-reply":
-      return state.filter(reply => reply.id !== action.payload.id)
+      return state.filter(reply => reply.id !== action.payload)
     case "like-reply":
       const likeState = state.map(reply => reply.id === action.payload.id ? {...reply, likes_count: action.payload.likes_count, user_liked: action.payload.user_liked} : reply)
       return likeState
-    default:
+    case "comment-reply":
+      const commentState = state.map(reply => reply.id === action.payload.id ? {...reply, replies_count: action.payload.replies_count} : reply)
+      return commentState
+      default:
       return state
     }
 }

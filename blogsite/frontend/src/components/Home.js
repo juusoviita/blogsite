@@ -20,7 +20,7 @@ const Home = () => {
   const indpost = useSelector((state) => state.indpost)
   const dispatch = useDispatch()
 
-  const { loginUser, logoutUser, updateTokens, onPostPage } = bindActionCreators(actionCreators, dispatch)
+  const { loginUser, logoutUser, updateTokens, onPostPage, editIndPost, likeReply } = bindActionCreators(actionCreators, dispatch)
 
   // Fetch all posts
   useEffect(() => {
@@ -35,7 +35,6 @@ const Home = () => {
         })
         const data = await res.json()
         if(res.status === 200) {
-
           // check whether the logged in user has liked the post or not
           data.forEach(post => {
             post.user_liked = false
@@ -56,7 +55,7 @@ const Home = () => {
         }
       }
       fetchPosts()
-      onPostPage(false)
+
     } else {
       
       const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
@@ -150,11 +149,14 @@ const Home = () => {
     })
 
     const postLiked = await fetchPost(id)
+    postLiked.user_liked = !user_liked
 
-    if (postLiked.replies_to === null && onpage === false) {
-      setPosts(posts.map((post) => post.id === id ? {...post, user_liked: !user_liked, likes_count: postLiked.likes_count} : post))
-    } else if (postLiked.replies_to === null && onpage === true) {
-
+    if (onpage === false) {
+      setPosts(posts.map((post) => post.id === id ? {...post, user_liked: postLiked.user_liked, likes_count: postLiked.likes_count} : post))
+    } else if (onpage === true && indpost.id === postLiked.id) {
+      editIndPost(postLiked)
+    } else if (onpage === true && indpost.id !== postLiked.id) {
+      likeReply(postLiked)
     } else {
       postLiked.user_liked = !user_liked
       return postLiked 

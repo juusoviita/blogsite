@@ -14,8 +14,6 @@ const replyReducer = (state = null, action) => {
     case "like-reply":
       const likeState = state.map(reply => reply.id === action.payload.id ? {...reply, likes_count: action.payload.likes_count, user_liked: action.payload.user_liked} : reply)
       return likeState
-    case "unlike-post":
-      return state
     default:
       return state
     }

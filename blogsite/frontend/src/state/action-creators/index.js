@@ -62,11 +62,11 @@ export const clearPost = () => {
   }
 }
 
-export const editPost = (edit) => {
+export const editIndPost = (post) => {
   return (dispatch) => {
     dispatch({
       type: 'edit-post',
-      payload: edit
+      payload: post
     })
   }
 }

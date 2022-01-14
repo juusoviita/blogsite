@@ -7,7 +7,7 @@ const indPostReducer = (state = [], action) => {
       state = []
       return state
     case "edit-post":
-      console.log(action.payload)
+      state = action.payload
       return state
     default:
       return state

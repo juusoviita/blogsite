@@ -20,11 +20,24 @@ const Post = ({post, likePost, deletePost, editPost, replyPost, postDetail }) =>
   const replies = useSelector((state) => state.replies)
   const dispatch = useDispatch()
 
-  const { likeReply, addPost } = bindActionCreators(actionCreators, dispatch)
+  const { likeReply, onPostPage, addPost, clearPost, clearAllReplies } = bindActionCreators(actionCreators, dispatch)
   
   // to handle the opening and closing of the Reply modal
   const [openReply, setOpenReply] = useState(false)
   
+  
+  /*
+  onPostPage(false)
+  clearPost()
+  clearAllReplies()
+  */
+
+  
+  if (indpost.length !== 0 && post == null) {
+    post = indpost
+  }
+  
+
   const handleOpen = (e) => {
     e.stopPropagation()
     setOpenReply(true)
@@ -34,15 +47,6 @@ const Post = ({post, likePost, deletePost, editPost, replyPost, postDetail }) =>
     setOpenReply(false)
   }
 
-  // allow for liking both on the all posts and replies levels
-  const onLike = async (post, e) => {
-    if (post.replies_to === null) {
-      likePost(post.id, post.user_liked, e)
-    } else {
-      const postLiked = await likePost(post.id, post.user_liked, e)
-      likeReply(postLiked)
-    }
-  }
 
   // format the timestamp for the post
   const tstamp = new Date(post.timestamp)
@@ -78,8 +82,8 @@ const Post = ({post, likePost, deletePost, editPost, replyPost, postDetail }) =>
       <div className="row icon-div">
         <div className="col-2">
           { post.user_liked ?
-          <FavoriteIcon className='post-icons favorite' onClick={(e) => onLike(post, e)} />  :
-          <FavoriteBorderIcon className='post-icons favorite' onClick={(e) => onLike(post, e)} />
+          <FavoriteIcon className='post-icons favorite' onClick={(e) => likePost(post.id, post.user_liked, e)} />  :
+          <FavoriteBorderIcon className='post-icons favorite' onClick={(e) => likePost(post.id, post.user_liked, e)} />
           }
           {post.likes_count}
         </div>

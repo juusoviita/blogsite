@@ -74,6 +74,16 @@ li {
   backdrop-filter: blur(3rem);
 }
 
+.username {
+  margin-bottom: 0px;
+}
+
+.username:hover {
+  cursor: pointer;
+  color: #ff8d73;
+  text-decoration: underline;
+}
+
 .post {
   width: 90%;
   margin-top: 15px;

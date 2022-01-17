@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import Posts from './Posts'
+import ProfilePage from './ProfilePage'
 import AddForm from './AddForm'
 import SidebarLeft from './SidebarLeft'
 import SidebarRight from './SidebarRight'
@@ -18,9 +19,10 @@ const Home = () => {
   const replies = useSelector((state) => state.replies)
   const onpage = useSelector((state) => state.onpage)
   const indpost = useSelector((state) => state.indpost)
+  const onprofile = useSelector((state) => state.onprofile)
   const dispatch = useDispatch()
 
-  const { loginUser, logoutUser, updateTokens, clearPost, onPostPage, editIndPost, likeReply, commentReply, deleteReply } = bindActionCreators(actionCreators, dispatch)
+  const { loginUser, logoutUser, updateTokens, clearPost, onPostPage, editIndPost, likeReply, commentReply, deleteReply, onProfilePage } = bindActionCreators(actionCreators, dispatch)
 
   // Fetch all posts
   useEffect(() => {
@@ -260,31 +262,35 @@ const Home = () => {
   return (
     <div className="container-fluid">
       { localStorage.getItem('isAuthenticated') ?
-      <>
-       <div className="row">
-           <div className="col-md-3">
-             <SidebarLeft onAdd={showAddForm} showAdd={showAddPost} />
-           </div>
-           <div className="col-md-6">
-             { showAddPost && <AddForm onAdd={addPost} showAdd={showAddForm} /> }
-             <Posts posts={posts} likePost={likePost} deletePost={deletePost} editPost={editPost} replyPost={replyPost} />
-           </div>
-           <div className="col-md-3">
-             <SidebarRight />
-           </div>
-       </div>
-      </> :
-      <> 
-        <div className="row">
-          <div className="col-md-6">
-              <img src={pic} alt="People in a cafe" className="cover-pic" />
+        onprofile ?
+          <ProfilePage />
+          :
+          <>
+          <div className="row">
+              <div className="col-md-3">
+                <SidebarLeft onAdd={showAddForm} showAdd={showAddPost} />
+              </div>
+              <div className="col-md-6">
+                { showAddPost && <AddForm onAdd={addPost} showAdd={showAddForm} /> }
+                <Posts posts={posts} likePost={likePost} deletePost={deletePost} editPost={editPost} replyPost={replyPost} />
+              </div>
+              <div className="col-md-3">
+                <SidebarRight />
+              </div>
           </div>
-          <div className="col-md-6 landing-text">
-            <h2>Zero insurrections caused as of</h2>
-            <h2>{currentDate}.</h2>
+        </>
+        :
+        <> 
+          <div className="row">
+            <div className="col-md-6">
+                <img src={pic} alt="People in a cafe" className="cover-pic" />
+            </div>
+            <div className="col-md-6 landing-text">
+              <h2>Zero insurrections caused as of</h2>
+              <h2>{currentDate}.</h2>
+            </div>
           </div>
-        </div>
-      </>
+        </>
       }
     </div>
   );

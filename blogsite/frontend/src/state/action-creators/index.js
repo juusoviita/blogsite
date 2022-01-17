@@ -125,3 +125,32 @@ export const likeReply = (reply) => {
     })
   }
 }
+
+
+// user page related action creators
+export const onProfilePage = (data) => {
+  return(dispatch) => {
+    dispatch({
+      type: 'on-profile',
+      payload: data
+    })
+  }
+}
+
+// individual profile action creators
+export const addProfile = (user) => {
+  return(dispatch) => {
+    dispatch({
+      type: 'add-profile',
+      payload: user
+    })
+  }
+}
+
+export const clearProfile = () => {
+  return(dispatch) => {
+    dispatch({
+      type: 'clear-profile'
+    })
+  }
+}

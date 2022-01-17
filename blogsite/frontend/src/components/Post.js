@@ -18,20 +18,14 @@ const Post = ({post, likePost, deletePost, editPost, replyPost, postDetail }) =>
   const indpost = useSelector((state) => state.indpost)
   const auth = useSelector((state) => state.auth)
   const replies = useSelector((state) => state.replies)
+  const onprofile = useSelector((state) => state.onprofile)
+  const indprofile = useSelector((state) => state.indprofile)
   const dispatch = useDispatch()
 
-  const { likeReply, onPostPage, addPost, clearPost, clearAllReplies } = bindActionCreators(actionCreators, dispatch)
+  const { likeReply, onPostPage, addPost, clearPost, clearAllReplies, onProfilePage, addProfile } = bindActionCreators(actionCreators, dispatch)
   
   // to handle the opening and closing of the Reply modal
   const [openReply, setOpenReply] = useState(false)
-  
-  
-  /*
-  onPostPage(false)
-  clearPost()
-  clearAllReplies()
-  */
-
   
   if (indpost.length !== 0 && post == null) {
     post = indpost
@@ -45,6 +39,12 @@ const Post = ({post, likePost, deletePost, editPost, replyPost, postDetail }) =>
   const handleClose = (e) => {
     e.stopPropagation()
     setOpenReply(false)
+  }
+
+  const toProfile = (poster, e) => {
+    e.stopPropagation()
+    addProfile(poster)
+    onProfilePage(true)
   }
 
 
@@ -68,7 +68,7 @@ const Post = ({post, likePost, deletePost, editPost, replyPost, postDetail }) =>
           <Avatar src={post.poster.profile.image} style={{marginLeft: "auto", marginRight: "auto"}} alt={post.poster.username} />
         </div>
         <div className="col">
-          {post.poster.username} <br/>
+          <p className="username" onClick={(e) => toProfile(post.poster, e)} >{post.poster.username}</p>
           {timestamp}
         </div>
       </div>

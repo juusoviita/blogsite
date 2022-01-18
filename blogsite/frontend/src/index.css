@@ -17,6 +17,8 @@ nav {
   display: flex;
   justify-content: flex-start;
   align-items: center;
+  position: fixed;
+  top: 0;
   padding-left: 40px;
   min-height: 10vh;
   background: #ff8d73;
@@ -62,6 +64,10 @@ li {
   object-fit: cover;
   width: 100%;
   height: 100%;
+}
+
+.home {
+  margin-top: 110px;
 }
 
 .glass {
@@ -154,13 +160,30 @@ li {
 
 /*sidebar styling*/
 .sidebar {
-  width: 90%;
+  height: auto;
+  width: 420px;
+  position: fixed;
+  z-index: 1;
+  overflow-x: hidden;
   padding: 20px 20px;
   margin: 15px auto 0 auto;
   border-radius: 8px;
 }
 
 .sidebar > h3 {
+  color: #29545c;
+}
+
+/*login and registering form styling*/
+.userform {
+  height: auto;
+  width: 600px;
+  padding: 20px 20px;
+  margin: 200px auto 0 auto;
+  border-radius: 8px;
+}
+
+.userform > h3 {
   color: #29545c;
 }
 

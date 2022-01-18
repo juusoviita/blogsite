@@ -260,7 +260,7 @@ const Home = () => {
   }
 
   return (
-    <div className="container-fluid">
+    <div className="container-fluid home">
       { localStorage.getItem('isAuthenticated') ?
         onprofile ?
           <ProfilePage />

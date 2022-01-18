@@ -55,7 +55,7 @@ const LogIn = () => {
   }
 
   return (
-    <div className="sidebar">
+    <div className="userform">
       <h3 style={{color: 'whitesmoke'}}>Log In</h3>
       { errors.length !== 0 && 
         <div className="alert alert-danger alert-dismissible fade show" role="alert">

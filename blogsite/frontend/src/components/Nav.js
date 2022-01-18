@@ -34,7 +34,7 @@ function Nav() {
   }
 
   return (
-    <nav className="navbar">
+    <nav className="navbar fixed-top">
       <div className="container">
         <Link to="/" className="nav-style" style={{marginLeft: 40}} onClick={clickLogo}>
           <h3>BlogSite</h3>

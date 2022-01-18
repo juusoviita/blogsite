@@ -13,7 +13,7 @@ const ProfilePage = () => {
   const { onProfilePage, addProfile } = bindActionCreators(actionCreators, dispatch)
 
   if (indprofile.profile) {
-    console.log('You came through a post click') 
+    console.log('You came through a post click so you should have everything we need') 
   } else {
     console.log('You came through the navbar and some further data needs to be queried')
   }

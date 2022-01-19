@@ -5,6 +5,7 @@ import AddForm from './AddForm'
 import SidebarLeft from './SidebarLeft'
 import SidebarRight from './SidebarRight'
 import pic from './images/coffeeshop.jpg'
+import { TailSpin } from 'react-loading-icons'
 import { useSelector, useDispatch } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { actionCreators } from '../state/index'
@@ -13,6 +14,7 @@ const Home = () => {
 
   const [showAddPost, setShowAddPost] = useState(false)
   const [posts, setPosts] = useState([])
+  const [isLoading, setIsLoading] = useState(false)
   const [currentDate, setCurrentDate] = useState()
   
   const auth = useSelector((state) => state.auth)
@@ -22,11 +24,12 @@ const Home = () => {
   const onprofile = useSelector((state) => state.onprofile)
   const dispatch = useDispatch()
 
-  const { loginUser, logoutUser, updateTokens, clearPost, onPostPage, editIndPost, likeReply, commentReply, deleteReply, onProfilePage } = bindActionCreators(actionCreators, dispatch)
+  const { logoutUser, clearPost, onPostPage, editIndPost, likeReply, commentReply, deleteReply } = bindActionCreators(actionCreators, dispatch)
 
-  // Fetch all posts
+  // Fetch all posts, if on the Home page
   useEffect(() => {
     if (localStorage.getItem('isAuthenticated', true)) {
+      setIsLoading(true)
       const fetchPosts = async () => {
         const res = await fetch('http://127.0.0.1:8000/api/post-list/', {
           method: 'GET',
@@ -51,6 +54,7 @@ const Home = () => {
               }
             }
           })
+          setIsLoading(false)
           setPosts(data)
         } else {
           logoutUser()
@@ -69,7 +73,11 @@ const Home = () => {
 
       setCurrentDate(`${day} ${month} ${year}`)
     }
-  }, [])
+  }, [(!onprofile && !onpage)])
+
+  useEffect(() => {
+    setPosts([])
+  }, [(onprofile || onpage)])
 
   // fetch individual post
   const fetchPost = async (id) => {
@@ -85,7 +93,17 @@ const Home = () => {
     data.likes_count = data.likes.length
     data.replies_count = data.replies.length
     
-    return data 
+    data.user_liked = false
+    
+    if (data.likes.length > 0) {
+      for (let i = 0; i < data.likes.length; i++) {
+        if (data.likes[i].liker === auth.user.pk) {
+          data.user_liked = true
+          break
+        }
+      }
+    }
+    return data
   }
 
   // Add a new post or edit an existing one (coming later)
@@ -237,6 +255,7 @@ const Home = () => {
     } else if (onpage && id !== indpost.id) {
       deleteReply(id)
       const postToState = await fetchPost(indpost.id)
+      console.log(postToState)
       editIndPost(postToState)
       setPosts(posts.map((post) => post.id === postToState.id ? {...post, replies_count: postToState.replies_count} : post))
     }
@@ -272,7 +291,14 @@ const Home = () => {
               </div>
               <div className="col-md-6">
                 { showAddPost && <AddForm onAdd={addPost} showAdd={showAddForm} /> }
-                <Posts posts={posts} likePost={likePost} deletePost={deletePost} editPost={editPost} replyPost={replyPost} />
+                { isLoading ? 
+                  <>
+                    <TailSpin stroke="#ff8d73" strokeWidth={2} />
+                    <p>Loading...</p>
+                  </>
+                  :
+                  <Posts posts={posts} likePost={likePost} deletePost={deletePost} editPost={editPost} replyPost={replyPost} />
+                }
               </div>
               <div className="col-md-3">
                 <SidebarRight />

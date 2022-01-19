@@ -1,7 +1,7 @@
 import { useSelector, useDispatch } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { actionCreators } from '../state/index'
-
+import { TailSpin } from 'react-loading-icons'
 
 const ProfilePage = () => {
   
@@ -20,8 +20,17 @@ const ProfilePage = () => {
   console.log(indprofile)
   
   return (
-    <div>
-      <p>Profile page will be here</p>      
+    <div className="container">
+      <div className="row">
+        <div className="col-auto">
+          <TailSpin stroke="#ff8d73" strokeWidth={2} />
+        </div>
+      </div>
+      <div className="row">
+        <div className="col-auto">
+          <p>Loading...</p>
+        </div>
+      </div>
     </div>
   )
 }

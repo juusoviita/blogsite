@@ -20,17 +20,9 @@ const ProfilePage = () => {
   console.log(indprofile)
   
   return (
-    <div className="container">
-      <div className="row">
-        <div className="col-auto">
-          <TailSpin stroke="#ff8d73" strokeWidth={2} />
-        </div>
-      </div>
-      <div className="row">
-        <div className="col-auto">
-          <p>Loading...</p>
-        </div>
-      </div>
+    <div className='row justify-content-center'>
+      <TailSpin style={{textAlign: "center"}} stroke="#ff8d73" strokeWidth={2} />
+      <p style={{color: "whitesmoke", textAlign: "center", marginTop: "15px"}}>Loading...</p>
     </div>
   )
 }

@@ -281,9 +281,6 @@ const Home = () => {
   return (
     <div className="container-fluid home">
       { localStorage.getItem('isAuthenticated') ?
-        onprofile ?
-          <ProfilePage />
-          :
           <>
           <div className="row">
               <div className="col-md-3">
@@ -291,13 +288,18 @@ const Home = () => {
               </div>
               <div className="col-md-6">
                 { showAddPost && <AddForm onAdd={addPost} showAdd={showAddForm} /> }
-                { isLoading ? 
-                  <>
-                    <TailSpin stroke="#ff8d73" strokeWidth={2} />
-                    <p>Loading...</p>
-                  </>
+                { onprofile ?
+                  <ProfilePage />
                   :
-                  <Posts posts={posts} likePost={likePost} deletePost={deletePost} editPost={editPost} replyPost={replyPost} />
+                  isLoading ? 
+                    <>
+                      <div className='row justify-content-center'>
+                        <TailSpin stroke="#ff8d73" strokeWidth={2} />
+                        <p style={{color: "whitesmoke", textAlign: "center", marginTop: "15px"}}>Loading...</p>
+                      </div>
+                    </>
+                    :
+                    <Posts posts={posts} likePost={likePost} deletePost={deletePost} editPost={editPost} replyPost={replyPost} />
                 }
               </div>
               <div className="col-md-3">

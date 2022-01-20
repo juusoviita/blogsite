@@ -92,8 +92,7 @@ li {
 
 .post {
   width: 80%;
-  margin-top: 15px;
-  margin-bottom: 15px;
+  margin: 5px 0 5px 0;
   border-radius: 8px;
 }
 
@@ -161,7 +160,7 @@ li {
 /*sidebar styling*/
 .sidebar {
   height: auto;
-  width: 420px;
+  width: 400px;
   position: fixed;
   overflow-x: hidden;
   padding: 20px 20px;

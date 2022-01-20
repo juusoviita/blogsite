@@ -61,44 +61,46 @@ const Post = ({post, likePost, deletePost, editPost, replyPost, postDetail }) =>
   const timestamp = `at ${tstamp.getHours()}:${minutes}, on ${tstamp.getDate()}/${tstamp.getMonth() + 1}/${tstamp.getFullYear()}`
 
     return (
-      <div key={post.id} className='post glass' onClick={() => postDetail(post.id)}>
-      { openReply && <ReplyForm post_id={post.id} username={post.poster.username} avatar={post.poster.profile.image} timestamp={timestamp} post_content={post.content} handleClose={handleClose} openReply={openReply} replyPost={replyPost}  />}
-      <div className="row post-header">
-        <div className="col-2" style={{paddingTop: "5px"}}>
-          <Avatar src={post.poster.profile.image} style={{marginLeft: "auto", marginRight: "auto"}} alt={post.poster.username} />
-        </div>
-        <div className="col-4">
-          <p className="username" onClick={(e) => toProfile(post.poster, e)} >{post.poster.username}</p>
-          {timestamp}
-        </div>
-      </div>
-      <Divider />
-      <div className="row">
-          <div className="col post-content">
-            {post.content}
+      <div className='row justify-content-center'>
+        <div key={post.id} className='post glass' onClick={() => postDetail(post.id)}>
+          { openReply && <ReplyForm post_id={post.id} username={post.poster.username} avatar={post.poster.profile.image} timestamp={timestamp} post_content={post.content} handleClose={handleClose} openReply={openReply} replyPost={replyPost}  />}
+          <div className="row post-header">
+            <div className="col-2" style={{paddingTop: "5px"}}>
+              <Avatar src={post.poster.profile.image} style={{marginLeft: "auto", marginRight: "auto"}} alt={post.poster.username} />
+            </div>
+            <div className="col-4">
+              <p className="username" onClick={(e) => toProfile(post.poster, e)} >{post.poster.username}</p>
+              {timestamp}
+            </div>
           </div>
-      </div>
-      <Divider />
-      <div className="row icon-div">
-        <div className="col-2">
-          { post.user_liked ?
-          <FavoriteIcon className='post-icons favorite' onClick={(e) => likePost(post.id, post.user_liked, e)} />  :
-          <FavoriteBorderIcon className='post-icons favorite' onClick={(e) => likePost(post.id, post.user_liked, e)} />
-          }
-          {post.likes_count}
-        </div>
-        <div className="col-2">
-          <ChatBubbleOutlineIcon className='post-icons comment' onClick={handleOpen} />
-          { post.replies_count }
-        </div>
-        { auth.user.pk === post.poster.id &&
-          <div className="col" style={{textAlign: "right"}}>
-            <EditIcon className='post-icons edit' onClick={(e) => editPost(post.id, e)} />
-            <DeleteIcon className='post-icons delete' onClick={(e) => deletePost(post.id, e)} />
+          <Divider />
+          <div className="row">
+              <div className="col post-content">
+                {post.content}
+              </div>
           </div>
-        }
+          <Divider />
+          <div className="row icon-div">
+            <div className="col-2">
+              { post.user_liked ?
+              <FavoriteIcon className='post-icons favorite' onClick={(e) => likePost(post.id, post.user_liked, e)} />  :
+              <FavoriteBorderIcon className='post-icons favorite' onClick={(e) => likePost(post.id, post.user_liked, e)} />
+              }
+              {post.likes_count}
+            </div>
+            <div className="col-2">
+              <ChatBubbleOutlineIcon className='post-icons comment' onClick={handleOpen} />
+              { post.replies_count }
+            </div>
+            { auth.user.pk === post.poster.id &&
+              <div className="col" style={{textAlign: "right"}}>
+                <EditIcon className='post-icons edit' onClick={(e) => editPost(post.id, e)} />
+                <DeleteIcon className='post-icons delete' onClick={(e) => deletePost(post.id, e)} />
+              </div>
+            }
+          </div>
+        </div>
       </div>
-    </div>
   )
 }
 

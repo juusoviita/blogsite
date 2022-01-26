@@ -248,9 +248,8 @@ input {
 }
 
 .add-form {
-  width: 90%;
-  margin-top: 15px;
-  margin-bottom: 15px;
+  width: 80%;
+  margin: 15px 0 15px 0;
   border-radius: 8px;
   padding: 8px;
 }
@@ -274,4 +273,8 @@ button {
 .arrow-back:hover {
   cursor: pointer;
   color: coral;
+}
+
+.on-post-page {
+  margin: 15px 0 15px 0;
 }

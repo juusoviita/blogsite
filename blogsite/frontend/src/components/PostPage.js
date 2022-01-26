@@ -73,18 +73,20 @@ const PostPage = ({ closePage, likePost, deletePost, editPost, replyPost, postDe
     <>
       <ArrowBackIcon onClick={onClick} className="arrow-back" />
       <Post key={indpost.id} likePost={likePost} deletePost={deletePost} editPost={editPost} replyPost={replyPost} postDetail={postDetail} repliesCount={replies.length} />
-      <Divider />
-      <div className="add-form glass">
-        <form>
-          <div className="form-element">
-            <textarea id="content" placeholder="Type your reply here" value={reply} onChange={(e) => typeReply(e)} onClick={(e) => e.stopPropagation()}></textarea>
-          </div>
-          <div className="form-element">
-            <Button text="Reply" onClick={onButtonClick} />
-          </div>
-        </form>
+      <Divider className='on-post-page' />
+      <div className='row justify-content-center'>
+        <div className="add-form glass">
+          <form>
+            <div className="form-element">
+              <textarea id="content" placeholder="Type your reply here" value={reply} onChange={(e) => typeReply(e)} onClick={(e) => e.stopPropagation()}></textarea>
+            </div>
+            <div className="form-element">
+              <Button text="Reply" onClick={onButtonClick} />
+            </div>
+          </form>
+        </div>
       </div>
-      <Divider />
+      <Divider className='on-post-page' />
       <div></div>
       { replies.length > 0 &&
         replies.map((reply) => (

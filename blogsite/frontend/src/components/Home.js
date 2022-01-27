@@ -281,7 +281,7 @@ const Home = () => {
   return (
     <div className="container-fluid home">
       { localStorage.getItem('isAuthenticated') ?
-          <>
+        <>
           <div className="row">
               <div className="col-md-3">
                 <SidebarLeft onAdd={showAddForm} showAdd={showAddPost} />

@@ -24,7 +24,12 @@ const Home = () => {
   const onprofile = useSelector((state) => state.onprofile)
   const dispatch = useDispatch()
 
-  const { logoutUser, clearPost, onPostPage, editIndPost, likeReply, commentReply, deleteReply } = bindActionCreators(actionCreators, dispatch)
+  const { logoutUser, clearPost, onPostPage, editIndPost, likeReply, commentReply, deleteReply, onProfilePage, clearProfile } = bindActionCreators(actionCreators, dispatch)
+
+  /*
+  onProfilePage(false)
+  clearProfile()
+  */
 
   // Fetch all posts, if on the Home page
   useEffect(() => {

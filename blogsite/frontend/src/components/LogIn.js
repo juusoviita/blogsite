@@ -14,7 +14,7 @@ const LogIn = () => {
   const auth = useSelector((state) => state.auth)
   const dispatch = useDispatch()
 
-  const { loginUser, logoutUser } = bindActionCreators(actionCreators, dispatch)
+  const { loginUser, logoutUser, addProfile } = bindActionCreators(actionCreators, dispatch)
 
   const LoggingIn = async () => {
     
@@ -32,15 +32,27 @@ const LogIn = () => {
     })
 
     const data = await res.json()
-    
-    // add access and refresh tokens to browser's local storage
-    localStorage.setItem('access_token', data.access_token)
-    localStorage.setItem('refresh_token', data.refresh_token)
-    localStorage.setItem('isAuthenticated', true)
-    localStorage.setItem('isLoading', false)
-    localStorage.setItem('user', data.user)
 
     if (res.status === 200) {
+      // add access and refresh tokens to browser's local storage
+      localStorage.setItem('access_token', data.access_token)
+      localStorage.setItem('refresh_token', data.refresh_token)
+      localStorage.setItem('isAuthenticated', true)
+      
+      const fetchUser = async (id) => {
+        const res2 = await fetch(`http://localhost:8000/api/user-detail/${id}`, {
+          method: 'GET',
+          headers: {
+            'Content-type':'application/json',
+            'Authorization': 'Bearer ' + localStorage.getItem('access_token')
+          }
+        })
+        const data2 = await res2.json()
+        localStorage.setItem('user', data2)
+      }
+      
+      fetchUser(data.user.pk)
+
       loginUser(data)
       setErrors('')
       setUsername('')

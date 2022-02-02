@@ -22,6 +22,11 @@ function Nav() {
   }
 
   const toProfile = () => {
+    if (onprofile) {
+      onProfilePage(false)
+      clearProfile()
+    }
+
     onProfilePage(true)
     addProfile(auth.user)
   }

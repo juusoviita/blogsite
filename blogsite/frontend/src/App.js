@@ -31,8 +31,6 @@ function App() {
     
     if (res.status === 200) {
       updateTokens(data)
-      localStorage.setItem('access_token', data.access)
-      localStorage.setItem('refresh_token', data.refresh)
     } else {
       console.log('Failed to update tokens')
       logoutUser()
@@ -41,7 +39,7 @@ function App() {
 
   // Run updateToken every 4 minutes, if user is authenticated
   useEffect(() => {
-    if(localStorage.getItem('isAuthenticated', true)) {
+    if (auth.isAuthenticated) {
       const fourMinutes = 4 * 60 * 1000
       let interval = setInterval(() => {
         if(auth.refresh_token) {
@@ -51,7 +49,6 @@ function App() {
     return () => clearInterval(interval)
     } else {
       logoutUser()
-      localStorage.clear()
     }
   }, [auth.refresh_token, updateToken, logoutUser])
 

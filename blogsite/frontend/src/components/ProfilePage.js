@@ -17,26 +17,6 @@ const ProfilePage = () => {
 
   const { onProfilePage, addProfile, clearProfile } = bindActionCreators(actionCreators, dispatch)
 
-  useEffect(() => {
-    { !loadProfile && setLoadProfile(true) }
-    const fetchUser = async (id) => {
-      const res = await fetch(`http://localhost:8000/api/user-detail/${id}`, {
-        method: 'GET',
-        headers: {
-          'Content-type':'application/json',
-          'Authorization': 'Bearer ' + localStorage.getItem('access_token')
-        }
-      })
-      const data = await res.json()
-      clearProfile()
-      addProfile(data)
-      setLoadProfile(false)
-    }
-    
-    { !indprofile.id ? fetchUser(indprofile.pk) : fetchUser(indprofile.id) }
-    
-  }, [])  
-
   return (
     <>
       { loadProfile ?

@@ -26,7 +26,7 @@ const Posts = ({ posts, likePost, deletePost, editPost, replyPost }) => {
         method: 'GET',
         headers: {
           'Content-type':'application/json',
-          'Authorization': 'Bearer ' + localStorage.getItem('access_token')
+          'Authorization': 'Bearer ' + auth.access_token
         }
       })
       const data = await res.json()
@@ -54,7 +54,7 @@ const Posts = ({ posts, likePost, deletePost, editPost, replyPost }) => {
         method: 'GET',
         headers: {
           'Content-type': 'application/json',
-          'Authorization': 'Bearer ' + localStorage.getItem('access_token')
+          'Authorization': 'Bearer ' + auth.access_token
         }
       })
       const repl = await response.json()

@@ -33,14 +33,14 @@ const Home = () => {
 
   // Fetch all posts, if on the Home page
   useEffect(() => {
-    if (localStorage.getItem('isAuthenticated', true)) {
+    if (auth.isAuthenticated) {
       setIsLoading(true)
       const fetchPosts = async () => {
         const res = await fetch('http://127.0.0.1:8000/api/post-list/', {
           method: 'GET',
           headers: {
             'Content-type': 'application/json',
-            'Authorization': 'Bearer ' + localStorage.getItem('access_token')
+            'Authorization': 'Bearer ' + auth.access_token
           }
         })
         const data = await res.json()
@@ -91,7 +91,7 @@ const Home = () => {
       method: 'GET',
       headers: {
         'Content-type':'application/json',
-        'Authorization': 'Bearer ' + localStorage.getItem('access_token')
+        'Authorization': 'Bearer ' + auth.access_token
       }
     })
     const data = await res.json()
@@ -130,7 +130,7 @@ const Home = () => {
       method: 'POST',
       headers: {
         'Content-type': 'application/json',
-        'Authorization': 'Bearer ' + localStorage.getItem('access_token')
+        'Authorization': 'Bearer ' + auth.access_token
       },
       body:JSON.stringify(newPost) 
     })
@@ -168,7 +168,7 @@ const Home = () => {
       method: method,
       headers: {
         'Content-type':'application/json',
-        'Authorization': 'Bearer ' + localStorage.getItem('access_token')
+        'Authorization': 'Bearer ' + auth.access_token
       },
       body:JSON.stringify(likePost)
     })
@@ -212,7 +212,7 @@ const Home = () => {
       method: 'POST',
       headers: {
         'Content-type': 'application/json',
-        'Authorization': 'Bearer ' + localStorage.getItem('access_token')
+        'Authorization': 'Bearer ' + auth.access_token
       },
       body:JSON.stringify(newReply) 
     })
@@ -235,7 +235,6 @@ const Home = () => {
     }
   }
 
-
   // Delete Post
   const deletePost = async (id, e) => {
     
@@ -247,7 +246,7 @@ const Home = () => {
       method: 'DELETE',
       headers:{
         'Content-type':'application/json',
-        'Authorization': 'Bearer ' + localStorage.getItem('access_token')
+        'Authorization': 'Bearer ' + auth.access_token
       },
     })
 
@@ -285,7 +284,7 @@ const Home = () => {
 
   return (
     <div className="container-fluid home">
-      { localStorage.getItem('isAuthenticated') ?
+      { auth.isAuthenticated ?
         <>
           <div className="row">
               <div className="col-md-3">

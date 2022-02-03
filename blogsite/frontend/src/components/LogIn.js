@@ -34,25 +34,23 @@ const LogIn = () => {
     const data = await res.json()
 
     if (res.status === 200) {
-      // add access and refresh tokens to browser's local storage
-      localStorage.setItem('access_token', data.access_token)
-      localStorage.setItem('refresh_token', data.refresh_token)
-      localStorage.setItem('isAuthenticated', true)
-      
+      // updates the user's info to contain profile data as well
       const fetchUser = async (id) => {
         const res2 = await fetch(`http://localhost:8000/api/user-detail/${id}`, {
           method: 'GET',
           headers: {
             'Content-type':'application/json',
-            'Authorization': 'Bearer ' + localStorage.getItem('access_token')
+            'Authorization': 'Bearer ' + data.access_token
           }
         })
         const data2 = await res2.json()
-        localStorage.setItem('user', data2)
+        return data2
       }
       
-      fetchUser(data.user.pk)
-
+      const userdata = await fetchUser(data.user.pk)
+      console.log(userdata)
+      Object.assign(data.user, userdata)
+      console.log(data)
       loginUser(data)
       setErrors('')
       setUsername('')

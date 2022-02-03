@@ -1,6 +1,6 @@
 # blogsite
 
-A microblogging site (Twitter clone) done using Django Rest Framework and React – including Material-UI.
+A microblogging site (Twitter clone) done using Django Rest Framework, React (including Material-UI), and Redux.
 Will probably be deployed to Heroku, when done.
 
 Demo user account:
@@ -14,7 +14,7 @@ Functionality:
 - user profile picture, ability to update profile information,
 - ability to change password/retrieve forgotten password,
 - create, read, update, and delete posts,
-- like posts,
+- like/unlike posts,
 - reply to posts,
 - follow/unfollow other users.
 
@@ -24,7 +24,7 @@ Functionality to be added:
 - hashtags, @ other users,
 - ...
 
-Sources:
+Sources and inspiration:
 
 - Corey Schafer's excellent Django course on the topic: https://www.youtube.com/playlist?list=PL-osiE80TeTtoQCKZ03TU5fNfx2UY6U4p
 - Django Rest Framework documentation: https://www.django-rest-framework.org/tutorial/1-serialization/
@@ -35,3 +35,4 @@ Sources:
 - Glass effect from Dev Ed: https://www.youtube.com/watch?v=O7WbVj5apxU&t=36s&ab_channel=DevEd
 - Traversy Media's React Crash Course: https://www.youtube.com/watch?v=w7ejDZ8SWv8&t=2332s&ab_channel=TraversyMedia
 - Dennis Ivy's React + DRF todo app tutorial: https://youtu.be/W9BjUoot2Eo
+- Laith Harb's Redux (with Hooks) crash course: https://youtu.be/9jULHSe41ls

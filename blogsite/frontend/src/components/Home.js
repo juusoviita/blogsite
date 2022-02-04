@@ -80,6 +80,7 @@ const Home = () => {
     }
   }, [(!onprofile && !onpage)])
 
+  // clears the posts if user is on a profile or a post page
   useEffect(() => {
     setPosts([])
   }, [(onprofile || onpage)])
@@ -259,7 +260,7 @@ const Home = () => {
     } else if (onpage && id !== indpost.id) {
       deleteReply(id)
       const postToState = await fetchPost(indpost.id)
-      console.log(postToState)
+      
       editIndPost(postToState)
       setPosts(posts.map((post) => post.id === postToState.id ? {...post, replies_count: postToState.replies_count} : post))
     }
@@ -293,7 +294,7 @@ const Home = () => {
               <div className="col-md-6">
                 { showAddPost && <AddForm onAdd={addPost} showAdd={showAddForm} /> }
                 { onprofile ?
-                  <ProfilePage />
+                  <ProfilePage likePost={likePost} deletePost={deletePost} editPost={editPost} replyPost={replyPost} />
                   :
                   isLoading ? 
                     <>

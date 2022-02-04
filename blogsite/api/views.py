@@ -123,7 +123,7 @@ def deletePost(request, pk):
 @ permission_classes([IsAuthenticated])
 def userPosts(request, poster_id):
     posts = Post.objects.filter(poster=poster_id).order_by('-timestamp')
-    serializer = PostSerializer(posts, many=True)
+    serializer = PostGetSerializer(posts, many=True)
 
     return Response(serializer.data)
 
@@ -238,8 +238,9 @@ def followUser(request):
 # unfollow individual user
 @ api_view(['DELETE'])
 @ permission_classes([IsAuthenticated])
-def unfollowUser(request, pk):
-    follow = Follow.objects.get(pk=pk)
+def unfollowUser(request):
+    follow_id = request.data['id']
+    follow = Follow.objects.get(pk=follow_id)
     follow.delete()
 
     return Response('User successfully unfollowed!')

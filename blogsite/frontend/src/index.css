@@ -28,7 +28,10 @@ nav {
 }
 
 h2,
-h3 {
+h3,
+h4,
+h5,
+h6 {
   color: whitesmoke;
 }
 
@@ -277,4 +280,11 @@ button {
 
 .on-post-page {
   margin: 15px 0 15px 0;
+}
+
+.profile-card {
+  width: 100%;
+  margin: 5px 0 5px 0;
+  padding: 15px;
+  border-radius: 8px;
 }

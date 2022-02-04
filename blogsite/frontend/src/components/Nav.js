@@ -19,6 +19,7 @@ function Nav() {
     logoutUser()
     clearProfile()
     clearPost()
+    onProfilePage(false)
   }
 
   const toProfile = () => {

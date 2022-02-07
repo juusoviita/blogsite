@@ -6,6 +6,9 @@ const indProfileReducer = (state = [], action) => {
     case "clear-profile":
       state = []
       return state
+    case "edit-profile":
+      state = action.payload
+      return state
     default:
       return state
     }

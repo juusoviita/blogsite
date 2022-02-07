@@ -20,7 +20,7 @@ const ProfilePage = ({ likePost, deletePost, editPost, replyPost }) => {
   const [userFollowed, setUserFollowed] = useState(false)
   const [followId, setFollowId] = useState('')
 
-  const { onProfilePage, addProfile, clearProfile } = bindActionCreators(actionCreators, dispatch)
+  const { onProfilePage, addProfile, clearProfile, editProfile } = bindActionCreators(actionCreators, dispatch)
 
   useEffect(() => {
 
@@ -106,6 +106,18 @@ const ProfilePage = ({ likePost, deletePost, editPost, replyPost }) => {
       
       const data = await res.json()
       console.log(data)
+
+      // update the user profile info
+      const res2 = await fetch(`http://127.0.0.1:8000/api/user-detail/${indprofile.id}`, {
+        method: 'GET',
+        headers: {
+          'Content-type': 'application/json',
+          'Authorization': 'Bearer ' + auth.access_token
+        }
+      })
+      const data2 = await res2.json()
+      editProfile(data2)
+      setUserFollowed(!userFollowed)
     }
     followUser()
   }

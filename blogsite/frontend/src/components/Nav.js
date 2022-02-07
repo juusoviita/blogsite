@@ -22,14 +22,25 @@ function Nav() {
     onProfilePage(false)
   }
 
-  const toProfile = () => {
+  const toProfile = async () => {
     if (onprofile) {
       onProfilePage(false)
       clearProfile()
     }
 
+    // updated profile info
+    const res = await fetch(`http://127.0.0.1:8000/api/user-detail/${auth.user.id}`, {
+        method: 'GET',
+        headers: {
+          'Content-type': 'application/json',
+          'Authorization': 'Bearer ' + auth.access_token
+        }
+      })
+    const data = await res.json()
+    addProfile(data)
+
     onProfilePage(true)
-    addProfile(auth.user)
+    
   }
   
   const clickLogo = () => {

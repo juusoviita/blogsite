@@ -69,7 +69,7 @@ const Post = ({post, likePost, deletePost, editPost, replyPost, postDetail }) =>
               <Avatar src={post.poster.profile.image} style={{marginLeft: "auto", marginRight: "auto"}} alt={post.poster.username} />
             </div>
             <div className="col-4">
-              <p className="username" onClick={(e) => toProfile(post.poster, e)} >{post.poster.username}</p>
+              <p className="username" onClick={(e) => toProfile(post.poster, e)}>{post.poster.username}</p>
               {timestamp}
             </div>
           </div>

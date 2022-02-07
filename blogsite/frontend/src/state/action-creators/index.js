@@ -154,3 +154,12 @@ export const clearProfile = () => {
     })
   }
 }
+
+export const editProfile = (data) => {
+  return(dispatch) => {
+    dispatch({
+      type: 'edit-profile',
+      payload: data
+    })
+  }
+}

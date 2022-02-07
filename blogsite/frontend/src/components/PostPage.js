@@ -18,11 +18,13 @@ const PostPage = ({ closePage, likePost, deletePost, editPost, replyPost, postDe
 
   const dispatch = useDispatch()
 
-  const { addAllReplies, postNewReply, clearAllReplies, onPostPage, addPost, clearPost } = bindActionCreators(actionCreators, dispatch)
+  const { addAllReplies, postNewReply, clearAllReplies, onPostPage, addPost, clearPost, onProfilePage, clearProfile } = bindActionCreators(actionCreators, dispatch)
   
   const post_id = indpost.id
 
   useEffect(() => {
+    onProfilePage(false)
+    clearProfile()
     onPostPage(true)
   }, [])
 

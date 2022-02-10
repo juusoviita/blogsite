@@ -95,7 +95,7 @@ const ProfilePage = ({ likePost, deletePost, editPost, replyPost }) => {
       follow = {id: followId}
     }
     
-    const followUser = async () => {
+    const followU = async () => {
       const res = await fetch(url, {
         method: method,
         headers: {
@@ -119,7 +119,7 @@ const ProfilePage = ({ likePost, deletePost, editPost, replyPost }) => {
       editProfile(data2)
       setUserFollowed(!userFollowed)
     }
-    followUser()
+    followU()
   }
 
   return (

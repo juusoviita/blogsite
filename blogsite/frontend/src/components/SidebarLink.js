@@ -6,7 +6,7 @@ function SidebarLink({ Icon, text, onClick }) {
   const auth = useSelector((state) => state.auth)
 
   return(
-    <div className="link">
+    <div className="link" onClick={onClick}>
         { (text === "Following" || text === "Liked Posts" || text === "Log Out" || text === "Settings") 
           ? <Icon className="link-icon" />
           : <Avatar sx={{ width: 26, height: 26 }} className="link-icon" alt={auth.user.username}></Avatar>

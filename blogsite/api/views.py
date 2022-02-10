@@ -135,7 +135,7 @@ def likedPosts(request):
     liked_posts = Like.objects.filter(
         liker=request.user).values_list('post', flat=True)
     posts = Post.objects.filter(id__in=liked_posts).order_by('-timestamp')
-    serializer = PostSerializer(posts, many=True)
+    serializer = PostGetSerializer(posts, many=True)
 
     return Response(serializer.data)
 
@@ -148,7 +148,7 @@ def followedPosts(request):
         follower=request.user).values_list('followed', flat=True)
     posts = Post.objects.filter(
         poster__in=followed_users).order_by('-timestamp')
-    serializer = PostSerializer(posts, many=True)
+    serializer = PostGetSerializer(posts, many=True)
 
     return Response(serializer.data)
 

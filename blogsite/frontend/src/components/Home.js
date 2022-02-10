@@ -2,8 +2,7 @@ import { useState, useEffect } from 'react'
 import Posts from './Posts'
 import ProfilePage from './ProfilePage'
 import AddForm from './AddForm'
-import SidebarLeft from './SidebarLeft'
-import SidebarRight from './SidebarRight'
+import Sidebar from './Sidebar'
 import pic from './images/coffeeshop.jpg'
 import { TailSpin } from 'react-loading-icons'
 import { useSelector, useDispatch } from 'react-redux'
@@ -291,7 +290,7 @@ const Home = () => {
         <>
           <div className="row">
               <div className="col-md-3">
-                <SidebarLeft onAdd={showAddForm} showAdd={showAddPost} />
+                <Sidebar onAdd={showAddForm} showAdd={showAddPost} />
               </div>
               <div className="col-md-6">
                 { showAddPost && <AddForm onAdd={addPost} showAdd={showAddForm} /> }
@@ -308,9 +307,6 @@ const Home = () => {
                     :
                     <Posts posts={posts} likePost={likePost} deletePost={deletePost} editPost={editPost} replyPost={replyPost} />
                 }
-              </div>
-              <div className="col-md-3">
-                <SidebarRight />
               </div>
           </div>
         </>

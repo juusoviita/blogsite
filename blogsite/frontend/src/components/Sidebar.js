@@ -7,7 +7,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { actionCreators } from '../state/index'
 
-const SidebarLeft = ({ onAdd, showAdd }) => {
+const Sidebar = ({ onAdd, showAdd }) => {
 
   const auth = useSelector((state) => state.auth)
   const onprofile = useSelector((state) => state.onprofile)
@@ -54,5 +54,5 @@ const SidebarLeft = ({ onAdd, showAdd }) => {
   )
 }
 
-export default SidebarLeft
+export default Sidebar
 

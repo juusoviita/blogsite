@@ -8,7 +8,7 @@ import { bindActionCreators } from 'redux'
 import { actionCreators } from '../state/index'
 
 const Sidebar = ({ onAdd, showAdd }) => {
-
+  
   const auth = useSelector((state) => state.auth)
   const onprofile = useSelector((state) => state.onprofile)
   const posts = useSelector((state) => state.posts)

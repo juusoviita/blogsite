@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { actionCreators } from '../state/index'
+import { clearPosts } from '../state/action-creators'
 
 function Nav() {
 
@@ -12,13 +13,14 @@ function Nav() {
   const indprofile = useSelector((state) => state.indprofile)
   const dispatch = useDispatch()
 
-  const { logoutUser, onPostPage, onProfilePage, addProfile, clearProfile, clearPost } = bindActionCreators(actionCreators, dispatch)
+  const { logoutUser, onPostPage, onProfilePage, addProfile, clearProfile, clearPost, clearPosts } = bindActionCreators(actionCreators, dispatch)
 
   const LoggingOut = () => {
     // logging out done by just removing user's tokens from local storage and user from state
     logoutUser()
     clearProfile()
     clearPost()
+    clearPosts()
     onProfilePage(false)
   }
 
@@ -48,6 +50,7 @@ function Nav() {
     clearProfile()
     onPostPage(false)
     clearPost()
+    
   }
 
   return (

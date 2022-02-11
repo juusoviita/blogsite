@@ -163,3 +163,49 @@ export const editProfile = (data) => {
     })
   }
 }
+
+
+// All posts
+export const addPosts = (posts) => {
+  return(dispatch) => {
+    dispatch({
+      type: 'add-posts',
+      payload: posts
+    })
+  }
+}
+
+export const clearPosts = () => {
+  return(dispatch) => {
+    dispatch({
+      type: 'clear-posts'
+    })
+  }
+}
+
+export const addToPosts = (data) => {
+  return(dispatch) => {
+    dispatch({
+      type: 'add-to-posts',
+      payload: data
+    })
+  }
+}
+
+export const clearFromPosts = (data) => {
+  return(dispatch) => {
+    dispatch({
+      type: 'clear-from-posts',
+      payload: data
+    })
+  }
+}
+
+export const editInPosts = (data) => {
+  return(dispatch) => {
+    dispatch({
+      type: 'edit-in-posts',
+      payload: data
+    })
+  }
+}

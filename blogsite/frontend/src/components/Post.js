@@ -20,6 +20,7 @@ const Post = ({post, likePost, deletePost, editPost, replyPost, postDetail }) =>
   const replies = useSelector((state) => state.replies)
   const onprofile = useSelector((state) => state.onprofile)
   const indprofile = useSelector((state) => state.indprofile)
+  const posts = useSelector((state) => state.posts)
   const dispatch = useDispatch()
 
   const { likeReply, onPostPage, addPost, clearPost, clearAllReplies, onProfilePage, addProfile } = bindActionCreators(actionCreators, dispatch)

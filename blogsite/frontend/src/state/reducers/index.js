@@ -5,6 +5,7 @@ import onPageReducer from './onPageReducer'
 import indPostReducer from './indPostReducer'
 import onProfileReducer from './onProfileReducer'
 import indProfileReducer from './indProfileReducer'
+import postsReducer from './postsReducer'
 
 const reducers = combineReducers({
   auth: authReducer,
@@ -12,7 +13,8 @@ const reducers = combineReducers({
   onpage: onPageReducer,
   indpost: indPostReducer,
   onprofile: onProfileReducer,
-  indprofile: indProfileReducer
+  indprofile: indProfileReducer,
+  posts: postsReducer
 })
 
 export default reducers

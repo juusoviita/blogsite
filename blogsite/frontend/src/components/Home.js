@@ -12,7 +12,6 @@ import { actionCreators } from '../state/index'
 const Home = () => {
 
   const [showAddPost, setShowAddPost] = useState(false)
-  const [posts, setPosts] = useState([])
   const [isLoading, setIsLoading] = useState(false)
   const [currentDate, setCurrentDate] = useState()
   
@@ -21,9 +20,10 @@ const Home = () => {
   const onpage = useSelector((state) => state.onpage)
   const indpost = useSelector((state) => state.indpost)
   const onprofile = useSelector((state) => state.onprofile)
+  const posts = useSelector((state) => state.posts)
   const dispatch = useDispatch()
 
-  const { logoutUser, clearPost, onPostPage, editIndPost, likeReply, commentReply, deleteReply, onProfilePage, clearProfile } = bindActionCreators(actionCreators, dispatch)
+  const { logoutUser, clearPost, onPostPage, editIndPost, likeReply, commentReply, deleteReply, onProfilePage, clearProfile, addPosts, clearPosts, addToPosts, clearFromPosts, editInPosts } = bindActionCreators(actionCreators, dispatch)
 
   /*
   onProfilePage(false)
@@ -59,7 +59,7 @@ const Home = () => {
             }
           })
           setIsLoading(false)
-          setPosts(data)
+          addPosts(data)
         } else {
           logoutUser()
         }
@@ -83,7 +83,7 @@ const Home = () => {
 
   // clears the posts if user is on a profile or a post page
   useEffect(() => {
-    setPosts([])
+    clearPosts()
   }, [(onprofile || onpage)])
 
   // fetch individual post
@@ -138,9 +138,9 @@ const Home = () => {
     })
 
     const data = await res.json()
-
+    console.log(data)
     if(res.status === 200) {
-      setPosts([data, ...posts])
+      addToPosts(data)
     } else {
       logoutUser()
     }
@@ -178,9 +178,11 @@ const Home = () => {
     const postLiked = await fetchPost(id)
     postLiked.user_liked = !user_liked
 
+    console.log(postLiked)
+
     // if post is included in the posts state, update the post
     if (postLiked.replies_to === null) {
-      setPosts(posts.map((post) => post.id === id ? {...post, user_liked: postLiked.user_liked, likes_count: postLiked.likes_count} : post))
+      editInPosts(postLiked)
     }
 
     // if post in individual post page, update accordingly
@@ -224,7 +226,7 @@ const Home = () => {
     const postReplied = await fetchPost(reply.post_id)
 
     if(res.status === 200) {
-      setPosts(posts.map((post) => post.id === reply.post_id ? {...post, replies_count: postReplied.replies_count} : post))
+      editInPosts(postReplied)
 
       if (onpage === true && indpost.id === postReplied.id) {
         editIndPost(postReplied)
@@ -253,17 +255,16 @@ const Home = () => {
     })
 
     if (!onpage) {
-      setPosts(posts.filter((post) => post.id !== id))
+      clearFromPosts(id)
     } else if (onpage && id === indpost.id) {
       onPostPage(false)
       clearPost()
-      setPosts(posts.filter((post) => post.id !== id))
+      clearFromPosts(id)
     } else if (onpage && id !== indpost.id) {
       deleteReply(id)
       const postToState = await fetchPost(indpost.id)
-      
       editIndPost(postToState)
-      setPosts(posts.map((post) => post.id === postToState.id ? {...post, replies_count: postToState.replies_count} : post))
+      editInPosts(postToState)
     }
   }
 

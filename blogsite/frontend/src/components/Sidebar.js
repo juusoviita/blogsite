@@ -11,9 +11,10 @@ const Sidebar = ({ onAdd, showAdd }) => {
 
   const auth = useSelector((state) => state.auth)
   const onprofile = useSelector((state) => state.onprofile)
+  const posts = useSelector((state) => state.posts)
   const dispatch = useDispatch()
 
-  const { logoutUser, onProfilePage, addProfile, clearProfile } = bindActionCreators(actionCreators, dispatch)
+  const { logoutUser, onProfilePage, addProfile, clearProfile, addPosts, clearPosts } = bindActionCreators(actionCreators, dispatch)
 
 
   const toProfile = async () => {
@@ -32,13 +33,12 @@ const Sidebar = ({ onAdd, showAdd }) => {
       })
     const data = await res.json()
     addProfile(data)
-
-    onProfilePage(true) 
+    onProfilePage(true)
   }
 
   const Following = async () => {
     console.log('Following!')
-
+    clearPosts()
     // updated profile info
     const res = await fetch('http://127.0.0.1:8000/api/followed-posts/', {
       method: 'GET',
@@ -48,13 +48,28 @@ const Sidebar = ({ onAdd, showAdd }) => {
       }
     })
     const data = await res.json()
-    console.log(data)
-
+    if(res.status === 200) {
+      // check whether the logged in user has liked the post or not
+      data.forEach(post => {
+        post.user_liked = false
+        post.likes_count = post.likes.length
+        post.replies_count = post.replies.length
+        if (post.likes.length > 0) {
+          for (let i = 0; i < post.likes.length; i++) {
+            if (post.likes[i].liker === auth.user.pk) {
+              post.user_liked = true
+              break
+            }
+          }
+        }
+      })
+    addPosts(data)
+    }
   }
 
   const Liked = async () => {
     console.log('Liked!')
-
+    clearPosts()
     const res = await fetch('http://127.0.0.1:8000/api/liked-posts/', {
       method: 'GET',
       headers: {
@@ -63,7 +78,24 @@ const Sidebar = ({ onAdd, showAdd }) => {
       }
     })
     const data = await res.json()
-    console.log(data)
+    
+    if(res.status === 200) {
+      // check whether the logged in user has liked the post or not
+      data.forEach(post => {
+        post.user_liked = false
+        post.likes_count = post.likes.length
+        post.replies_count = post.replies.length
+        if (post.likes.length > 0) {
+          for (let i = 0; i < post.likes.length; i++) {
+            if (post.likes[i].liker === auth.user.pk) {
+              post.user_liked = true
+              break
+            }
+          }
+        }
+      })
+    addPosts(data)
+    }
   }
 
   const LoggingOut = () => {
@@ -82,4 +114,3 @@ const Sidebar = ({ onAdd, showAdd }) => {
 }
 
 export default Sidebar
-

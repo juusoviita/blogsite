@@ -15,8 +15,13 @@ code {
 
 .container {
   max-width: 1060px;
+  height: 100vh;
   display: grid;
+  grid-template-areas:
+    "nav nav nav nav"
+    "sidebar content content content";
   grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: 80px 1fr;
   gap: 1em;
 }
 

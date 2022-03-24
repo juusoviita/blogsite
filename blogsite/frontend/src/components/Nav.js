@@ -50,7 +50,6 @@ function Nav() {
     clearProfile()
     onPostPage(false)
     clearPost()
-    
   }
 
   return (

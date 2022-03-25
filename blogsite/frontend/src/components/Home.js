@@ -21,9 +21,10 @@ const Home = () => {
   const indpost = useSelector((state) => state.indpost)
   const onprofile = useSelector((state) => state.onprofile)
   const posts = useSelector((state) => state.posts)
+  const followingliked = useSelector((state) => state.followingliked)
   const dispatch = useDispatch()
 
-  const { logoutUser, clearPost, onPostPage, editIndPost, likeReply, commentReply, deleteReply, onProfilePage, clearProfile, addPosts, clearPosts, addToPosts, clearFromPosts, editInPosts } = bindActionCreators(actionCreators, dispatch)
+  const { logoutUser, clearPost, onPostPage, editIndPost, likeReply, commentReply, deleteReply, onProfilePage, clearProfile, addPosts, clearPosts, addToPosts, clearFromPosts, editInPosts, followingLiked } = bindActionCreators(actionCreators, dispatch)
 
   /*
   onProfilePage(false)
@@ -32,7 +33,7 @@ const Home = () => {
 
   // Fetch all posts, if on the Home page
   useEffect(() => {
-    if (auth.isAuthenticated) {
+    if (auth.isAuthenticated && !onprofile && !onpage && !followingliked) {
       setIsLoading(true)
       const fetchPosts = async () => {
         const res = await fetch('http://127.0.0.1:8000/api/post-list/', {
@@ -65,11 +66,10 @@ const Home = () => {
         }
       }
       fetchPosts()
-
+      console.log('This runs!')
     } else {
       
       // if not authenticated, add the date information to the front page
-
       const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 
       const date = new Date()
@@ -79,12 +79,12 @@ const Home = () => {
 
       setCurrentDate(`${day} ${month} ${year}`)
     }
-  }, [(!onprofile && !onpage)])
+  }, [(!onprofile && !onpage && !followingliked)])
 
   // clears the posts if user is on a profile or a post page
   useEffect(() => {
     clearPosts()
-  }, [(onprofile || onpage)])
+  }, [(onprofile || onpage || followingliked)])
 
   // fetch individual post
   const fetchPost = async (id) => {
@@ -138,7 +138,7 @@ const Home = () => {
     })
 
     const data = await res.json()
-    console.log(data)
+    
     if(res.status === 200) {
       addToPosts(data)
     } else {
@@ -177,8 +177,6 @@ const Home = () => {
 
     const postLiked = await fetchPost(id)
     postLiked.user_liked = !user_liked
-
-    console.log(postLiked)
 
     // if post is included in the posts state, update the post
     if (postLiked.replies_to === null) {

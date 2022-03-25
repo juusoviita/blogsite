@@ -11,19 +11,19 @@ import Posts from './Posts'
 const ProfilePage = ({ likePost, deletePost, editPost, replyPost }) => {
   
   const auth = useSelector((state) => state.auth)
+  const posts = useSelector((state) => state.posts)
   const onprofile = useSelector((state) => state.onprofile)
   const indprofile = useSelector((state) => state.indprofile)
   const dispatch = useDispatch()
 
   const [postsLoading, setPostsLoading] = useState(true)
-  const [userPosts, setUserPosts] = useState([])
+  // const [userPosts, setUserPosts] = useState([])
   const [userFollowed, setUserFollowed] = useState(false)
   const [followId, setFollowId] = useState('')
 
-  const { onProfilePage, addProfile, clearProfile, editProfile } = bindActionCreators(actionCreators, dispatch)
+  const { onProfilePage, addProfile, clearProfile,  editProfile, addPosts, clearPosts, addToPosts, clearFromPosts, editInPosts } = bindActionCreators(actionCreators, dispatch)
 
   useEffect(() => {
-
     // get user's posts
     const fetchUserPosts = async (id) => {
       setPostsLoading(true)
@@ -53,11 +53,12 @@ const ProfilePage = ({ likePost, deletePost, editPost, replyPost }) => {
           }
         })
 
-      setUserPosts(data)
+      addPosts(data)
       setPostsLoading(false)
       }
     }
-
+    clearPosts()
+    onProfilePage(true)
     fetchUserPosts(indprofile.id)
   }, [(onprofile && indprofile.id)])
 
@@ -150,7 +151,7 @@ const ProfilePage = ({ likePost, deletePost, editPost, replyPost }) => {
             <p style={{color: "whitesmoke", textAlign: "center", marginTop: "15px"}}>Loading...</p>
           </div>
           :
-          <Posts posts={userPosts} likePost={likePost} deletePost={deletePost} editPost={editPost} replyPost={replyPost} />
+          <Posts posts={posts} likePost={likePost} deletePost={deletePost} editPost={editPost} replyPost={replyPost} />
         }
     </>        
   )

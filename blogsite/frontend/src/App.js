@@ -54,7 +54,7 @@ function App() {
 
   return (
     <Router>
-      <div className="container-fluid">
+      <div>
         { auth.isLoading ?
         null :
         <>

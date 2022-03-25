@@ -11,9 +11,10 @@ function Nav() {
   const indpost = useSelector((state) => state.indpost)
   const onprofile = useSelector((state) => state.onprofile)
   const indprofile = useSelector((state) => state.indprofile)
+  const followingliked = useSelector((state) => state.followingliked)
   const dispatch = useDispatch()
 
-  const { logoutUser, onPostPage, onProfilePage, addProfile, clearProfile, clearPost, clearPosts } = bindActionCreators(actionCreators, dispatch)
+  const { logoutUser, onPostPage, onProfilePage, addProfile, clearProfile, clearPost, clearPosts, followingLiked } = bindActionCreators(actionCreators, dispatch)
 
   const LoggingOut = () => {
     // logging out done by just removing user's tokens from local storage and user from state
@@ -22,6 +23,8 @@ function Nav() {
     clearPost()
     clearPosts()
     onProfilePage(false)
+    onPostPage(false)
+    followingLiked(false)
   }
 
   const toProfile = async () => {
@@ -42,7 +45,6 @@ function Nav() {
     addProfile(data)
 
     onProfilePage(true)
-    
   }
   
   const clickLogo = () => {
@@ -50,6 +52,7 @@ function Nav() {
     clearProfile()
     onPostPage(false)
     clearPost()
+    followingLiked(false)
   }
 
   return (

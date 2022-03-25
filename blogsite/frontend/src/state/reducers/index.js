@@ -6,6 +6,7 @@ import indPostReducer from './indPostReducer'
 import onProfileReducer from './onProfileReducer'
 import indProfileReducer from './indProfileReducer'
 import postsReducer from './postsReducer'
+import followingLikedReducer from './followingLikedReducer'
 
 const reducers = combineReducers({
   auth: authReducer,
@@ -14,7 +15,8 @@ const reducers = combineReducers({
   indpost: indPostReducer,
   onprofile: onProfileReducer,
   indprofile: indProfileReducer,
-  posts: postsReducer
+  posts: postsReducer,
+  followingliked: followingLikedReducer
 })
 
 export default reducers

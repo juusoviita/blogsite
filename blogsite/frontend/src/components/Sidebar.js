@@ -12,9 +12,10 @@ const Sidebar = ({ onAdd, showAdd }) => {
   const auth = useSelector((state) => state.auth)
   const onprofile = useSelector((state) => state.onprofile)
   const posts = useSelector((state) => state.posts)
+  const followingliked = useSelector((state) => state.followingliked)
   const dispatch = useDispatch()
 
-  const { logoutUser, onProfilePage, addProfile, clearProfile, addPosts, clearPosts } = bindActionCreators(actionCreators, dispatch)
+  const { logoutUser, onProfilePage, addProfile, clearProfile, clearPost, onPostPage, addPosts, clearPosts, followingLiked } = bindActionCreators(actionCreators, dispatch)
 
 
   const toProfile = async () => {
@@ -22,6 +23,8 @@ const Sidebar = ({ onAdd, showAdd }) => {
       onProfilePage(false)
       clearProfile()
     }
+
+    followingLiked(false)
 
     // updated profile info
     const res = await fetch(`http://127.0.0.1:8000/api/user-detail/${auth.user.id}`, {
@@ -37,9 +40,17 @@ const Sidebar = ({ onAdd, showAdd }) => {
   }
 
   const Following = async () => {
-    console.log('Following!')
+    
     clearPosts()
-    // updated profile info
+    
+    onPostPage(false)
+    clearPost()
+
+    onProfilePage(false)
+    clearProfile()
+
+    followingLiked(true)
+
     const res = await fetch('http://127.0.0.1:8000/api/followed-posts/', {
       method: 'GET',
       headers: {
@@ -68,8 +79,13 @@ const Sidebar = ({ onAdd, showAdd }) => {
   }
 
   const Liked = async () => {
-    console.log('Liked!')
+    followingLiked(true)
+    
     clearPosts()
+    
+    onPostPage(false)
+    clearPost()
+    
     const res = await fetch('http://127.0.0.1:8000/api/liked-posts/', {
       method: 'GET',
       headers: {

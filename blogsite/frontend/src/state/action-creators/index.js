@@ -209,3 +209,13 @@ export const editInPosts = (data) => {
     })
   }
 }
+
+
+export const followingLiked = (data) => {
+  return(dispatch) => {
+    dispatch({
+      type: 'following-liked',
+      payload: data
+    })
+  }
+}

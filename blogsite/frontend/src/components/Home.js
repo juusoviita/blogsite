@@ -270,6 +270,7 @@ const Home = () => {
   // Edit Post
   const editPost = (id, e) => {
     e.stopPropagation()
+    setShowAddPost(true)
     console.log(`Probably need to add ability to edit before posting them post ${id}`)
   }
 

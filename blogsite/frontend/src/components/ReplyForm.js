@@ -1,4 +1,3 @@
-import React from 'react'
 import { useState } from 'react'
 import Modal from '@mui/material/Modal'
 import Box from '@mui/material/Box'
@@ -19,7 +18,7 @@ const ReplyForm = ({ post_id, username, avatar, timestamp, post_content, handleC
   const indpost = useSelector((state) => state.indpost)
   const dispatch = useDispatch()
 
-  const { loginUser, logoutUser, updateTokens, postNewReply } = bindActionCreators(actionCreators, dispatch)
+  const { postNewReply } = bindActionCreators(actionCreators, dispatch)
 
   // style variable
   const style = {

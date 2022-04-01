@@ -1,12 +1,12 @@
+import { useState } from 'react'
 import Modal from '@mui/material/Modal'
 import Box from '@mui/material/Box'
 import Button from './Button'
-import { useState } from 'react'
 
 
-const editForm = ({ openEdit, handleClose, text }) => {
+const EditForm = ({ openEdit, handleClose, post }) => {
   
-  const [edit, setEdit] = useState('')
+  const [edit, setEdit] = useState(post.content)
 
   // style variable
   const style = {
@@ -30,7 +30,7 @@ const editForm = ({ openEdit, handleClose, text }) => {
     e.preventDefault()
     e.stopPropagation()
 
-    if (!text) {
+    if (!edit) {
       alert('Please add text!')
       return
     }
@@ -45,7 +45,7 @@ const editForm = ({ openEdit, handleClose, text }) => {
         <Box sx={style} className='post glass'>
           <form>
               <div className="form-element">
-                <textarea id="content" value={text} onChange={(e) => typeEdit(e)} onClick={(e) => e.stopPropagation()}></textarea>
+                <textarea id="content" value={edit} onChange={(e) => typeEdit(e)} onClick={(e) => e.stopPropagation()}></textarea>
               </div>
               <div className="form-element">
                 <Button text="Post Edit" onClick={onClick} />
@@ -57,4 +57,4 @@ const editForm = ({ openEdit, handleClose, text }) => {
   )
 }
 
-export default editForm
+export default EditForm

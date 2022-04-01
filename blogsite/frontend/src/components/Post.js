@@ -75,7 +75,7 @@ const Post = ({post, likePost, deletePost, editPost, replyPost, postDetail }) =>
       <div className='row justify-content-center'>
         <div key={post.id} className='post glass' onClick={() => postDetail(post.id)}>
           { openReply && <ReplyForm post_id={post.id} username={post.poster.username} avatar={post.poster.profile.image} timestamp={timestamp} post_content={post.content} handleClose={handleClose} openReply={openReply} replyPost={replyPost}  />}
-          { openEdit && <EditForm openEdit={openEdit} handleClose={handleClose} /> }
+          { openEdit && <EditForm openEdit={openEdit} handleClose={handleClose} post={post} /> }
           <div className="row post-header">
             <div className="col-2" style={{paddingTop: "5px"}}>
               <Avatar src={post.poster.profile.image} style={{marginLeft: "auto", marginRight: "auto"}} alt={post.poster.username} />
@@ -106,7 +106,7 @@ const Post = ({post, likePost, deletePost, editPost, replyPost, postDetail }) =>
             </div>
             { auth.user.pk === post.poster.id &&
               <div className="col" style={{textAlign: "right"}}>
-                <EditIcon className='post-icons edit' onClick={(e) => handleOpenEdit(e)} text={post.content} />
+                <EditIcon className='post-icons edit' onClick={(e) => handleOpenEdit(e)} />
                 <DeleteIcon className='post-icons delete' onClick={(e) => deletePost(post.id, e)} />
               </div>
             }

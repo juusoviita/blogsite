@@ -20,17 +20,19 @@ const AddForm = ({ onAdd, showAdd }) => {
   }
 
   return (
-    <div className="add-form glass">
-      <form>
-        <h3>New Post:</h3>
-        <div className="form-element">
-          <textarea id="content" placeholder="Post here" value={content} onChange={(e) => setContent(e.target.value)}></textarea>
-        </div>
-        <div className="form-element">
-          <Button text="Post" onClick={onClick} />
-          <Button text="Discard" onClick={showAdd} />
-        </div>
-      </form>
+    <div className='row justify-content-center'>
+      <div className="add-form glass">
+        <form>
+          <h3>New Post:</h3>
+          <div className="form-element">
+            <textarea id="content" placeholder="Post here" value={content} onChange={(e) => setContent(e.target.value)}></textarea>
+          </div>
+          <div className="form-element">
+            <Button text="Post" onClick={onClick} />
+            <Button text="Discard" onClick={showAdd} />
+          </div>
+        </form>
+      </div>
     </div>
   )
 }

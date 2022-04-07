@@ -285,14 +285,14 @@ const Home = () => {
   }
 
   return (
-    <div className="container-fluid home">
+    <div className="container home">
       { auth.isAuthenticated ?
         <>
           <div className="row">
               <div className="col-md-3">
                 <Sidebar onAdd={showAddForm} showAdd={showAddPost} />
               </div>
-              <div className="col-md-6">
+              <div className="col-md">
                 { showAddPost && <AddForm onAdd={addPost} showAdd={showAddForm} /> }
                 { onprofile ?
                   <ProfilePage likePost={likePost} deletePost={deletePost} editPost={editPost} replyPost={replyPost} />

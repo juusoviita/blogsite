@@ -119,7 +119,7 @@ const Sidebar = ({ onAdd, showAdd }) => {
   }
 
   return (
-    <div className="sidebar glass">
+    <div className="d-flex flex-column sidebar glass">
       <SidebarLink Icon={PeopleOutlineIcon} text={auth.user.username} onClick={toProfile} />
       <SidebarLink Icon={PeopleOutlineIcon} text="Following" onClick={Following} />
       <SidebarLink Icon={FavoriteBorderIcon} text="Liked Posts" onClick={Liked} />

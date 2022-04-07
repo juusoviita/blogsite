@@ -161,13 +161,23 @@ li {
 }
 
 /*sidebar styling*/
+@media (min-width: 1280px) {
+  .sidebar {
+    height: auto;
+    position: fixed;
+    overflow-x: hidden;
+  }
+}
+
+@media (max-width: 1279px) {
+  .sidebar {
+    text-align: center;
+  }
+}
+
 .sidebar {
-  height: auto;
-  width: 400px;
-  position: fixed;
-  overflow-x: hidden;
-  padding: 20px 20px;
-  margin: 15px auto 0 auto;
+  padding: 20px 100px 20px 20px;
+  margin: 6px auto 0 auto;
   border-radius: 8px;
 }
 
@@ -252,9 +262,9 @@ input {
 
 .add-form {
   width: 80%;
-  margin: 15px 0 15px 0;
+  margin: 5px 0 5px 0;
   border-radius: 8px;
-  padding: 8px;
+  padding: 8px 8px 8px 20px;
 }
 
 textarea {

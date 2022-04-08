@@ -271,7 +271,6 @@ const Home = () => {
   const editPost = (id, e) => {
     e.stopPropagation()
     setShowAddPost(true)
-    console.log(`Probably need to add ability to edit before posting them post ${id}`)
   }
 
 
@@ -285,9 +284,9 @@ const Home = () => {
   }
 
   return (
-    <div className="container home">
+    <>
       { auth.isAuthenticated ?
-        <>
+        <div className='container home'>
           <div className="row">
               <div className="col-md-3">
                 <Sidebar onAdd={showAddForm} showAdd={showAddPost} />
@@ -309,10 +308,10 @@ const Home = () => {
                 }
               </div>
           </div>
-        </>
+        </div>
         :
-        <> 
-          <div className="row">
+        <div className='container-fluid'> 
+          <div className="row align-items-center">
             <div className="col-md-6">
                 <img src={pic} alt="People in a cafe" className="cover-pic" />
             </div>
@@ -321,9 +320,9 @@ const Home = () => {
               <h2>{currentDate}.</h2>
             </div>
           </div>
-        </>
+        </div>
       }
-    </div>
+    </>
   );
 }
 

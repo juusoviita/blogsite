@@ -60,7 +60,13 @@ const Post = ({post, likePost, deletePost, editPost, replyPost, postDetail }) =>
 
 
   // format the timestamp for the post
-  const tstamp = new Date(post.timestamp)
+  var tstamp = ''
+  if (post.last_updated === null) {
+    tstamp = new Date(post.timestamp)
+  } else {
+    tstamp = new Date(post.last_updated)
+  }
+    
   
   let minutes = ''
   if (tstamp.getMinutes() < 10) {

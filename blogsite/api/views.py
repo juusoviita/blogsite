@@ -75,7 +75,7 @@ def createPost(request):
 
     if serializer.is_valid():
         serializer.save()
-        # if everything is ok, get the new post through the GET serialzer and create a richer response
+        # if everything is ok, get the new post through the GET serializer and create a richer response
         post_id = serializer.data['id']
         new_post = Post.objects.get(pk=post_id)
         serializer = PostGetSerializer(new_post, many=False)
@@ -94,7 +94,7 @@ def updatePost(request, pk):
 
     # only poster can edit
     if request.user.id == post.poster.id:
-        serializer = PostSerializer(instance=post, data=request.data)
+        serializer = PostGetSerializer(instance=post, data=request.data)
 
         if serializer.is_valid():
             serializer.save()

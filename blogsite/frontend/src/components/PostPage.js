@@ -12,13 +12,12 @@ const PostPage = ({ closePage, likePost, deletePost, editPost, replyPost, postDe
   const [reply, setReply] = useState('')
   
   const auth = useSelector((state) => state.auth)
-  const onpage = useSelector((state) => state.onpage)
   const indpost = useSelector((state) => state.indpost)
   const replies = useSelector((state) => state.replies)
 
   const dispatch = useDispatch()
 
-  const { addAllReplies, postNewReply, clearAllReplies, onPostPage, addPost, clearPost, onProfilePage, clearProfile } = bindActionCreators(actionCreators, dispatch)
+  const { postNewReply, clearAllReplies, onPostPage, clearPost, onProfilePage, clearProfile } = bindActionCreators(actionCreators, dispatch)
   
   const post_id = indpost.id
 
@@ -36,13 +35,13 @@ const PostPage = ({ closePage, likePost, deletePost, editPost, replyPost, postDe
   }
 
   // ability to reply to posts/replies, like the posts and replies
-  // Set reply while block event bubbling
+  // set reply while block event bubbling
   const typeReply = (e) => {
     e.stopPropagation()
     setReply(e.target.value)
   }
 
-  // Add a reply to a post
+  // add a reply to a post
   const onButtonClick = async (e) => {
 
     e.preventDefault()

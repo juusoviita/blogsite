@@ -29,7 +29,7 @@ const Register = () => {
       })
     })
 
-    // how to handle errors and display error info?
+    // how to handle errors and display error info
     const data = await res.json()
     if (res.status === 201) {
       console.log('User created!')

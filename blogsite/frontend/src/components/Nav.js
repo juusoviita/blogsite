@@ -2,16 +2,11 @@ import { Link } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { actionCreators } from '../state/index'
-import { clearPosts } from '../state/action-creators'
 
 function Nav() {
 
   const auth = useSelector((state) => state.auth)
-  const onpage = useSelector((state) => state.onpage)
-  const indpost = useSelector((state) => state.indpost)
   const onprofile = useSelector((state) => state.onprofile)
-  const indprofile = useSelector((state) => state.indprofile)
-  const followingliked = useSelector((state) => state.followingliked)
   const dispatch = useDispatch()
 
   const { logoutUser, onPostPage, onProfilePage, addProfile, clearProfile, clearPost, clearPosts, followingLiked } = bindActionCreators(actionCreators, dispatch)
@@ -27,6 +22,7 @@ function Nav() {
     followingLiked(false)
   }
 
+  // takes you to the user profile from the navbar
   const toProfile = async () => {
     if (onprofile) {
       onProfilePage(false)

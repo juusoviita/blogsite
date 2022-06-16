@@ -2,7 +2,8 @@ import Avatar from '@mui/material/Avatar';
 import { useSelector } from 'react-redux'
 
 function SidebarLink({ Icon, text, onClick }) {
-  
+
+  // just creates a link for the sidebar component
   const auth = useSelector((state) => state.auth)
 
   return(

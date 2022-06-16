@@ -4,7 +4,8 @@ import Button from './Button'
 const AddForm = ({ onAdd, showAdd }) => {
   
   const [content, setContent] = useState('')
- 
+  
+  // add a new post by calling the onAdd function from Home
   const onClick = (e) => {
     e.preventDefault()
 

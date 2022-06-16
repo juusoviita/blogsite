@@ -16,7 +16,6 @@ const Home = () => {
   const [currentDate, setCurrentDate] = useState()
   
   const auth = useSelector((state) => state.auth)
-  const replies = useSelector((state) => state.replies)
   const onpage = useSelector((state) => state.onpage)
   const indpost = useSelector((state) => state.indpost)
   const onprofile = useSelector((state) => state.onprofile)
@@ -26,12 +25,7 @@ const Home = () => {
 
   const { logoutUser, clearPost, onPostPage, editIndPost, likeReply, commentReply, deleteReply, onProfilePage, clearProfile, addPosts, clearPosts, addToPosts, clearFromPosts, editInPosts, followingLiked } = bindActionCreators(actionCreators, dispatch)
 
-  /*
-  onProfilePage(false)
-  clearProfile()
-  */
-
-  // Fetch all posts, if on the Home page
+  // fetch all posts, if on the Home page
   useEffect(() => {
     if (auth.isAuthenticated && !onprofile && !onpage && !followingliked) {
       setIsLoading(true)
@@ -113,7 +107,7 @@ const Home = () => {
     return data
   }
 
-  // Add a new post or edit an existing one (coming later)
+  // add a new post or edit an existing one
   const addPost = async (post) => {
     setShowAddPost(false)
     const poster = auth.user.pk
@@ -146,7 +140,7 @@ const Home = () => {
     }
   }
 
-  // Like/Unlike Post depending on which one has been done before by the user 
+  // like/unlike a post depending on which one has been done before by the user 
   const likePost = async (id, user_liked, e) => {
     e.stopPropagation()
 
@@ -195,7 +189,7 @@ const Home = () => {
   }
 
 
-  // post a reply to a post
+  // reply to a post
   const replyPost = async (reply) => {
 
     const poster = auth.user.pk
@@ -237,7 +231,7 @@ const Home = () => {
     }
   }
 
-  // Delete Post
+  // delete a post
   const deletePost = async (id, e) => {
     
     e.stopPropagation()
@@ -267,14 +261,14 @@ const Home = () => {
   }
 
   
-  // Edit Post
+  // edit a post
   const editPost = (id, e) => {
     e.stopPropagation()
     setShowAddPost(true)
   }
 
 
-  // Show or Hide addPost form
+  // show or hide addPost form
   const showAddForm = () => {
     if (showAddPost) {
       setShowAddPost(false)

@@ -17,7 +17,7 @@ function App() {
 
   const { logoutUser, updateTokens } = bindActionCreators(actionCreators, dispatch)
 
-  // Update user's access token
+  // update user's access token
   const updateToken = async () => {
     let res = await fetch('http://127.0.0.1:8000/api/dj-rest-auth/token/refresh/', {
       method: 'POST',
@@ -37,7 +37,7 @@ function App() {
     }
   }
 
-  // Run updateToken every 4 minutes, if user is authenticated
+  // runs updateToken every 4 minutes, if user is authenticated
   useEffect(() => {
     if (auth.isAuthenticated) {
       const fourMinutes = 4 * 60 * 1000

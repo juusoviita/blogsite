@@ -9,8 +9,6 @@ const EditForm = ({ openEdit, handleClose, post }) => {
   const auth = useSelector((state) => state.auth)
   const [edit, setEdit] = useState(post.content)
 
-  // console.log(post)
-
   // style variable
   const style = {
     position: 'absolute',
@@ -22,12 +20,13 @@ const EditForm = ({ openEdit, handleClose, post }) => {
     p: 4,
   };
 
-  // Set text content while block event bubbling
+  // set text content while block event bubbling
   const typeEdit = (e) => {
     e.stopPropagation()
     setEdit(e.target.value)
   }
 
+  // updates the post after checking if the post has text in it
   const onClick = async (e) => {
 
     e.preventDefault()
@@ -39,7 +38,6 @@ const EditForm = ({ openEdit, handleClose, post }) => {
     }
     console.log('This would post the edit!')
     post.content = edit
-    console.log(post)
     
     var url = `http://localhost:8000/api/update-post/${post.id}`
     var method = 'POST'
@@ -52,8 +50,6 @@ const EditForm = ({ openEdit, handleClose, post }) => {
       },
       body:JSON.stringify(post)
     })
-
-    console.log(res)
 
     handleClose(e)
   }

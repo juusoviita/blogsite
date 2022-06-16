@@ -12,8 +12,6 @@ const ReplyForm = ({ post_id, username, avatar, timestamp, post_content, handleC
 
   const [reply, setReply] = useState('')
 
-  const auth = useSelector((state) => state.auth)
-  const replies = useSelector((state) => state.replies)
   const onpage = useSelector((state) => state.onpage)
   const indpost = useSelector((state) => state.indpost)
   const dispatch = useDispatch()
@@ -31,13 +29,13 @@ const ReplyForm = ({ post_id, username, avatar, timestamp, post_content, handleC
     p: 4,
   };
 
-  // Set reply while block event bubbling
+  // set reply while block event bubbling
   const typeReply = (e) => {
     e.stopPropagation()
     setReply(e.target.value)
   }
 
-  // Add a reply to a post
+  // add a reply to a post
   const onClick = async (e) => {
 
     e.preventDefault()

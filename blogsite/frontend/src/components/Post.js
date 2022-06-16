@@ -13,15 +13,10 @@ import { actionCreators } from '../state/index'
 import ReplyForm from './ReplyForm';
 import EditForm from './EditForm';
 
-const Post = ({post, likePost, deletePost, editPost, replyPost, postDetail }) => {
+const Post = ({post, likePost, deletePost, replyPost, postDetail }) => {
   
-  const onpage = useSelector((state) => state.onpage)
   const indpost = useSelector((state) => state.indpost)
   const auth = useSelector((state) => state.auth)
-  const replies = useSelector((state) => state.replies)
-  const onprofile = useSelector((state) => state.onprofile)
-  const indprofile = useSelector((state) => state.indprofile)
-  const posts = useSelector((state) => state.posts)
   const dispatch = useDispatch()
 
   const { onProfilePage, addProfile } = bindActionCreators(actionCreators, dispatch)
@@ -35,7 +30,6 @@ const Post = ({post, likePost, deletePost, editPost, replyPost, postDetail }) =>
     post = indpost
   }
   
-
   const handleOpen = (e) => {
     e.stopPropagation()
     setOpenReply(true)
@@ -57,7 +51,6 @@ const Post = ({post, likePost, deletePost, editPost, replyPost, postDetail }) =>
     addProfile(poster)
     onProfilePage(true)
   }
-
 
   // format the timestamp for the post
   var tstamp = ''

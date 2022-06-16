@@ -1,7 +1,6 @@
 import { useState } from 'react'
 import { Link, useHistory } from 'react-router-dom'
 import Button from './Button'
-import Home from './Home'
 import { useSelector, useDispatch } from "react-redux"
 import { bindActionCreators } from 'redux'
 import { actionCreators } from '../state/index'
@@ -15,10 +14,11 @@ const LogIn = () => {
   const auth = useSelector((state) => state.auth)
   const dispatch = useDispatch()
 
-  const { loginUser, logoutUser, addProfile } = bindActionCreators(actionCreators, dispatch)
+  const { loginUser } = bindActionCreators(actionCreators, dispatch)
 
   let history = useHistory()
   
+  // logs the user in
   const LoggingIn = async () => {
     
     const url = 'http://127.0.0.1:8000/api/dj-rest-auth/login/'

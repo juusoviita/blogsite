@@ -17,11 +17,10 @@ const ProfilePage = ({ likePost, deletePost, editPost, replyPost }) => {
   const dispatch = useDispatch()
 
   const [postsLoading, setPostsLoading] = useState(true)
-  // const [userPosts, setUserPosts] = useState([])
   const [userFollowed, setUserFollowed] = useState(false)
   const [followId, setFollowId] = useState('')
 
-  const { onProfilePage, addProfile, clearProfile,  editProfile, addPosts, clearPosts, addToPosts, clearFromPosts, editInPosts } = bindActionCreators(actionCreators, dispatch)
+  const { onProfilePage, editProfile, addPosts, clearPosts } = bindActionCreators(actionCreators, dispatch)
 
   useEffect(() => {
     // get user's posts

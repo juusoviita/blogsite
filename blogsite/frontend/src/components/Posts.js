@@ -11,9 +11,7 @@ const Posts = ({ posts, likePost, deletePost, editPost, replyPost }) => {
   const handleCloseDetail = () => onPostPage(false)
 
   const auth = useSelector((state) => state.auth)
-  const replies = useSelector((state) => state.replies)
   const onpage = useSelector((state) => state.onpage)
-  const indpost = useSelector((state) => state.indpost)
   const dispatch = useDispatch()
 
   const { addAllReplies, onPostPage, addPost } = bindActionCreators(actionCreators, dispatch)

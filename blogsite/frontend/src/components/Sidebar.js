@@ -11,8 +11,6 @@ const Sidebar = ({ onAdd, showAdd }) => {
   
   const auth = useSelector((state) => state.auth)
   const onprofile = useSelector((state) => state.onprofile)
-  const posts = useSelector((state) => state.posts)
-  const followingliked = useSelector((state) => state.followingliked)
   const dispatch = useDispatch()
 
   const { logoutUser, onProfilePage, addProfile, clearProfile, clearPost, onPostPage, addPosts, clearPosts, followingLiked } = bindActionCreators(actionCreators, dispatch)

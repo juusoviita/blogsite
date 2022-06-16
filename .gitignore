@@ -1,4 +1,5 @@
 secret_settings.py
+env
 
 # dependencies
 /node_modules

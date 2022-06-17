@@ -35,7 +35,7 @@ const LogIn = () => {
     })
 
     const data = await res.json()
-
+    console.log(data)
     if (res.status === 200) {
       // updates the user's info to contain profile data as well
       const fetchUser = async (id) => {

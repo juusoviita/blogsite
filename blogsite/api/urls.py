@@ -3,7 +3,7 @@ from . import views
 from django.urls.conf import include
 
 urlpatterns = [
-    path('', views.apiOverview, name='api-overview'),
+    path('api-overview/', views.apiOverview, name='api-overview'),
     path('post-list/', views.postList, name='post-list'),
     path('post-detail/<str:pk>', views.postDetail, name='post-detail'),
     path('get-replies/<str:pk>', views.getReplies, name='get-replies'),
